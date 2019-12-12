@@ -1,0 +1,37 @@
+Meteor Strike (Q)
+-Get a Ray from camera to the floor (mousePosition)
+-Spawn meteor with some Y-Transform abouve the mousePosition
+-Create an impact zone around where it'll land
+-Can use math.distance for this part
+-Check distance of each entity from the impact point (math.distance)
+-If within a certain range, entity takes damage
+
+Heal (W)
+-Get Entity selected (Left Click)
+-If heal cast, increase Entity Health
+
+Teleport (E)
+-Get all selected units
+-Press E to teleport units to mouse position
+-Get mouse position using Raycast
+-transform Entity the difference in transform between Raycast and current Transform
+-Entity.Transform += MousePosition.Transform - Entity.Transform
+
+Big Mode (R)
+-When R is pressed change scale of all selected entities
+-Slected Entities scale increase by 2x
+
+SpellSystem file
+-Will use KeyboardInputSystem & MouseInputSystem
+-Contains all spells
+
+KeyboardInputSystem
+-Add functions for Q W E R
+-Need Up & Down
+-Need to check if key is activated, while activated remove other functionality
+-Need to make a KeyActivationSystem
+
+KeyActivationSystem
+-Uses KeyboardInputSystem
+-if(KeyboardInput.Q) { Tag QActive }; <- Example
+-This could split off into systems for each Spell

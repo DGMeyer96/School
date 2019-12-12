@@ -1,0 +1,53 @@
+4/15
+
+Compenent Systems:
+-Systems = Columns
+-Component Systems = easy
+-Component Systems only run on main thread
+-Job system uses multi-threads
+-Component Systems don't instance data, only logic
+
+Example Implementation:
+-public class MouseInputSystem : ComponentSystem <- ensures it is a system for ECS
+-Include "System" in class name to signify a System
+-protected override void OnUpdate() <- Update() method for Component Systems, runs every FPS
+-"protected override" essential
+-var mouseInput = GetSingleton<SingletonMouseInput>
+-var = SingletonMouseInput
+-SingletonMouseInput ensures there is only 1 mouse input for multiple systems
+-mouseInput.MousePosition = Input.mousePosition;
+-mouseInput.MousePosition comes from SingletonMouseInput
+-auto converts from Vector3 (Input.MousePosition) to Float3 (mouseInput.MousePosition)
+-look up how to create singletons in unity ECS
+
+Component System Methods:
+-Protected override void OnCreate() <- similar to Start()
+-Protected override void OnStartRunning() <- runs right after OnCreate(), usually where Entity command buffer exists
+-Protected override void OnStopRunning() <- occurs just before OnDestroy()
+-Protected override void OnDestroy() <- activates only upon object being destroyed
+
+Job Component Systems:
+-more work to setup
+-runs on ALL threads
+-Auto Job Dependency Management
+-anything in OnUpdate() is only running on main thread
+-use [BurstCompile] when using IJobForEach<>
+-Time.DeltaTime ensures system is running on actual time instead of frames (i.e. fps may be different based on machine)
+-can't pass UnityEngine API into Jobs, has to be passed from main thread to worker threads
+-Thus pass Time.deltaTime (OnUpdate) to public float DeltaTime (in job)
+-var job = new RotationSpeedJob() { } creates copies of job for worker threads to work on
+-Jobs contain logic (i,e, RotationSpeedJob : IJobForEach<Rotation, RotationSpeed>)
+
+Sync Points:
+-Insertion and Deletion epensive (have to update entire array)
+-Examples of what creates a Sync Points:
+1. Creating an Entity
+2. Instantiating
+3. Destroy
+4. AddComponent
+5. RemoveComponent
+6. SetSharedComponentData
+
+Singletons:
+-Only one version
+-
