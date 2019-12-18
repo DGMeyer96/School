@@ -1,0 +1,57 @@
+/*
+Daniel Meyer
+0405182
+1-19-17
+Lab 2
+Class Construction
+*/
+
+#include <iostream>
+#include "Double.h"
+#include "Integer.h"
+
+using namespace std;
+
+int main()
+{
+	Double d, d2;
+	Integer i, i2;
+
+	double dNum;
+	int iNum;
+
+	cout << "Enter a double" << endl;
+	cin >> dNum;
+	d2.equals(dNum);
+	d.equals(dNum);
+	d.add(d2);
+	cout << "The sum is " << d.toDouble() << endl;
+	d.equals(dNum);
+	d.sub(d2);
+	cout << "The differnce is " << d.toDouble() << endl;
+	d.equals(dNum);
+	d.mul(d2);
+	cout << "The product is " << d.toDouble() << endl;
+	d.equals(dNum);
+	d.div(d2);
+	cout << "The quotient is " << d.toDouble() << endl;
+	
+	cout << "Enter an integer" << endl;
+	cin >> iNum;
+	i.equals(iNum);
+	i2.equals(iNum);
+	i.add(i2);
+	cout << "The sum is " << i.toInt() << endl;
+	i.equals(iNum);
+	i.sub(i2);
+	cout << "The differnce is " << i.toInt() << endl;
+	i.equals(iNum);
+	i.mul(i2);
+	cout << "The product is " << i.toInt() << endl;
+	i.equals(iNum);
+	i.div(i2);
+	cout << "The quotient is " << i.toInt() << endl;
+
+
+	return 0;
+}

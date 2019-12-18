@@ -1,0 +1,27 @@
+example
+
+oldfile.txt
+
+oldfolder.txt
+
+oldgroup.txt
+
+
+
+
+
+
+Ren old*  new*
+
+
+
+
+Results in
+
+newfile.txt
+
+newfolder.txt
+
+newgroup.txt
+
+

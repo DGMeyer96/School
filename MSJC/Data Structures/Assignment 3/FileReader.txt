@@ -1,0 +1,163 @@
+/*
+Daniel Meyer
+0405182
+2-4-16
+File IO
+ */
+package data.str.assignment.pkg3;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+/*
+Class: FileReader
+Author: Daniel Meyer
+Description: Class to read Number.txt file and store each line in an arraylist
+Inputs: File name as a String
+Outputs: An arraylist of strings containing each line in the file as strings
+*/ 
+
+/*
+Function: FileReader
+Author: Daniel Meyer
+Description: Default constructor that calls the openFile fuction
+Inputs: N/A
+Outputs: N/A
+*/ 
+
+/*
+Function: openFile
+Author: Daniel Meyer
+Description: Opens Numbers.txt file and calls readFile
+Inputs: N/A
+Outputs: N/A
+*/ 
+
+/*
+Function: readFile
+Author: Daniel Meyer
+Description: Reads the file and stores each line as a string in an arraylist
+Inputs: String for the file name
+Outputs: N/A
+*/ 
+
+/*
+Function: readWrittenFile
+Author: Daniel Meyer
+Description: A test file that prints each line that was written to the specified file
+Inputs: N/A
+Outputs: Each line in the written file
+*/ 
+
+/*
+Function: getList
+Author: Daniel Meyer
+Description: Accessor that returns the arraylist of stored read lines
+Inputs: N/A
+Outputs: An arraylist of strings
+*/ 
+
+public class FileReader 
+{
+    ArrayList<String> strList = new ArrayList<String>();
+    
+    public FileReader()
+    {
+        openFile();
+    }
+    
+    private void openFile()
+    {
+        try
+        {
+            FileInputStream fis = new FileInputStream("Numbers.txt");
+            readFile("Numbers.txt");
+        }
+        catch(FileNotFoundException fe)
+        {
+            System.out.println("File not found.");
+        }
+    }
+    
+    private void readFile(String fname)
+    {
+        String input;
+        FileInputStream fs = null;
+        BufferedReader br = null;
+        
+        try
+        {
+            fs = new FileInputStream(fname);
+            br = new BufferedReader(new InputStreamReader(fs));
+            while((input = br.readLine()) != null)
+            {
+                strList.add(input);
+                System.out.println("Read line: " + input);
+            }
+        }
+        catch(IOException ie)
+        {
+            System.out.println("Unable to read line");
+        }
+        finally
+        {
+            try
+            {
+                if(br != null)
+                {
+                    br.close();
+                }
+            }
+            catch(IOException ie)
+            {
+                System.out.println(ie.getMessage());
+            }
+        }
+    }
+    
+    public void readWrittenFile()
+    {
+        String input;
+        FileInputStream fs = null;
+        BufferedReader br = null;
+        
+        try
+        {
+            fs = new FileInputStream("WholeNumbers.txt");
+            br = new BufferedReader(new InputStreamReader(fs));
+            while((input = br.readLine()) != null)
+            {
+                input = br.readLine();
+                System.out.println("WholeNumbers.txt: " + input);
+            }
+            System.out.println("Done reading file");
+        }
+        catch(IOException ie)
+        {
+            System.out.println("Unable to read line");
+        }
+        finally
+        {
+            try
+            {
+                if(br != null)
+                {
+                    br.close();
+                }
+            }
+            catch(IOException ie)
+            {
+                System.out.println(ie.getMessage());
+            }
+        }
+    }
+    
+    public ArrayList<String> getList()
+    {
+        return strList;
+    }
+}

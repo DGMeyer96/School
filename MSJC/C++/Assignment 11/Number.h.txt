@@ -1,0 +1,25 @@
+/*
+Daniel Meyer
+0405182
+3/27/17
+CSIS 123A-3488
+Assignment 11
+Inheritance
+*/
+
+#ifndef NUMBER
+#define NUMBER
+
+#include <string>
+
+class Number : public std::string
+{
+private:
+
+public:
+	Number();
+	Number(std::string numString);
+};
+
+#endif
+

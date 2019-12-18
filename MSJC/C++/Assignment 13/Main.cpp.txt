@@ -1,0 +1,213 @@
+/*
+Daniel Meyer
+0405182
+4/19/17
+CSIS 123A-3488
+Assignment 13
+Exception Handling
+*/
+
+#include <iostream>
+#include <cstdlib>
+#include <vector>
+#include <fstream>
+
+#include "Random.h"
+#include "Menu.h"
+
+using namespace std;
+using namespace Meyer;
+
+void Exit();
+void addInt();
+void subInt();
+void mulInt();
+void divInt();
+void addDbl();
+void subDbl();
+void mulDbl();
+void divDbl();
+
+int main()
+{
+	Menu::m.addMenu("1. Exit", Exit);
+	Menu::m.addMenu("2. Add Integer", addInt);
+	Menu::m.addMenu("3. Subtract Integer", subInt);
+	Menu::m.addMenu("4. Multiply Integer", mulInt);
+	Menu::m.addMenu("5. Divide Integer", divInt);
+	Menu::m.addMenu("6. Add Double", addDbl);
+	Menu::m.addMenu("7. Subtract Double", subDbl);
+	Menu::m.addMenu("8. Multiply Double", mulDbl);
+	Menu::m.addMenu("9. Divide Double", divDbl);
+
+	Menu::m.runMenu();
+
+	return 0;
+}
+
+
+void Exit()
+{
+	cout << "Goodbye" << endl;
+	exit(0);
+}
+
+void addInt()
+{
+	cout << "Enter two integers" << endl;
+	string str1, str2;
+	cin >> str1;
+	cin >> str2;
+
+	try
+	{
+		Integer num1(str1), num2(str2);
+		cout << "The sum is: " << (num1.toInt() + num2.toInt()) << endl;
+	}
+	catch (NumberException er)
+	{
+		cout << "Error: " << er.getCode() << " " << er.getMessage() << endl;
+	}
+
+	Menu::m.waitKey();
+}
+
+void subInt()
+{
+	cout << "Enter two integers" << endl;
+	string str1, str2;
+	cin >> str1;
+	cin >> str2;
+
+	try
+	{
+		Integer num1(str1), num2(str2);
+		cout << "The difference is: " << (num1.toInt() - num2.toInt()) << endl;
+	}
+	catch (NumberException er)
+	{
+		cout << "Error: " << er.getCode() << " " << er.getMessage() << endl;
+	}
+
+	Menu::m.waitKey();
+}
+
+void mulInt()
+{
+	cout << "Enter two integers" << endl;
+	string str1, str2;
+	cin >> str1;
+	cin >> str2;
+
+	try
+	{
+		Integer num1(str1), num2(str2);
+		cout << "The product is: " << (num1.toInt() * num2.toInt()) << endl;
+	}
+	catch (NumberException er)
+	{
+		cout << "Error: " << er.getCode() << " " << er.getMessage() << endl;
+	}
+
+	Menu::m.waitKey();
+}
+
+void divInt()
+{
+	cout << "Enter two integers" << endl;
+	string str1, str2;
+	cin >> str1;
+	cin >> str2;
+
+	try
+	{
+		Integer num1(str1), num2(str2);
+		cout << "The quotient is: " << (num1.toInt() / num2.toInt()) << endl;
+	}
+	catch (NumberException er)
+	{
+		cout << "Error: " << er.getCode() << " " << er.getMessage() << endl;
+	}
+
+	Menu::m.waitKey();
+}
+
+void addDbl()
+{
+	cout << "Enter two doubles" << endl;
+	string str1, str2;
+	cin >> str1;
+	cin >> str2;
+
+	try
+	{
+		Double num1(str1), num2(str2);
+		cout << "The sum is: " << (num1.toDouble() + num2.toDouble()) << endl;
+	}
+	catch (NumberException er)
+	{
+		cout << "Error: " << er.getCode() << " " << er.getMessage() << endl;
+	}
+
+	Menu::m.waitKey();
+}
+
+void subDbl()
+{
+	cout << "Enter two doubles" << endl;
+	string str1, str2;
+	cin >> str1;
+	cin >> str2;
+
+	try
+	{
+		Double num1(str1), num2(str2);
+		cout << "The difference is: " << (num1.toDouble() - num2.toDouble()) << endl;
+	}
+	catch (NumberException er)
+	{
+		cout << "Error: " << er.getCode() << " " << er.getMessage() << endl;
+	}
+
+	Menu::m.waitKey();
+}
+
+void mulDbl()
+{
+	cout << "Enter two doubles" << endl;
+	string str1, str2;
+	cin >> str1;
+	cin >> str2;
+
+	try
+	{
+		Double num1(str1), num2(str2);
+		cout << "The product is: " << (num1.toDouble() * num2.toDouble()) << endl;
+	}
+	catch (NumberException er)
+	{
+		cout << "Error: " << er.getCode() << " " << er.getMessage() << endl;
+	}
+
+	Menu::m.waitKey();
+}
+
+void divDbl()
+{
+	cout << "Enter two doubles" << endl;
+	string str1, str2;
+	cin >> str1;
+	cin >> str2;
+
+	try
+	{
+		Double num1(str1), num2(str2);
+		cout << "The quotient is: " << (num1.toDouble() / num2.toDouble()) << endl;
+	}
+	catch (NumberException er)
+	{
+		cout << "Error: " << er.getCode() << " " << er.getMessage() << endl;
+	}
+
+	Menu::m.waitKey();
+}

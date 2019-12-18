@@ -1,0 +1,71 @@
+/*
+Daniel Meyer
+0405182
+4-5-17
+CSIS 123A-3488
+Journal 8
+*/
+
+#include <iostream>
+#include <fstream>
+#include "Fraction.h"
+
+using namespace std;
+
+void Move(int n, char source, char destination, char spare);
+void sumASCII(string str, int sum, int index);
+//int sumString(string str);
+
+int main()
+{
+	Fraction f1(2, 4), f2(2, 8);
+
+	Fraction f3 = f1 * f2;
+	f3.reduce();
+	f3.printFraction();
+
+	sumASCII("This is a test string", 0, 0);
+	//cout << "The sum of each char in the string is: " << sumString("This is a test string") << endl;
+
+	return 0;
+}
+
+void Move(int n, char source, char destination, char spare)
+{
+	if (n <= 1)
+	{
+		cout << "Move the top disc from " << source << " to " << destination << endl;
+	}
+	else
+	{
+		Move(n - 1, source, spare, destination);
+		Move(1, source, destination, spare);
+		Move(n - 1, spare, destination, source);
+	}
+}
+
+void sumASCII(string str, int sum, int index)
+{
+	if (index >= str.length())
+	{
+		cout << "The sum of each char in the string is: " << sum << endl;
+	}
+	else
+	{
+		sumASCII(str, sum + str[index], index + 1);
+	}
+}
+
+/* //function to test sumASCII is correct
+int sumString(string str)
+{
+	int sum = 0;
+
+	for (int i = 0; i < str.length(); i++)
+	{
+		sum += str[i];
+	}
+
+	return sum;
+}
+*/

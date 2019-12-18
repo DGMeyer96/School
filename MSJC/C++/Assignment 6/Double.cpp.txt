@@ -1,0 +1,202 @@
+/*
+Daniel Meyer
+0405182
+2/23/17
+CSIS 123A-3488
+Assignment 6
+Strings
+*/
+
+#include "Double.h"
+#include <sstream>
+#include <iostream>
+
+using namespace std;
+
+Double::Double()
+{
+	this->num = 0.0;
+}
+
+Double::Double(Double &d)
+{
+	this->num = d.num;
+}
+
+Double::Double(double d)
+{
+	this->num = d;
+}
+
+Double::Double(Integer &i)
+{
+	this->num = i.toInt();
+}
+
+Double::Double(std::string strD)
+{
+	this->equals(strD);
+}
+
+void Double::equals(double input)
+{
+	this->num = input;
+}
+
+void Double::equals(std::string strD)
+{
+	this->tmp = strD;
+	if (this->isNaN() == true)
+	{
+		this->num = stod(this->tmp);
+	}
+	else
+	{
+		std::cout << this->tmp << " is not a number." << std::endl;
+	}
+}
+
+bool Double::isNaN()
+{
+	bool number = true;
+	int decimal = 0;
+
+	for (int i = 0; i < this->tmp.length(); i++)
+	{
+		char c = this->tmp[i];
+		number = isdigit(this->tmp[i]);
+		if (this->tmp[i] == '.')
+		{
+			number = true;
+			decimal++;
+		}
+
+		if (number == false || decimal > 1)
+		{
+			return number = false;
+		}
+	}
+	return number;
+}
+
+Double Double::add(Double d)
+{
+	Double tmp;
+	tmp.equals(this->num + d.toDouble());
+	return tmp;
+}
+
+Double Double::add(double d)
+{
+	Double tmp;
+	tmp.equals(this->num + d);
+	return tmp;
+}
+
+Double Double::sub(Double d)
+{
+	Double tmp;
+	tmp.equals(this->num - d.toDouble());
+	return tmp;
+}
+
+Double Double::sub(double d)
+{
+	Double tmp;
+	tmp.equals(this->num - d);
+	return tmp;
+}
+
+Double Double::mul(Double d)
+{
+	Double tmp;
+	tmp.equals(this->num * d.toDouble());
+	return tmp;
+}
+
+Double Double::mul(double d)
+{
+	Double tmp;
+	tmp.equals(this->num * d);
+	return tmp;
+}
+
+Double Double::div(Double d)
+{
+	Double tmp;
+	tmp.equals(this->num / d.toDouble());
+	return tmp;
+}
+
+Double Double::div(double d)
+{
+	Double tmp;
+	tmp.equals(this->num / d);
+	return tmp;
+}
+
+double Double::toDouble()
+{
+	return this->num;
+}
+
+std::string Double::toString()
+{
+	std::stringstream ss;
+	ss << this->num;
+	std::string str = ss.str();
+	return str;
+}
+
+Double Double::operator+(Double d)
+{
+	return this->add(d);
+}
+
+Double Double::operator-(Double d)
+{
+	return this->sub(d);
+}
+
+Double Double::operator*(Double d)
+{
+	return this->mul(d);
+}
+
+Double Double::operator/(Double d)
+{
+	return this->div(d);
+}
+
+Double &Double::operator=(Double d)
+{
+	this->equals(d.toDouble());
+	return *this;
+}
+
+Double &Double::operator=(double d)
+{
+	this->equals(d);
+	return *this;
+}
+
+Double &Double::operator=(std::string strD)
+{
+	this->equals(strD);
+	return *this;
+}
+
+bool Double::operator==(Double d)
+{
+	return(this->num == d.num);
+}
+
+bool Double::operator==(double d)
+{
+	return(this->num == d);
+}
+
+bool Double::operator!=(Double d)
+{
+	return(this->num != d.num);
+}

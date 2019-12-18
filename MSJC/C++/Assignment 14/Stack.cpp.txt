@@ -1,0 +1,70 @@
+/*
+Daniel Meyer
+0405182
+4/24/17
+CSIS 123A-3488
+Lab 14
+Templates
+*/
+
+#include "Stack.h"
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	cout << "Int Stack: " << endl;
+
+	Stack<int> iStack;
+	for (int i = 0; i < 10; i++)
+	{
+		iStack.push(i);
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		cout << i << ": " << iStack.pop() << endl;
+	}
+
+	cout << endl;
+	cout << "Char Stack: " << endl;
+
+	Stack<char> cStack;
+	char c;
+	for (int i = 0; i < 10; i++)
+	{
+		c = i + 97;
+		cStack.push(c);
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		cout << i << ": " << cStack.pop() << endl;
+	}
+
+	cout << endl;
+	cout << "String Stack: " << endl;
+
+	Stack<string> strStack;
+	string str1 = "Hello";
+	string str2 = "World!";
+	string str3 = "This";
+	string str4 = "is";
+	string str5 = "a";
+	string str6 = "test";
+	strStack.push(str6);
+	strStack.push(str5);
+	strStack.push(str4);
+	strStack.push(str3);
+	strStack.push(str2);
+	strStack.push(str1);
+
+	for (int i = 0; i < 6; i++)
+	{
+		cout << i << ": " << strStack.pop() << endl;
+	}
+
+	return 0;
+}

@@ -1,0 +1,49 @@
+/*
+Daniel Meyer
+0405182
+4/24/17
+CSIS 123A-3488
+Lab 14
+Templates
+*/
+
+#ifndef STACKTEMP
+#define STACKTEMP
+
+#include <vector>
+
+using std::vector;
+
+template <class T>
+class Stack : private vector<T>
+{
+private:
+
+public:
+	void push(T &tmp);
+	T pop();
+	T peek();
+};
+
+template <class T>
+void Stack<T>::push(T &tmp)
+{
+	this->insert(this->begin(), tmp);
+}
+
+template <class T>
+T Stack<T>::pop()
+{
+	T tmp = this->front();
+	this->erase(this->begin());
+	return tmp;
+}
+
+template <class T>
+T Stack<T>::peek()
+{
+	return this->front();
+}
+
+#endif // !STACK
+

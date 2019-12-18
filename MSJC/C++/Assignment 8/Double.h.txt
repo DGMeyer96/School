@@ -1,0 +1,57 @@
+/*
+Daniel Meyer
+0405182
+3/14/17
+CSIS 123A-3488
+Lab 8
+Namespaces, Static Variables
+*/
+
+#ifndef DOUBLE
+#define DOUBLE
+
+#include "Integer.h"
+
+namespace Meyer
+{
+	class Double
+	{
+	private:
+		double *num;
+		std::string tmp;
+
+	public:
+		Double();
+		Double(Double &d);
+		Double(double d);
+		Double(Integer &i);
+		Double(std::string strD);
+		void create();
+		void clean();
+		void equals(double input);
+		void equals(std::string strD);
+		bool isNaN();//need to create since isnan() isnt compatible anymore
+		Double add(Double d);
+		Double add(double d);
+		Double sub(Double d);
+		Double sub(double d);
+		Double mul(Double d);
+		Double mul(double d);
+		Double div(Double d);
+		Double div(double d);
+		double toDouble();
+		std::string toString();
+		Double operator + (Double d);
+		Double operator - (Double d);
+		Double operator * (Double d);
+		Double operator / (Double d);
+		Double &operator = (Double d);
+		Double &operator = (double d);
+		Double &operator = (std::string strD);
+		bool operator == (Double d);
+		bool operator == (double d);
+		bool operator != (Double d);
+	};
+}
+
+#endif

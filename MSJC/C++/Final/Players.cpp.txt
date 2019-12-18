@@ -1,0 +1,76 @@
+/*
+Daniel Meyer
+0405182
+5/18/17
+CSIS 123A-3488
+Final Project
+Highest and Lowest Batting Averages
+*/
+
+#include "Players.h"
+#include <sstream>
+
+void Players::addPlayer(string player, double avg)
+{
+	if (highName.getSize() == 0 && lowName.getSize() == 0)
+	{
+		this->highAvg = avg;
+		this->lowAvg = avg;
+
+		this->addHighest(player);
+		this->addLowest(player);
+	}
+	else if (avg > highAvg)
+	{
+		highAvg = avg;
+		highName = Stack<string>();
+		this->addHighest(player);
+	}
+	else if (avg == highAvg)
+	{
+		this->addHighest(player);
+	}
+	else if (avg < highAvg)
+	{
+		if (avg < lowAvg)
+		{
+			lowAvg = avg;
+			lowName = Stack<string>();
+			addLowest(player);
+		}
+		else if(avg == lowAvg)
+		{
+			addLowest(player);
+		}
+	}
+}
+
+void Players::addHighest(string player)
+{
+	highName.push(player);
+}
+
+void Players::addLowest(string player)
+{
+	lowName.push(player);
+}
+
+Stack<string> Players::getHighest()
+{
+	return highName;
+}
+
+Stack<string> Players::getLowest()
+{
+	return lowName;
+}
+
+double Players::getAvgHigh()
+{
+	return highAvg;
+}
+
+double Players::getAvgLow()
+{
+	return lowAvg;
+}

@@ -1,0 +1,27 @@
+/*
+Daniel Meyer
+0405182
+1-19-17
+Lab 2
+Class Construction
+*/
+
+#ifndef DOUBLE
+#define DOUBLE
+
+class Double
+{
+private:
+	double num;
+
+public:
+	void equals(double input);
+	Double add(const Double &d);
+	Double sub(const Double &d);
+	Double mul(const Double &d);
+	Double div(const Double &d);
+	double toDouble();
+};
+
+#endif
+

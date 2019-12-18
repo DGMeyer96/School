@@ -1,0 +1,46 @@
+/*
+Daniel Meyer
+0405182
+2/13/17
+CSIS 123A-3488
+Assignment 5
+Operator Overloading
+*/
+
+#ifndef INTEGER
+#define INTEGER
+
+class Integer
+{
+private:
+	int num;
+
+public:
+	Integer();
+	Integer(const Integer &i);
+	Integer(int i);
+	void equals(int input);
+	Integer add(Integer i);
+	Integer add(int i);
+	Integer sub(Integer i);
+	Integer sub(int i);
+	Integer mul(Integer i);
+	Integer mul(int i);
+	Integer div(Integer i);
+	Integer div(int i);
+	int toInt();
+	Integer operator + (Integer i);
+	Integer operator - (Integer i);
+	Integer operator * (Integer i);
+	Integer operator / (Integer i);
+	Integer &operator = (Integer i);
+	Integer &operator = (int i);
+	bool operator == (Integer i);
+	bool operator == (int i);
+	bool operator != (Integer i);
+};
+
+
+#endif
+
+

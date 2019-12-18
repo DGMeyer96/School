@@ -1,0 +1,583 @@
+/*
+Daniel Meyer
+0405182
+1-26-15
+Dynamic Memory and Composition
+ */
+package data.str.assignment.pkg2;
+
+import java.util.ArrayList;
+
+/*
+Class: BigDecimal
+Author: Daniel Meyer
+Description: A complex type called BigDecimal that expands on the double attribute
+Inputs: String, BIgDecimal type, char, and an int
+Outputs: Double, String, BigDecimal, and char
+*/
+
+/*
+Function: BigDecimal
+Author: Daniel Meyer
+Description: The default contructor that sets the arraylist to 0.0
+Inputs: N/A
+Outputs: N/A
+*/
+
+/*
+Function: BigDecimal
+Author: Daniel Meyer
+Description: The overloaded constructor that adds a String to the arraylist
+Inputs : A string to be added to the arraylist
+Outputs: N/A
+*/ 
+
+/*
+Function: equals
+Author: Daniel Meyer
+Description: Adds a char to the arraylist
+Inputs: A char to add to the arraylist
+Outputs: N/A
+*/ 
+
+/*
+Function: equals
+Author: Daniel Meyer
+Description: Adds a String to the arraylist
+Inputs: A String to add to the arraylist
+Outputs: N/A
+*/ 
+
+/*
+Function: add
+Author: Daniel Meyer
+Description: Add the current BigDecimal and the BigDecimal input
+Inputs: A bigDecimal to add to the current BigDecimal
+Outputs: The sum as a BigDecimal type
+*/ 
+
+/*
+Function: sub
+Author: Daniel Meyer
+Description: Subtract the BigDecimal input from the current BigDecimal
+Inputs: A BigDecimal to subtract from the current BigDecimal
+Outputs: The difference as a BigDecimal type
+*/ 
+
+/*
+Function: toDouble
+Author: Daniel Meyer
+Description: Convert the arraylist to a double
+Inputs: N/A
+Outputs: The arraylist as a double
+*/ 
+
+/*
+Function: toString
+Author: Daniel Meyer
+Description: Convert the arraylist to a String
+Inputs: N/A
+Outputs: The array list as a String
+*/
+
+/*
+Function: at
+Author: Daniel Meyer
+Description: Search for a Char type at the specified index in the arraylist
+Inputs: int for the index in the arraylist
+Outputs: the Char at the index in the arraylist
+*/ 
+
+public class BigDecimal 
+{
+    private ArrayList<Char> bdList = new ArrayList<Char>();
+    
+    public BigDecimal()
+    {
+        //bdList.clear();
+        bdList.add(new Char('0'));
+        bdList.add(new Char('.'));
+        bdList.add(new Char('0'));
+    }
+    
+    public BigDecimal(String value)
+    {
+        //bdList.clear();
+        equals(value);
+    }
+    
+    public void equals(char ch)
+    {
+        if(Character.isDigit(ch) == true || ch == '.')    
+        {
+            bdList.add(new Char(ch));
+        }
+    }
+    
+    public void equals(String value)
+    {
+        int decimal = 0;
+        
+        for(int i = 0; i < value.length(); i++)
+        {
+            if(Character.isDigit(value.charAt(i)) == true || value.charAt(i) == '.')
+            {
+                if(value.charAt(i) == '.' && decimal != 1)
+                {
+                    bdList.add(new Char(value.charAt(i)));
+                    decimal++;
+                } 
+                else if(value.charAt(i) == '.' && decimal == 1)
+                {
+                    break;
+                }
+                else
+                {
+                    bdList.add(new Char(value.charAt(i)));
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+    
+    public BigDecimal add(BigDecimal bd)
+    {        
+        BigDecimal bdSum;
+        
+        int value1;
+        int value2;
+        int carry;
+        int carried;
+        int sum;
+        
+        int decimal1 = 0;
+        int decimal2 = 0;
+                
+        int sizeLeft1 = 0;
+        int sizeLeft2 = 0;
+        int sizeRight1 = 0;
+        int sizeRight2 = 0;
+        
+        String bd1 = bdList.toString();
+        String bd2 = bd.toString();
+        
+        StringBuilder sb1 = new StringBuilder(bd1);
+        StringBuilder sb2 = new StringBuilder(bd2);
+        StringBuilder bdNew = new StringBuilder();
+        
+        for(int s1 = 0; s1 <= bd1.length(); s1++)
+        {
+            if(bd1.charAt(s1) == '.')
+            {
+                decimal1++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        for(int s2 = 0; s2 <= bd1.length(); s2++)
+        {
+            if(bd1.charAt(s2) == '.')
+            {
+                decimal2++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        if(decimal1 > 0)
+        {
+            while(bd1.charAt(sizeLeft1) != '.')
+            {
+                sizeLeft1++;
+            }
+            
+            for(int i = sizeLeft1; i <= bd1.length(); i++)
+            {
+                sizeRight1++;
+            }
+        }
+        else if(decimal1 == 0)
+        {
+            sizeLeft1 = bd1.length();
+            sizeRight1 = 0;
+        }
+        
+        if(decimal2 > 0)
+        {
+            while(bd2.charAt(sizeLeft2) != '.')
+            {
+                sizeLeft2++;
+            }
+            
+            for(int j = sizeLeft2; j <= bd1.length(); j++)
+            {
+                sizeRight2++;
+            }
+        }
+        else if(decimal2 == 0)
+        {
+            sizeLeft2 = bd2.length();
+            sizeRight2 = 0;
+        }
+        
+        if(sizeLeft1 > sizeLeft2)
+        {
+            while(sizeLeft1 != sizeLeft2)
+            {
+                sb2.insert(0, "0");
+                sizeLeft2++;
+            }
+        }
+        else if(sizeLeft1 < sizeLeft2)
+        {
+            while(sizeLeft1 != sizeLeft2)
+            {
+                sb1.insert(0, "0");
+                sizeLeft1++;
+            }
+        }
+        
+        if(sizeRight1 > sizeRight2)
+        {
+            while(sizeRight1 != sizeRight2)
+            {
+                sb2.append("0");
+                sizeRight2++;
+            }
+        }
+        else if(sizeRight1 < sizeRight2)
+        {
+            while(sizeRight1 != sizeRight2)
+            {
+                sb1.append("0");
+                sizeRight1++;
+            }
+        }
+        
+        for(int l = 0; l < sizeLeft1; l++)
+        {
+            value1 = (int)sb1.charAt(l);
+            value2 = (int)sb2.charAt(l);
+            sum = value1 + value2;
+            if(sum >= 10)
+            {
+                carry = 1;
+                sum %= 10;
+            }
+            else
+            {
+                carry = 0;
+            }
+            
+            bdNew.append((char)sum);
+            
+            if(carry == 1)
+            {
+                if(l == 0)
+                {
+                    sb1.insert(0, '0');
+                    carried = bdNew.charAt(l);
+                    carried++;
+                }
+                else
+                {
+                   carried = bdNew.charAt(l - 1);
+                   carried++; 
+                }
+                
+                bdNew.setCharAt(l, (char)carried);
+                /*
+                while(carried >= 10)
+                {
+                    carry = 1;
+                    sum %= 10;
+                }
+                */
+                carry = 0;
+            }
+        }
+        
+        for(int r = 0; r < sizeRight1; r++)
+        {
+            value1 = (int)sb1.charAt(r + sizeLeft1 + 1);
+            value2 = (int)sb2.charAt(r + sizeLeft1 + 1);
+            sum = value1 + value2;
+            
+            if(sum >= 10)
+            {
+                carry = 1;
+                sum %= 10;
+            }
+            else
+            {
+                carry = 0;
+            }
+            
+            bdNew.append((char)sum);
+            
+            if(carry == 1)
+            {
+                carried = bdNew.charAt(r - 1);
+                carried++; 
+                
+                bdNew.setCharAt(r, (char)carried);
+                /*
+                while(carried >= 10)
+                {
+                    carry = 1;
+                    sum %= 10;
+                }
+                */
+                carry = 0;
+            }
+        }
+        
+        bdNew.insert(sizeLeft1++, '.');
+        
+        bdSum = new BigDecimal(bdNew.toString());
+        
+        return bdSum;
+    }
+    
+    public BigDecimal sub(BigDecimal bd)
+    {       
+        BigDecimal bdDif;
+        
+        int value1;
+        int value2;
+        int borrow;
+        int borrowed;
+        int dif;
+                
+        int decimal1 = 0;
+        int decimal2 = 0;
+        
+        int sizeLeft1 = 0;
+        int sizeLeft2 = 0;
+        int sizeRight1 = 0;
+        int sizeRight2 = 0;
+        
+        String bd1 = bdList.toString();
+        String bd2 = bd.toString();
+        
+        StringBuilder sb1 = new StringBuilder(bd1);
+        StringBuilder sb2 = new StringBuilder(bd2);
+        StringBuilder bdNew = new StringBuilder();
+        
+        for(int s1 = 0; s1 <= bd1.length(); s1++)
+        {
+            if(bd1.charAt(s1) == '.')
+            {
+                decimal1++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        for(int s2 = 0; s2 <= bd1.length(); s2++)
+        {
+            if(bd1.charAt(s2) == '.')
+            {
+                decimal2++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        if(decimal1 > 0)
+        {
+            while(bd1.charAt(sizeLeft1) != '.')
+            {
+                sizeLeft1++;
+            }
+            
+            for(int i = sizeLeft1; i <= bd1.length(); i++)
+            {
+                sizeRight1++;
+            }
+        }
+        else if(decimal1 == 0)
+        {
+            sizeLeft1 = bd1.length();
+            sizeRight1 = 0;
+        }
+        
+        if(decimal2 > 0)
+        {
+            while(bd2.charAt(sizeLeft2) != '.')
+            {
+                sizeLeft2++;
+            }
+            
+            for(int j = sizeLeft2; j <= bd1.length(); j++)
+            {
+                sizeRight2++;
+            }
+        }
+        else if(decimal2 == 0)
+        {
+            sizeLeft2 = bd2.length();
+            sizeRight2 = 0;
+        }
+        
+        if(sizeLeft1 > sizeLeft2)
+        {
+            while(sizeLeft1 != sizeLeft2)
+            {
+                sb2.insert(0, "0");
+                sizeLeft2++;
+            }
+        }
+        else if(sizeLeft1 < sizeLeft2)
+        {
+            while(sizeLeft1 != sizeLeft2)
+            {
+                sb1.insert(0, "0");
+                sizeLeft1++;
+            }
+        }
+        
+        if(sizeRight1 > sizeRight2)
+        {
+            while(sizeRight1 != sizeRight2)
+            {
+                sb2.append("0");
+                sizeRight2++;
+            }
+        }
+        else if(sizeRight1 < sizeRight2)
+        {
+            while(sizeRight1 != sizeRight2)
+            {
+                sb1.append("0");
+                sizeRight1++;
+            }
+        }
+        
+        for(int l = 0; l < sizeLeft1; l++)
+        {
+            value1 = (int)sb1.charAt(l);
+            value2 = (int)sb2.charAt(l);
+            
+            if(value1 < value2)
+            {
+                borrow = 1;
+                
+                if(l == 0)
+                {
+                    sb1.insert(0, "-1");
+                    borrowed = (int)sb1.charAt(l + 1);
+                    borrowed--;
+                    bdNew.setCharAt(l + 1, (char)borrowed);
+                }
+                else
+                {
+                    borrowed = (int)sb1.charAt(l - 1);
+                    borrowed--;
+                    bdNew.setCharAt(l - 1, (char)borrowed);
+                }
+                
+                value1 += 10;
+                
+                dif = value1 - value2;
+                
+                bdNew.append((char)dif);
+            }
+            else
+            {
+                dif = value1 - value2;
+                
+                bdNew.append((char)dif);
+            }
+        }
+        
+        for(int r = 0; r < sizeRight1; r++)
+        {
+            value1 = (int)sb1.charAt(r);
+            value2 = (int)sb2.charAt(r);
+            
+            if(value1 < value2)
+            {
+                borrow = 1;
+                
+                if(sb1.charAt(-1) == '.')
+                {
+                    borrowed = (int)sb1.charAt(r - 2);
+                    borrowed--;
+                    bdNew.setCharAt(r, (char)borrowed);
+                }
+                else
+                {
+                    borrowed = (int)sb1.charAt(r - 1);
+                    borrowed--;
+                    bdNew.setCharAt(r, (char)borrowed);
+                }
+                
+                value1 += 10;
+                
+                dif = value1 - value2;
+                
+                bdNew.append((char)dif);
+            }
+            else
+            {
+                dif = value1 - value2;
+                
+                bdNew.append((char)dif);
+            }
+        }
+        
+        bdNew.insert(sizeLeft1++, '.');
+        
+        bdDif = new BigDecimal(bdNew.toString());
+        
+        return bdDif;
+    }
+    
+    public double toDouble()
+    {          
+        double dbl;
+        
+        StringBuilder sb = new StringBuilder();
+        
+        for(Char ch : bdList)
+        {
+            sb.append(ch.toString());
+        }
+        
+        dbl = Double.parseDouble(sb.toString());
+        
+        return dbl;
+    }
+    
+    public String toString()
+    {        
+        StringBuilder sb = new StringBuilder();
+        
+        for(Char ch : bdList)
+        {
+            sb.append(ch.toString());
+        }
+        
+        return sb.toString();
+    }
+    
+    public Char at(int index)
+    {
+        Char ch = bdList.get(index);
+        
+        return ch;
+    }
+}

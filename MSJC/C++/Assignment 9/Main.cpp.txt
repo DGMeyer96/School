@@ -1,0 +1,96 @@
+/*
+Daniel Meyer
+0405182
+3/27/17
+CSIS 123A-3488
+Assignment 9
+File IO
+*/
+
+#include <iostream>
+#include <cstdlib>
+#include <vector>
+#include <fstream>
+
+#include "Random.h"
+#include "Menu.h"
+
+using namespace std;
+using namespace Meyer;
+
+vector <Integer*> iNumbers;
+vector <Double*> dNumbers;
+
+void readNumbers();
+void writeNumbers(vector <Integer*> iNumbers);
+void writeNumbers(vector <Double*> dNumbers);
+
+int main()
+{
+	iNumbers.reserve(50);
+	dNumbers.reserve(50);
+	
+	readNumbers();
+	writeNumbers(iNumbers);
+	writeNumbers(dNumbers);
+
+	return 0;
+}
+
+void readNumbers()
+{
+	ifstream infile("Numbers.txt");
+	string input;
+
+	while (infile >> input)
+	{
+		string::size_type found = input.find('.');
+
+		if (found != string::npos)
+		{
+			dNumbers.push_back(new Double(input));
+		}
+		else
+		{
+			iNumbers.push_back(new Integer(input));
+		}
+	}
+
+	infile.close();
+}
+
+void writeNumbers(vector <Integer*> iNumbers)
+{
+	ofstream outfile("integer.txt");
+
+	if (!outfile)
+	{
+		cout << "Unable to open the file for writing" << endl;
+		exit(1);
+	}
+
+	for (int i = 0; i < iNumbers.size(); i++)
+	{
+		outfile << iNumbers.at(i)->toString() << endl;
+	}
+
+	outfile.close();
+}
+
+void writeNumbers(vector <Double*> dNumbers)
+{
+	ofstream outfile("double.txt");
+
+	if (!outfile)
+	{
+		cout << "Unable to open the file for writing" << endl;
+		exit(1);
+	}
+
+	for (int i = 0; i < dNumbers.size(); i++)
+	{
+		outfile << dNumbers.at(i)->toString() << endl;
+	}
+
+	outfile.close();
+}

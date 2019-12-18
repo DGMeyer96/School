@@ -1,0 +1,5 @@
+﻿  main.cpp
+test.obj : error LNK2005: "void __cdecl display(void)" (?display@@YAXXZ) already defined in main.obj
+test.obj : error LNK2005: "void __cdecl init(void)" (?init@@YAXXZ) already defined in main.obj
+test.obj : error LNK2005: "void __cdecl reshape(int,int)" (?reshape@@YAXHH@Z) already defined in main.obj
+C:\Users\Daniel\Documents\Visual Studio 2017\Projects\CSE 420\Final Project\Debug\Final Project.exe : fatal error LNK1169: one or more multiply defined symbols found

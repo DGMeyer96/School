@@ -1,0 +1,1326 @@
+/*
+Daniel Meyer
+0405182
+11-10-15
+Assignment 11
+Battleship
+*/
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+import java.util.*;
+
+/*
+store 16x16 grid location of ship img
+check grid x and y for ship image
+replace images with hits/misses
+add ocean tiles at end to cover board
+
+For victory need to store the size of the array holding ships
+If hit increment a integer until it matches size of the array
+Once they are equal game is over.
+*/
+
+public class Battleship extends JFrame implements MouseListener, ActionListener
+{
+	private static final int MAXSHIPS = 14; 
+	private static final int GRIDSIZE = 16;
+	private JPanel pnlPlayer = new JPanel();
+	private JLabel[][] lblPlayer = new JLabel[16][16];
+	private ImageIcon[] imgShips = new ImageIcon[10];
+	private ShipInfo[] shipInfo = new ShipInfo[8];
+	private char[][] ocean = new char[16][16];
+	
+        JButton btnStart = new JButton("New Game");
+        JButton btnSurrender = new JButton("Surrender");
+        JButton btnReset = new JButton("Reset");
+        
+        private int misses = 0;
+        private int hits = 0;
+        private int totalShots = 0;
+        private int destroyed = 0;
+        
+        private JLabel lblVictory = new JLabel("VICTORY!");
+        private JLabel lblDefeat = new JLabel("DEFEAT");
+        private JLabel lblMisses = new JLabel("Misses: " + misses);
+        private JLabel lblHits = new JLabel("\nHits: " + hits);
+        private JLabel lblAccuracy = new JLabel();
+        
+        Font fnt = new Font("monospaced", Font.BOLD, 24);
+        
+        //JLabel lblClick = new JLabel();
+        
+        private JLabel[][] shipLocations = new JLabel[16][16];
+        private String[][] shipType = new String[16][16];
+        private JLabel[][] oceanTiles = new JLabel[16][16];
+        
+	Container content = this.getContentPane();
+        
+        JPanel pnlButtons = new JPanel();
+        JPanel pnlStatistics = new JPanel();
+        
+	public Battleship()
+	{      
+		initOcean();
+		createPlayerPanel();
+		createShips();
+		content.add(pnlPlayer);
+		pnlButtons.setLayout(new FlowLayout(FlowLayout.CENTER));
+                content.add(pnlButtons, BorderLayout.SOUTH);
+                pnlStatistics.setLayout(new FlowLayout(FlowLayout.CENTER));
+                
+		placeShips();
+                oceanTiles();
+                shipLocations();
+                ShipLocationType();
+                
+                btnSurrender.addActionListener(this);
+                btnReset.addActionListener(this);
+                pnlButtons.add(btnSurrender, BorderLayout.SOUTH);
+                pnlButtons.add(btnReset, BorderLayout.SOUTH);
+                
+                //lblClick.addMouseListener(this);
+                
+                this.setSize(325, 350);
+                this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                this.setVisible(true);
+                this.setTitle("Battleship");
+		
+	}
+	private void createPlayerPanel()
+	{
+		pnlPlayer.setLayout(new GridLayout(16,16,3,3));
+		pnlPlayer.setBackground(Color.blue);
+		pnlPlayer.setSize(301,301);
+		
+		for(int row = 0; row < 16; row++)
+		{
+			for(int col = 0; col < 16; col++)
+			{
+				lblPlayer[row][col] = new JLabel(new ImageIcon("batt100.gif"));
+                                System.out.println(lblPlayer[row][col].getIcon().toString());
+				lblPlayer[row][col].setOpaque(true);
+				lblPlayer[row][col].setSize(16,16);
+                                lblPlayer[row][col].addMouseListener(this);
+				pnlPlayer.add(lblPlayer[row][col]);
+						
+			}
+			
+		}
+		
+	}
+	private void createShips()
+	{
+		loadShipImages();
+		createShipInfo();
+	}
+	private void loadShipImages()
+	{
+		for(int i = 0; i < 10 ; i++)
+		{
+			imgShips[i] = new ImageIcon("batt" + (i + 1) + ".gif");			
+		}
+		
+	}
+	private void createShipInfo()
+	{
+		
+	
+//		 Start with the frigate, we create 2 of them here but will place 3 total randomly it as two images
+		int[] frigateH = {0,4};
+		shipInfo[0] = new ShipInfo("Frigate", frigateH, 'H');
+		int[] frigateV = {5,9};
+		shipInfo[1] = new ShipInfo("Frigate", frigateV, 'V');
+		
+// Create the mine Sweep it has 3 pieces
+		int[] mineSweepH = {0,1,4};
+		shipInfo[2] = new ShipInfo("Minesweep", mineSweepH, 'H');
+		int[] mineSweepV = {5,6,9};
+		shipInfo[3] = new ShipInfo("Minesweep", mineSweepV, 'V');
+		
+		int[] cruiserH = {0,1,2,4};
+		shipInfo[4] = new ShipInfo("Cruiser", cruiserH, 'H');
+		int[] cruiserV = {5,6,7,9};
+		shipInfo[5] = new ShipInfo("Cruiser", cruiserV, 'V');
+		
+		int[] battleShipH = {0,1,2,3,4};
+		shipInfo[6] = new ShipInfo("Battleship", battleShipH, 'H');
+		int[] battleShipV = {5,6,7,8,9};
+		shipInfo[7] = new ShipInfo("Battleship", battleShipV, 'V');
+	
+		
+	}
+	private void initOcean()
+	{
+		for(int row = 0; row < 16; row++)
+		{
+			for(int col = 0; col < 16; col++)
+			{
+				ocean[row][col] = 'O';
+			}
+		}
+		
+		
+	}
+	private void placeShips()
+	{
+		// Create a Random object to select ships
+		Random r = new Random();
+		
+		// Create random objects to place the ship at a row and a column
+		Random randCol = new Random();
+		Random randRow = new Random();
+		
+		//Place the ships, typically there are 14
+		for(int ships = 0; ships < MAXSHIPS; ships++)
+		{
+			//Get a random ship
+			ShipInfo si = shipInfo[r.nextInt(8)];
+			
+			int row = randRow.nextInt(16);
+			int col = randCol.nextInt(16);
+			int direction = checkDirection(si, row, col);
+			while(direction == 0) // 0 direction says that we can not place the ship
+			{
+				row = randRow.nextInt(16);
+				col = randCol.nextInt(16);
+				direction = checkDirection(si, row, col);
+			}
+			
+			// got a clear path, let put the ship on the ocean
+			int shipPieces[] = si.getShipPieces();
+			if(si.Direction == 'H')  // place horizontal
+			{
+				if(direction == 1)
+				{
+					for(int i = col, j = 0; i < col + si.length(); i++, j++)
+					{
+						lblPlayer[row][i].setIcon(imgShips[shipPieces[j]]);
+						String name = si.getName();
+						ocean[row][i] = name.charAt(0);
+					}
+				}
+				else
+				{
+					for(int i = col + si.length(), j = 0 ; i > col; i--, j++)
+					{
+						lblPlayer[row][i].setIcon(imgShips[shipPieces[j]]);	
+						String name = si.getName();
+						ocean[row][i] = name.charAt(0);
+					}
+				}
+			}
+			else // Must be vertical direction
+			{
+				if(direction == 1) // place pieces in positive direction
+				{
+					for(int i = row, j = 0; i < row + si.length(); i++, j++)
+					{
+						lblPlayer[i][col].setIcon(imgShips[shipPieces[j]]);	
+						String name = si.getName();
+						ocean[i][col] = name.charAt(0);
+					}
+				}
+				else
+				{
+					for(int i = row + si.length(), j = 0; i > row; i--, j++)
+					{
+						lblPlayer[i][col].setIcon(imgShips[shipPieces[j]]);	
+						String name = si.getName();
+						ocean[i][col] = name.charAt(0);
+					}
+				}
+						
+			}			
+		}
+				
+	}
+	int checkDirection(ShipInfo si, int row, int col)
+	{
+		if(si.Direction == 'H')
+			return checkHorizontal(si, row, col);
+		else
+			return checkVertical(si, row, col);
+		
+	}
+	
+	int checkHorizontal(ShipInfo si,int row, int col)
+	{
+		boolean clearPath = true;
+			
+		int len = si.length();
+		System.out.println(len);
+		for(int i = col; i < (col + si.length()); i++)
+		{
+			if(i >= GRIDSIZE) //This would put us outside the ocean
+			{
+				clearPath = false;
+				break;
+			}
+			if(ocean[row][i] != 'O') // Ship already exists in this spot
+			{
+				clearPath = false;
+				break;
+			}
+		}
+		if(clearPath == true) // ok to move in the positive direction
+			return 1; 
+		
+		//Next Chec the negative direction
+		for(int i = col; i > (col - si.length()); i--)
+		{
+			if(i < 0) //This would put us outside the ocean
+			{
+				clearPath = false;
+				break;
+			}
+			if(ocean[row][i] != 'O') // Ship already exists in this spot
+			{
+				clearPath = false;
+				break;
+			}			
+			
+		}
+		if(clearPath == true) //Ok to move in negative direction
+			return -1;
+		else
+			return 0;   // No place to move			
+				
+	}
+	
+	
+	int checkVertical(ShipInfo si,int row, int col)
+	{
+		boolean clearPath = true;
+		int len = si.length();
+		System.out.println(len);
+			
+		for(int i = row; i < (row + si.length()); i++)
+		{
+			if(i >= GRIDSIZE) //This would put us outside the ocean
+			{
+				clearPath = false;
+				break;
+			}
+			if(ocean[i][col] != 'O') // Ship already exists in this spot
+			{
+				clearPath = false;
+				break;
+			}
+		}
+		if(clearPath == true) // ok to move in the positive direction
+			return 1; 
+		
+		//Next Check the negative direction
+		for(int i = row; i > (row - si.length() ); i--)
+		{
+			if(i < 0) //This would put us outside the ocean
+			{
+				clearPath = false;
+				break;
+			}
+			if(ocean[i][col] != 'O') // Ship already exists in this spot
+			{
+				clearPath = false;
+				break;
+			}			
+			
+		}
+		if(clearPath == true) //Ok to move in negative direction
+			return -1;
+		else
+			return 0;   // No place to move			
+				
+	}
+        
+        public void oceanTiles()
+        {
+            for(int row = 0; row < 16; row++)
+            {
+                for(int col = 0; col < 16; col++)
+                {
+                    if(lblPlayer[row][col].getIcon().toString() == "batt100.gif")
+                    {
+                        oceanTiles[row][col] = lblPlayer[row][col];
+                    }
+                }
+            }    
+        }
+        
+        public void shipLocations()
+        {
+            for(int row = 0; row < 16; row++)
+            {
+                for(int col = 0; col < 16; col++)
+                {
+                    if(lblPlayer[row][col].getIcon().toString() != "batt100.gif")
+                    {
+                        shipLocations[row][col] = lblPlayer[row][col]; //will be null at shipLocations[i][j] if no ship is present
+                        //System.out.println(shipLocations[row][col]);
+                    }
+                }
+            }
+        }
+        
+        public void ShipLocationType()
+        {
+            /*
+                Mark ship type with char for each location and match them to ship location values
+                B - Battleship
+                C - Cruiser
+                F - Frigate
+                M - Minesweeper
+            
+                Identify if they are horizontal or vertical
+            
+                Can check ship type by the int[] they hold
+                
+                int[] frigateH = {0,4};
+                int[] frigateV = {5,9};
+                
+                int[] mineSweepH = {0,1,4};
+                int[] mineSweepV = {5,6,9};
+            
+                int[] cruiserH = {0,1,2,4};
+                int[] cruiserV = {5,6,7,9};
+            
+                int[] battleShipH = {0,1,2,3,4};
+                int[] battleShipV = {5,6,7,8,9};
+            
+                Find horizontal by checking rows then columns
+                Find vertical by checking columns the rows
+                Each ship will have exact number order
+            */
+            
+            int[] frigateH = {1,5};
+            int[] frigateV = {6,10};
+                
+            int[] mineSweepH = {1,2,5};
+            int[] mineSweepV = {6,7,10};
+            
+            int[] cruiserH = {1,2,3,5};
+            int[] cruiserV = {6,7,8,10};
+            
+            int[] battleShipH = {1,2,3,4,5};
+            int[] battleShipV = {6,7,8,9,10};
+                
+            for(int row = 0; row < 16; row++) //get horizontal ships
+            {
+                for(int col = 0; col < 16; col++)
+                {
+                    if(lblPlayer[row][col].getIcon().toString() == "batt1.gif")
+                    {
+                        if(lblPlayer[row + 1][col].getIcon().toString() == "batt5.gif")
+                        {
+                            shipType[row][col] = "FBH"; //Frigate Back Horizontal
+                            shipType[row + 1][col] = "FFH"; //Frigate Front Horizontal
+                        }
+                    }
+                    
+                    else if(lblPlayer[row][col].getIcon().toString() == "batt1.gif")
+                    {
+                        if(lblPlayer[row + 1][col].getIcon().toString() == "batt2.gif")
+                        {
+                            if(lblPlayer[row + 2][col].getIcon().toString() == "batt5.gif")
+                            {
+                                shipType[row][col] = "MBH"; //Minesweeper Horizontal
+                                shipType[row + 1][col] = "MMH"; //Minesweeper Middle Horizontal
+                                shipType[row + 2][col] = "MFH";
+                            }
+                        }
+                    }
+                    
+                    else if(lblPlayer[row][col].getIcon().toString() == "batt1.gif")
+                    {
+                        if(lblPlayer[row + 1][col].getIcon().toString() == "batt2.gif")
+                        {
+                            if(lblPlayer[row + 2][col].getIcon().toString() == "batt3.gif")
+                            {
+                                if(lblPlayer[row + 3][col].getIcon().toString() == "batt5.gif")
+                                {
+                                    shipType[row][col] = "CBH"; //Cruiser Horizontal
+                                    shipType[row + 1][col] = "CM1H";
+                                    shipType[row + 2][col] = "CM2H";
+                                    shipType[row + 3][col] = "CFH";
+                                }
+                            }
+                        }
+                    }
+                    
+                    else if(lblPlayer[row][col].getIcon().toString() == "batt1.gif")
+                    {
+                        if(lblPlayer[row + 1][col].getIcon().toString() == "batt2.gif")
+                        {
+                            if(lblPlayer[row + 2][col].getIcon().toString() == "batt3.gif")
+                            {
+                                if(lblPlayer[row + 3][col].getIcon().toString() == "batt4.gif")
+                                {
+                                    if(lblPlayer[row + 4][col].getIcon().toString() == "batt5.gif")
+                                    {
+                                        shipType[row][col] = "BBH"; //Battleship Horizontal
+                                        shipType[row + 1][col] = "BM1H";
+                                        shipType[row + 2][col] = "BM2H";
+                                        shipType[row + 3][col] = "BM3H";
+                                        shipType[row + 4][col] = "BFH";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            
+            for(int col = 0; col < 16; col++)
+            {
+                for(int row = 0; row < 16; row++)
+                {
+                    if(lblPlayer[row][col].getIcon().toString() == "batt6.gif")
+                    {
+                        if(lblPlayer[row][col + 1].getIcon().toString() == "batt10.gif")
+                        {
+                            shipType[row][col] = "FBV"; //Frigate Back Vertical
+                            shipType[row][col + 1] = "FFV"; //Frigate Front Vertical
+                        }
+                    }
+                    
+                    if(lblPlayer[row][col].getIcon().toString() == "batt6.gif")
+                    {
+                        if(lblPlayer[row][col + 1].getIcon().toString() == "batt7.gif")
+                        {
+                            if(lblPlayer[row][col + 2].getIcon().toString() == "batt10.gif")
+                            {
+                                shipType[row][col] = "MBV"; //Minesweeper Vertical
+                                shipType[row][col + 1] = "MMV"; //Minesweeper Middle Vertical
+                                shipType[row][col + 2] = "MFV";
+                            }
+                        }
+                    }
+                    
+                    if(lblPlayer[row][col].getIcon().toString() == "batt6.gif")
+                    {
+                        if(lblPlayer[row][col + 1].getIcon().toString() == "batt7.gif")
+                        {
+                            if(lblPlayer[row][col + 2].getIcon().toString() == "batt8.gif")
+                            {
+                                if(lblPlayer[row][col + 3].getIcon().toString() == "batt10.gif")
+                                {
+                                    shipType[row][col] = "CBV"; //Cruiser Vertical
+                                    shipType[row][col + 1] = "CM1V";
+                                    shipType[row][col + 2] = "CM2V";
+                                    shipType[row][col + 3] = "CFV";
+                                }
+                            }
+                        }
+                    }
+                    
+                    if(lblPlayer[row][col].getIcon().toString() == "batt6.gif")
+                    {
+                        if(lblPlayer[row][col + 1].getIcon().toString() == "batt7.gif")
+                        {
+                            if(lblPlayer[row][col + 2].getIcon().toString() == "batt8.gif")
+                            {
+                                if(lblPlayer[row][col + 3].getIcon().toString() == "batt9.gif")
+                                {
+                                    if(lblPlayer[row][col + 4].getIcon().toString() == "batt10.gif")
+                                    {
+                                        shipType[row][col] = "BBV"; //Battleship Vertical
+                                        shipType[row][col + 1] = "BM1V";
+                                        shipType[row][col + 2] = "BM2V";
+                                        shipType[row][col + 3] = "BM3V";
+                                        shipType[row][col + 4] = "BFV";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        public void shipHit(int row, int col)
+        {
+            /*
+            Check if ship is horizontal or vertical
+            If horizontal:
+                check to left and right until end of ship is reached on both sides
+                   Then see if all pieces are marked as hit
+                   If so mark all with destroyed piece and increment destroyed counter
+            If vertical:
+                check top and bottom until end of ship is reached on both ends
+                   Then see if all pieces are marked as hit
+                   If so mark all with destroyed piece and increment destroyed counter
+            */
+            
+            lblPlayer[row][col].setIcon(new ImageIcon("batt103.gif"));
+            shipLocations[row][col].setIcon(new ImageIcon("batt103.gif"));
+            hits++;
+            
+                switch(shipType[row][col]) //why is this generating error?
+                {
+                    case "FBH":
+                        if(shipLocations[row + 1][col].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt201.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt201.gif"));
+                            lblPlayer[row + 1][col].setIcon(new ImageIcon("batt203.gif"));
+                            shipLocations[row + 1][col].setIcon(new ImageIcon("batt203.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "FFH":
+                        if(shipLocations[row - 1][col].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt203.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt203.gif"));
+                            lblPlayer[row - 1][col].setIcon(new ImageIcon("batt201.gif"));
+                            shipLocations[row - 1][col].setIcon(new ImageIcon("batt201.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "FBV":
+                        if(shipLocations[row][col + 1].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt204.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt204.gif"));
+                            lblPlayer[row][col + 1].setIcon(new ImageIcon("batt206.gif"));
+                            shipLocations[row][col + 1].setIcon(new ImageIcon("batt206.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "FFV":
+                        if(shipLocations[row][col - 1].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt206.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt206.gif"));
+                            lblPlayer[row][col - 1].setIcon(new ImageIcon("batt204.gif"));
+                            shipLocations[row][col - 1].setIcon(new ImageIcon("batt204.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "MBH":
+                        if(shipLocations[row + 1][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 2][col].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt201.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt201.gif"));
+                            lblPlayer[row + 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row + 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 2][col].setIcon(new ImageIcon("batt203.gif"));
+                            shipLocations[row + 2][col].setIcon(new ImageIcon("batt203.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "MMH":
+                        if(shipLocations[row + 1][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row - 1][col].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 1][col].setIcon(new ImageIcon("batt203.gif"));
+                            shipLocations[row + 1][col].setIcon(new ImageIcon("batt203.gif"));
+                            lblPlayer[row - 1][col].setIcon(new ImageIcon("batt201.gif"));
+                            shipLocations[row - 1][col].setIcon(new ImageIcon("batt201.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "MFH":
+                        if(shipLocations[row - 1][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row - 2][col].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt203.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt203.gif"));
+                            lblPlayer[row - 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row - 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row - 2][col].setIcon(new ImageIcon("batt201.gif"));
+                            shipLocations[row - 2][col].setIcon(new ImageIcon("batt201.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "MBV":
+                        if(shipLocations[row][col + 1].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 2].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt204.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt204.gif"));
+                            lblPlayer[row][col + 1].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col + 1].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 2].setIcon(new ImageIcon("batt206.gif"));
+                            shipLocations[row][col + 2].setIcon(new ImageIcon("batt206.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "MMV":
+                        if(shipLocations[row][col + 1].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col - 1].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 1].setIcon(new ImageIcon("batt206.gif"));
+                            shipLocations[row][col + 1].setIcon(new ImageIcon("batt206.gif"));
+                            lblPlayer[row][col - 1].setIcon(new ImageIcon("batt204.gif"));
+                            shipLocations[row][col - 1].setIcon(new ImageIcon("batt204.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "MFV":
+                        if(shipLocations[row][col - 1].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col - 2].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt206.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt206.gif"));
+                            lblPlayer[row][col - 1].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col - 1].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col - 2].setIcon(new ImageIcon("batt204.gif"));
+                            shipLocations[row][col - 2].setIcon(new ImageIcon("batt204.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "CBH":
+                        if(shipLocations[row + 1][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 2][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 3][col].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt201.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt201.gif"));
+                            lblPlayer[row + 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row + 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 2][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row + 2][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 3][col].setIcon(new ImageIcon("batt203.gif"));
+                            shipLocations[row + 3][col].setIcon(new ImageIcon("batt203.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "CM1H":
+                        if(shipLocations[row - 1][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 1][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 2][col].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row - 1][col].setIcon(new ImageIcon("batt201.gif"));
+                            shipLocations[row - 1][col].setIcon(new ImageIcon("batt201.gif"));
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row + 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 2][col].setIcon(new ImageIcon("batt203.gif"));
+                            shipLocations[row + 2][col].setIcon(new ImageIcon("batt203.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "CM2H":
+                        if(shipLocations[row - 2][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row - 1][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 1][col].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row - 2][col].setIcon(new ImageIcon("batt201.gif"));
+                            shipLocations[row - 2][col].setIcon(new ImageIcon("batt201.gif"));
+                            lblPlayer[row - 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row - 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 1][col].setIcon(new ImageIcon("batt203.gif"));
+                            shipLocations[row + 1][col].setIcon(new ImageIcon("batt203.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "CFH":
+                        if(shipLocations[row - 3][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row - 2][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row - 1][col].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row - 3][col].setIcon(new ImageIcon("batt201.gif"));
+                            shipLocations[row - 3][col].setIcon(new ImageIcon("batt201.gif"));
+                            lblPlayer[row - 2][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row - 2][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row - 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row - 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt203.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt203.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "CBV":
+                        if(shipLocations[row][col + 1].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 2].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 3].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt204.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt204.gif"));
+                            lblPlayer[row][col + 1].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col + 1].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 2].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col + 2].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 3].setIcon(new ImageIcon("batt206.gif"));
+                            shipLocations[row][col + 3].setIcon(new ImageIcon("batt206.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "CM1V":
+                        if(shipLocations[row][col - 1].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 1].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 2].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col - 1].setIcon(new ImageIcon("batt204.gif"));
+                            shipLocations[row][col - 1].setIcon(new ImageIcon("batt204.gif"));
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 1].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col + 1].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 2].setIcon(new ImageIcon("batt206.gif"));
+                            shipLocations[row][col + 2].setIcon(new ImageIcon("batt206.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "CM2V":
+                        if(shipLocations[row][col - 2].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col - 1].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 1].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col - 2].setIcon(new ImageIcon("batt204.gif"));
+                            shipLocations[row][col - 2].setIcon(new ImageIcon("batt204.gif"));
+                            lblPlayer[row][col - 1].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col - 1].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 1].setIcon(new ImageIcon("batt206.gif"));
+                            shipLocations[row][col + 1].setIcon(new ImageIcon("batt206.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "CFV":
+                        if(shipLocations[row][col - 3].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col - 2].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col - 1].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col - 3].setIcon(new ImageIcon("batt204.gif"));
+                            shipLocations[row][col - 3].setIcon(new ImageIcon("batt204.gif"));
+                            lblPlayer[row][col - 2].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col - 2].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col - 1].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col - 1].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt206.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt206.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "BBH":
+                        if(shipLocations[row + 1][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 2][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 3][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 4][col].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt201.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt201.gif"));
+                            lblPlayer[row + 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row + 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 2][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row + 2][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 3][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row + 3][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 4][col].setIcon(new ImageIcon("batt203.gif"));
+                            shipLocations[row + 4][col].setIcon(new ImageIcon("batt203.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "BM1H":
+                        if(shipLocations[row - 1][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 1][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 2][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 3][col].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row - 1][col].setIcon(new ImageIcon("batt201.gif"));
+                            shipLocations[row - 1][col].setIcon(new ImageIcon("batt201.gif"));
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row + 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 2][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row + 2][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 3][col].setIcon(new ImageIcon("batt203.gif"));
+                            shipLocations[row + 3][col].setIcon(new ImageIcon("batt203.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "BM2H":
+                        if(shipLocations[row - 2][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row - 1][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 1][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 2][col].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row - 2][col].setIcon(new ImageIcon("batt201.gif"));
+                            shipLocations[row - 2][col].setIcon(new ImageIcon("batt201.gif"));
+                            lblPlayer[row - 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row - 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row + 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 2][col].setIcon(new ImageIcon("batt203.gif"));
+                            shipLocations[row + 2][col].setIcon(new ImageIcon("batt203.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "BM3H":
+                        if(shipLocations[row - 3][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row - 2][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row - 1][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row + 1][col].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row - 3][col].setIcon(new ImageIcon("batt201.gif"));
+                            shipLocations[row - 3][col].setIcon(new ImageIcon("batt201.gif"));
+                            lblPlayer[row - 2][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row - 2][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row - 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row - 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row + 1][col].setIcon(new ImageIcon("batt203.gif"));
+                            shipLocations[row + 1][col].setIcon(new ImageIcon("batt203.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "BFH":
+                        if(shipLocations[row - 4][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row - 3][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row - 2][col].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row - 1][col].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row - 4][col].setIcon(new ImageIcon("batt201.gif"));
+                            shipLocations[row - 4][col].setIcon(new ImageIcon("batt201.gif"));
+                            lblPlayer[row - 3][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row - 3][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row - 2][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row - 2][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row - 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            shipLocations[row - 1][col].setIcon(new ImageIcon("batt202.gif"));
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt203.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt203.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "BBV":
+                        if(shipLocations[row][col + 1].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 2].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 3].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 4].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt204.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt204.gif"));
+                            lblPlayer[row][col + 1].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col + 1].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 2].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col + 2].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 3].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col + 3].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 4].setIcon(new ImageIcon("batt206.gif"));
+                            shipLocations[row][col + 4].setIcon(new ImageIcon("batt206.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "BM1V":
+                        if(shipLocations[row][col - 1].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 1].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 2].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 3].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col - 1].setIcon(new ImageIcon("batt204.gif"));
+                            shipLocations[row][col - 1].setIcon(new ImageIcon("batt204.gif"));
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 1].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col + 1].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 2].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col + 2].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 3].setIcon(new ImageIcon("batt206.gif"));
+                            shipLocations[row][col + 3].setIcon(new ImageIcon("batt206.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "BM2V":
+                        if(shipLocations[row][col - 2].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col - 1].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 1].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 2].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col - 2].setIcon(new ImageIcon("batt204.gif"));
+                            shipLocations[row][col - 2].setIcon(new ImageIcon("batt204.gif"));
+                            lblPlayer[row][col - 1].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col - 1].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 1].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col + 1].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 2].setIcon(new ImageIcon("batt206.gif"));
+                            shipLocations[row][col + 2].setIcon(new ImageIcon("batt206.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "BM3V":
+                        if(shipLocations[row][col - 3].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col - 2].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col - 1].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col + 1].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col - 3].setIcon(new ImageIcon("batt204.gif"));
+                            shipLocations[row][col - 3].setIcon(new ImageIcon("batt204.gif"));
+                            lblPlayer[row][col - 2].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col - 2].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col - 1].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col - 1].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col + 1].setIcon(new ImageIcon("batt206.gif"));
+                            shipLocations[row][col + 1].setIcon(new ImageIcon("batt206.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case "BFV":
+                        if(shipLocations[row][col - 4].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col - 3].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col - 2].getIcon().toString() == "batt103.gif"
+                            && shipLocations[row][col - 1].getIcon().toString() == "batt103.gif")
+                        {
+                            lblPlayer[row][col - 4].setIcon(new ImageIcon("batt204.gif"));
+                            shipLocations[row][col - 4].setIcon(new ImageIcon("batt204.gif"));
+                            lblPlayer[row][col - 3].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col - 3].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col - 2].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col - 2].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col - 1].setIcon(new ImageIcon("batt205.gif"));
+                            shipLocations[row][col - 1].setIcon(new ImageIcon("batt205.gif"));
+                            lblPlayer[row][col].setIcon(new ImageIcon("batt206.gif"));
+                            shipLocations[row][col].setIcon(new ImageIcon("batt206.gif"));
+                            destroyed++;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    default:
+                        break;
+                }
+           
+        }
+        
+        public void coverBoard()
+        {
+            for(int row = 0; row < 16; row++)
+		{
+			for(int col = 0; col < 16; col++)
+			{
+				lblPlayer[row][col].setIcon(new ImageIcon("batt100.gif"));
+                        }
+                }
+        }
+        
+        public void Statistics()
+        {
+            content.add(pnlStatistics, BorderLayout.CENTER);
+            
+            lblMisses.setText("Misses: " + misses);
+            lblHits.setText("\nHits: " + hits);
+            pnlStatistics.add(lblMisses, BorderLayout.CENTER);
+            pnlStatistics.add(lblHits, BorderLayout.CENTER);
+            /*
+            if(misses == 0 || hits == 0)
+            {
+                lblAccuracy.setText("\nAccuracy: N/A");
+            }
+            else
+            {
+                lblAccuracy.setText("\nAccuracy: " + (hits / totalShots) + "%");
+            }
+            pnlStatistics.add(lblAccuracy, BorderLayout.CENTER);
+            */
+            content.add(pnlButtons, BorderLayout.SOUTH);
+            btnStart.addActionListener(this);
+            pnlButtons.add(btnStart, BorderLayout.SOUTH);
+
+        }
+        
+        public void Victory()
+        {
+            System.out.println("Game Over");
+            
+            pnlPlayer.removeAll();
+            revalidate();
+            repaint();
+            //content.removeAll();
+            
+            content.add(lblVictory, BorderLayout.NORTH);
+            
+            Statistics();
+        }
+        
+        public void Start()
+        {
+            pnlPlayer.removeAll();
+            pnlButtons.removeAll();
+            revalidate();
+            repaint();
+            content.removeAll();
+            
+            initOcean();
+            createPlayerPanel();
+            createShips();
+            content.add(pnlPlayer);
+            
+            placeShips();
+            oceanTiles();
+            shipLocations();
+            ShipLocationType();
+            
+            //coverBoard();
+            
+            content.add(pnlButtons, BorderLayout.SOUTH);
+            btnSurrender.addActionListener(this);
+            btnReset.addActionListener(this);
+            pnlButtons.add(btnSurrender);
+            pnlButtons.add(btnReset);
+            
+            this.setSize(325, 350);
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.setVisible(true);
+            this.setTitle("Battleship");
+        }
+        
+        public void Surrender()
+        {
+            pnlPlayer.removeAll();
+            pnlButtons.removeAll();
+            revalidate();
+            repaint();
+            content.removeAll();
+            //revalidate();
+            //repaint();
+            
+            System.out.println("Game Over");
+            
+            Statistics();
+            
+        }
+        
+        public void Reset()
+        {
+            pnlPlayer.removeAll();
+            pnlButtons.removeAll();
+            revalidate();
+            repaint();
+            
+            initOcean();
+            createPlayerPanel();
+            createShips();
+            content.add(pnlPlayer);
+            
+            placeShips();
+            oceanTiles();
+            shipLocations();
+            ShipLocationType();
+            
+            content.add(pnlButtons, BorderLayout.SOUTH);
+            btnSurrender.addActionListener(this);
+            btnReset.addActionListener(this);
+            pnlButtons.add(btnSurrender, BorderLayout.SOUTH);
+            pnlButtons.add(btnReset, BorderLayout.SOUTH);
+            
+            this.setSize(325, 350);
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.setVisible(true);
+            this.setTitle("Battleship");
+        }
+        
+        public static void main(String[] args)
+        {
+            Battleship bs = new Battleship();
+        }
+
+    @Override
+    public void mouseClicked(MouseEvent me) //need to add hit marker otherwise see if ship is completely destroyed
+    {
+        //JLabel click = (JLabel)me.getSource();
+        
+        /*
+        int row = me.getX() / 16;
+        int col = me.getY() / 16;
+        
+        System.out.println(row + " X " + col);
+        */
+        
+        for(int row = 0; row < 16; row++)
+        {
+            for(int col = 0; col < 16; col++)
+            {
+                if(shipLocations[row][col] == me.getSource())
+                {
+                    System.out.println(row + " X " + col);
+                    shipHit(row, col);
+                    System.out.println(shipType[row][col]);
+                    totalShots++;
+                    if(destroyed == 14)
+                    {
+                        Victory();
+                    }
+                }
+                else if(oceanTiles[row][col] == me.getSource())
+                {
+                    System.out.println(row + " X " + col);
+                    lblPlayer[row][col].setIcon(new ImageIcon("batt102.gif"));
+                    misses++;
+                    totalShots++;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) 
+    {
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) 
+    {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) 
+    {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) 
+    {
+        
+    }
+
+    public void actionPerformed(ActionEvent ae) 
+    {
+        if(ae.getSource() == btnStart)
+        {
+            Start();
+        }
+        else if(ae.getSource() == btnSurrender)
+        {
+            Surrender();
+        }
+        else if(ae.getSource() == btnReset)
+        {
+            Reset();
+        }
+    }
+	
+}

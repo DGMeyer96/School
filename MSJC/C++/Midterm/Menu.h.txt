@@ -1,0 +1,40 @@
+/*
+Daniel Meyer
+0405182
+3/8/17
+CSIS 123A-3488
+Midterm
+Midterm Project
+*/
+
+#ifndef MENU
+#define MENU
+
+#include <String>
+#include <vector>
+
+struct menuItem
+{
+	void(*func)();
+	string descript;
+};
+
+class Menu
+{
+private:
+	vector <menuItem> mi;
+	void runSelection();
+
+public:
+	Menu();
+	void addMenu(char *Description, void(*f)());
+	void runMenu();
+	void waitKey();
+};
+
+#endif
+
+
+
+
+

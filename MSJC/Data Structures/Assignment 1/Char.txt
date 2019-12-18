@@ -1,0 +1,90 @@
+/*
+Daniel Meyer
+0405182
+1-20-15
+Object Creation Review
+ */
+package data.str.assignment.pkg1;
+
+public class Char
+{
+        private char ch;
+        
+        public Char()
+        {
+            this.ch = 0; // null/0
+        }
+        
+        public Char(char c)
+        {
+            equals(c);
+        }
+        
+        public Char(int c)
+        {
+            equals(c);
+        }
+        
+        public Char(final Char c)
+        {
+            equals(c);
+        }
+        
+        public Char(String c)
+        {
+            equals(c.charAt(0)); 
+        }
+        
+        public void equals(final Char c)
+        {
+            this.ch = c.ch; //c.ch invokes class to store into char type 
+        }
+        
+        public void equals(char c)
+        {
+            Character character = c;
+            this.ch = character;
+        }
+        
+        public void equals(int c)
+        {
+            Character character = (char)c; //converts int to char equivalent
+            this.ch = character;
+        }
+        
+        public char toChar()
+        {
+            Character character = this.ch;
+            return character;
+        }
+        
+        public int toInt()
+        {   
+            Integer i = new Integer(this.ch);
+            return i;
+        }
+        
+        public String toString()
+        {
+            String str = "" + this.ch;
+            return str;
+        }
+        
+        public String toHexString()
+        {
+            String hexStr = Integer.toHexString(this.ch);
+            return hexStr;
+        }
+        
+        public String add(char c)
+        {
+            String str = "" + toString() + "" + c;
+            return str;
+        }
+        
+        public String add(final Char c)
+        {
+            String str = "" + toString() + "" + c.toString();
+            return str;
+        }
+}

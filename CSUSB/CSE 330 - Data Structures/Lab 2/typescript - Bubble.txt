@@ -1,0 +1,64 @@
+Script started on 2017-10-02 14:41:52-0700
+]777;notify;Command completed;time ./a.out > selection.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > bu[K[KBubble.txt
+1000
+
+real	0m2.937s
+user	0m0.013s
+sys	0m0.004s
+]777;notify;Command completed;time ./a.out > Bubble.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Bubble.txt
+2000
+
+real	0m2.614s
+user	0m0.034s
+sys	0m0.005s
+]777;notify;Command completed;time ./a.out > Bubble.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Bubble.txt
+3000
+
+real	0m1.956s
+user	0m0.079s
+sys	0m0.005s
+]777;notify;Command completed;time ./a.out > Bubble.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Bubble.txt
+4000
+
+real	0m2.291s
+user	0m0.133s
+sys	0m0.006s
+]777;notify;Command completed;time ./a.out > Bubble.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Bubble.txt5[K
+5000
+
+real	0m2.482s
+user	0m0.202s
+sys	0m0.014s
+]777;notify;Command completed;time ./a.out > Bubble.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Bubble.txt
+6000
+
+real	0m2.366s
+user	0m0.296s
+sys	0m0.013s
+]777;notify;Command completed;time ./a.out > Bubble.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Bubble.txt
+7000
+
+real	0m2.628s
+user	0m0.401s
+sys	0m0.009s
+]777;notify;Command completed;time ./a.out > Bubble.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Bubble.txt
+8000
+
+real	0m2.570s
+user	0m0.521s
+sys	0m0.014s
+]777;notify;Command completed;time ./a.out > Bubble.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Bubble.txt
+9000
+
+real	0m2.530s
+user	0m0.657s
+sys	0m0.015s
+]777;notify;Command completed;time ./a.out > Bubble.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Bubble.txt
+10000
+
+real	0m3.884s
+user	0m0.812s
+sys	0m0.020s
+]777;notify;Command completed;time ./a.out > Bubble.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ exit
+
+Script done on 2017-10-02 14:42:53-0700

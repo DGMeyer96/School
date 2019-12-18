@@ -1,0 +1,1 @@
+for /f "tokens=1-5" %A in (output2.txt) do (echo Name: %A %B Depart: %C Email: %D  EXT:  %E)

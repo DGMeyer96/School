@@ -1,0 +1,62 @@
+/*
+Daniel Meyer
+0405182
+CSIS 123A-3488
+Assignment 1
+Menu
+*/
+
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+#include "Menu.h"
+
+void func1();
+void func2();
+void func3();
+void Exit();
+
+Menu m;
+
+int main()
+{
+	m.addMenu("1. Function1", func1);
+	m.addMenu("2. Function2", func2);
+	m.addMenu("3. Function3", func3);
+	m.addMenu("4. Exit", Exit);
+
+	m.runMenu();
+}
+
+void func1()
+{
+	//char c;
+	cout << "Hello from function 1" << endl;
+	//cin >> c;
+	m.waitKey();
+}
+
+void func2()
+{
+	//char c;
+	cout << "Hello from function 2" << endl;
+	//cin >> c;
+	m.waitKey();
+}
+
+void func3()
+{
+	//char c;
+	cout << "Hello from function 3" << endl;
+	//cin >> c;
+	m.waitKey();
+}
+
+void Exit()
+{
+	cout << "Goodbye" << endl;
+	//m.waitKey();  //duplicates effect of exit() function
+	exit(0);
+}

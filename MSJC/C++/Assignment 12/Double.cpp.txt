@@ -1,0 +1,190 @@
+/*
+Daniel Meyer
+0405182
+4/11/17
+CSIS 123A-3488
+Assignment 12
+Polymorphism
+*/
+
+#include "Double.h"
+#include <sstream>
+#include <iostream>
+
+using namespace std;
+
+namespace Meyer
+{
+	Double::Double()
+	{
+		*this = "0.0";
+	}
+
+	Double::Double(Double &d)
+	{
+		*this = d;
+	}
+
+	Double::Double(double d)
+	{
+		this->equals(d);
+	}
+
+	Double::Double(Integer &i)
+	{
+		*this = i;
+	}
+
+	Double::Double(std::string strD)
+	{
+		this->equals(strD);
+	}
+
+	void Double::equals(double input)
+	{
+		std::stringstream ss;
+		ss << input;
+		this->assign(ss.str());
+	}
+
+	void Double::equals(std::string strD)
+	{
+		this->tmp = strD;
+		if (this->isNaN() == true)
+		{
+			this->assign(this->tmp);
+		}
+		else
+		{
+			std::cout << this->tmp << " is not a number." << std::endl;
+		}
+	}
+
+	bool Double::recursiveNaN(int index, int decimal)
+	{
+		while (index < this->tmp.length())
+		{
+			if (!isdigit(this->tmp[index]) || decimal > 1)
+			{
+				if (this->tmp[index] == '.')
+				{
+					decimal++;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			index++;
+			recursiveNaN(index, decimal);
+		}
+
+		return true;
+	}
+
+	Double Double::add(Double d)
+	{
+		Double tmp(this->toDouble() + d.toDouble());
+		return tmp;
+	}
+
+	Double Double::add(double d)
+	{
+		Double tmp(this->toDouble() + d);
+		return tmp;
+	}
+
+	Double Double::sub(Double d)
+	{
+		Double tmp(this->toDouble() - d.toDouble());
+		return tmp;
+	}
+
+	Double Double::sub(double d)
+	{
+		Double tmp(this->toDouble() - d);
+		return tmp;
+	}
+
+	Double Double::mul(Double d)
+	{
+		Double tmp(this->toDouble() * d.toDouble());
+		return tmp;
+	}
+
+	Double Double::mul(double d)
+	{
+		Double tmp(this->toDouble() * d);
+		return tmp;
+	}
+
+	Double Double::div(Double d)
+	{
+		Double tmp(this->toDouble() / d.toDouble());
+		return tmp;
+	}
+
+	Double Double::div(double d)
+	{
+		Double tmp(this->toDouble() / d);
+		return tmp;
+	}
+
+	double Double::toDouble()
+	{
+		return stod(*this);
+	}
+
+	Double Double::operator+(Double d)
+	{
+		return this->add(d);
+	}
+
+	Double Double::operator-(Double d)
+	{
+		return this->sub(d);
+	}
+
+	Double Double::operator*(Double d)
+	{
+		return this->mul(d);
+	}
+
+	Double Double::operator/(Double d)
+	{
+		return this->div(d);
+	}
+
+	Double &Double::operator=(Double d)
+	{
+		this->equals(d);
+		return *this;
+	}
+
+	Double &Double::operator=(double d)
+	{
+		this->equals(d);
+		return *this;
+	}
+
+	Double &Double::operator=(std::string strD)
+	{
+		this->equals(strD);
+		return *this;
+	}
+
+	bool Double::operator==(Double d)
+	{
+		return(this->toDouble() == d.toDouble());
+	}
+
+	bool Double::operator==(double d)
+	{
+		return(this->toDouble() == d);
+	}
+
+	bool Double::operator!=(Double d)
+	{
+		return(this->toDouble() != d.toDouble());
+	}
+}

@@ -1,0 +1,127 @@
+/*
+Daniel Meyer
+0405182
+10-28-15
+Assignment 10
+Using Inheritance
+ */
+
+package lvl.pkg2.assignment.pkg10;
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+
+public class RollOver extends JLabel implements MouseListener
+{
+
+    private String onMsg;
+    private String offMsg;
+    private Color onFg;
+    private Color onBg;
+    private Color offFg;
+    private Color offBg;
+    
+    public RollOver(String offMsg, int align, String onMsg, Color offFg, Color offBg, Color onFg, Color onBg)
+    {
+        super(offMsg, align);
+        this.setOpaque(true);
+        
+        this.offMsg = offMsg;
+        if(onMsg == "")
+        {
+            this.onMsg = offMsg;
+        }
+        else
+        {
+            this.onMsg = onMsg;
+        }
+        this.offFg = offFg;
+        this.offBg = offBg;
+        this.onFg = onFg;
+        this.onBg = onBg;
+        
+        if(offBg != null)
+        {
+            this.setBackground(offBg);
+        }
+        
+        if(offFg != null)
+        {
+            this.setForeground(offFg);
+        }
+        
+        this.addMouseListener(this);
+    }
+    
+    public RollOver(String msg)
+    {
+        this(msg, JLabel.LEFT, "", null, null, null, null);
+    }
+    
+    public RollOver(String msg, int align)
+    {
+        this(msg, align, "", null, null, null, null);
+    }
+    
+    public RollOver(String msg, Color clr)
+    {
+        this(msg, JLabel.LEFT, "", clr, null, null, null);
+    }
+    
+    public void addNotify()
+    {
+        super.addNotify();
+        
+        if(this.offFg == null)
+        {
+            offFg = super.getForeground();
+        }
+        if(this.offBg == null)
+        {
+            offBg = super.getBackground();
+        }
+        if(this.onFg == null)
+        {
+            int red = super.getForeground().getRed();
+            int blue = super.getForeground().getBlue();
+            int green = super.getForeground().getGreen();
+
+            onFg = new Color(255 - red, 255 - blue, 255 - green);
+        }
+        if(this.onBg == null)
+        {
+            onBg = super.getBackground();
+        }
+    }
+    
+    public void mouseClicked(MouseEvent me) 
+    {
+        
+    }
+
+    public void mousePressed(MouseEvent me) 
+    {
+        
+    }
+
+    public void mouseReleased(MouseEvent me) 
+    {
+        
+    }
+
+    public void mouseEntered(MouseEvent me) 
+    {
+        this.setBackground(this.onBg);
+        this.setForeground(this.onFg);
+        this.setText(this.onMsg);
+    }
+
+    public void mouseExited(MouseEvent me) 
+    {
+        this.setBackground(this.offBg);
+        this.setForeground(this.offFg);
+        this.setText(this.offMsg);
+    }
+    
+}

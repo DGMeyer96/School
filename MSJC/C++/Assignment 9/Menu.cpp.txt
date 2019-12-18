@@ -1,0 +1,66 @@
+/*
+Daniel Meyer
+0405182
+3/27/17
+CSIS 123A-3488
+Assignment 9
+File IO
+*/
+
+#include <iostream>
+#include <cstdlib>
+#include <conio.h>
+
+#include "Menu.h"
+
+using namespace std;
+
+namespace Meyer
+{
+	Menu Menu::m;
+
+	Menu::Menu()
+	{
+
+	}
+
+	void Menu::addMenu(char *Description, void(*f)())
+	{
+		menuItem tmp;
+		tmp.func = f;
+		tmp.descript = Description;
+		mi.push_back(tmp);
+	}
+
+	void Menu::runMenu()
+	{
+		for (;;)
+		{
+			system("CLS");
+
+			for (int i = 0; i < mi.size(); i++)
+			{
+				cout << this->mi[i].descript << endl;
+			}
+			runSelection();
+		}
+	}
+
+	void Menu::runSelection()
+	{
+		int select;
+
+		cin >> select;
+		if (select <= mi.size())
+		{
+			this->mi[select - 1].func();
+		}
+	}
+
+	void Menu::waitKey()
+	{
+		cout << "Press any key to continue" << endl;
+		while (!kbhit());
+		fflush(stdin);
+	}
+}

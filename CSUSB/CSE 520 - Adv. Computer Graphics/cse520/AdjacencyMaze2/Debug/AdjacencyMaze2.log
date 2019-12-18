@@ -1,0 +1,17 @@
+﻿  maze.cpp
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\adjacencymaze2\adjacencymaze2\maze.cpp(103): warning C4554: '|': check operator precedence for possible error; use parentheses to clarify precedence
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\adjacencymaze2\adjacencymaze2\maze.cpp(135): warning C4189: 'maxY': local variable is initialized but not referenced
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\adjacencymaze2\adjacencymaze2\maze.cpp(134): warning C4189: 'maxX': local variable is initialized but not referenced
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\adjacencymaze2\adjacencymaze2\maze.cpp(133): warning C4189: 'min': local variable is initialized but not referenced
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\adjacencymaze2\adjacencymaze2\maze.cpp(238): warning C4456: declaration of 'n' hides previous local declaration
+  c:\users\daniel\documents\visual studio 2017\projects\cse 520\adjacencymaze2\adjacencymaze2\maze.cpp(218): note: see declaration of 'n'
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\adjacencymaze2\adjacencymaze2\maze.cpp(514): warning C4554: '^': check operator precedence for possible error; use parentheses to clarify precedence
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\adjacencymaze2\adjacencymaze2\maze.cpp(733): warning C4100: 'y': unreferenced formal parameter
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\adjacencymaze2\adjacencymaze2\maze.cpp(733): warning C4100: 'x': unreferenced formal parameter
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\adjacencymaze2\adjacencymaze2\maze.cpp(762): warning C4100: 'mousey': unreferenced formal parameter
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\adjacencymaze2\adjacencymaze2\maze.cpp(762): warning C4100: 'mousex': unreferenced formal parameter
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\adjacencymaze2\adjacencymaze2\maze.cpp(782): warning C4100: 'value': unreferenced formal parameter
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\adjacencymaze2\adjacencymaze2\maze.cpp(798): warning C4189: 'success': local variable is initialized but not referenced
+f:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.15.26726\include\gl\glut.h(549): warning C4505: 'glutCreateMenu_ATEXIT_HACK': unreferenced local function has been removed
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\adjacencymaze2\adjacencymaze2\maze.cpp(728): warning C4505: 'Idle': unreferenced local function has been removed
+  AdjacencyMaze2.vcxproj -> C:\Users\Daniel\Documents\Visual Studio 2017\Projects\CSE 520\AdjacencyMaze2\Debug\AdjacencyMaze2.exe

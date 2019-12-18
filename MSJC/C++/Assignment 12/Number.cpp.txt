@@ -1,0 +1,28 @@
+/*
+Daniel Meyer
+0405182
+4/11/17
+CSIS 123A-3488
+Assignment 12
+Polymorphism
+*/
+
+#include "Number.h"
+
+Number::Number() : std::string("0")
+{
+}
+
+Number::Number(std::string numString) : std::string(numString)
+{
+}
+
+std::string Number::toString()
+{
+	return *this;
+}
+
+bool Number::isNaN()
+{
+	return recursiveNaN(0, 0);
+}

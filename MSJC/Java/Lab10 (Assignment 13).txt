@@ -1,0 +1,121 @@
+/*
+Daniel Meyer   
+0405182
+11-23-15
+Assignment 10
+Some More Generics For You
+ */
+package lab.pkg10;
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+import java.util.Iterator;
+
+public class Lab10 extends JFrame implements ActionListener
+{
+    private String name;
+    
+    
+    Container content = this.getContentPane();
+    
+    JLabel lblItem1 = new JLabel("Item 1:");
+    JLabel lblItem2 = new JLabel("Item 2:");
+    JTextField tfItem1 = new JTextField(20);
+    JTextField tfItem2 = new JTextField(20);
+    
+    JLabel lblFirst = new JLabel("First item to find:");
+    JLabel lblSecond = new JLabel("Second item to find:");
+    JTextField tfFirst = new JTextField(25);
+    JTextField tfSecond = new JTextField(25);
+    
+    JLabel lblList = new JLabel("List");
+    JTextArea taList = new JTextArea();
+    
+    JButton btnAdd = new JButton("Add Pair");
+    JButton btnFind = new JButton("Find");
+    JLabel lblFound = new JLabel("Found: ");
+    
+    public Lab10()
+    {
+        this.setTitle("Lab 10");
+        this.setSize(300,410);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
+        
+        content.setLayout(new FlowLayout());
+        
+        content.add(lblItem1, BorderLayout.NORTH);
+        content.add(tfItem1, BorderLayout.NORTH);
+        content.add(lblItem2, BorderLayout.NORTH);
+        content.add(tfItem2, BorderLayout.NORTH);
+        
+        content.add(lblFirst, BorderLayout.NORTH);
+        content.add(tfFirst, BorderLayout.NORTH);
+        content.add(lblSecond, BorderLayout.NORTH);
+        content.add(tfSecond, BorderLayout.NORTH);
+        
+        content.add(lblFound, BorderLayout.NORTH);
+        
+        content.add(lblList, BorderLayout.CENTER);
+        content.add(taList, BorderLayout.CENTER);
+        taList.setEditable(false);
+        JScrollPane paneList = new JScrollPane(taList, 
+            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        paneList.setPreferredSize(new Dimension(200,150));
+        content.add(paneList);
+        
+        content.add(btnAdd, BorderLayout.SOUTH);
+        btnAdd.addActionListener(this);
+        content.add(btnFind, BorderLayout.SOUTH);
+        btnFind.addActionListener(this);
+        
+    }
+    
+    public static void main(String[] args) 
+    {
+        Lab10 con = new Lab10();
+    }
+
+    public void actionPerformed(ActionEvent ae) 
+    {
+        //PairList pl = new PairList();
+        
+        if(ae.getSource() == btnAdd)
+        {
+            String item1 = tfItem1.getText();
+            String item2 = tfItem2.getText();
+            
+            Pair p = new Pair(item1, item2);
+            PairList pl = new PairList(p.getFirst(), p.getSecond());
+            
+            Iterator pairs = pl.iterator();
+            for(Object items : pl)
+            {
+                taList.append(items.toString() + "\n"); //need to store values and return them not addresses
+                //System.out.println(items);
+            }
+        }
+        else if(ae.getSource() == btnFind)
+        {
+            String first = tfFirst.getText();
+            String second = tfSecond.getText();
+            
+            Pair p = new Pair(first, second);
+            PairList pl = new PairList();
+            
+            lblFound.setText("Found: " + pl.searchFirst(p.getFirst()) + "\n"
+                                + pl.searchSecond(p.getSecond()));
+            
+        }
+    }
+    
+    /*
+    @Override
+    public String toString() //need to convert addresses to actual strings for comparison
+    {
+        
+    }
+    */
+}

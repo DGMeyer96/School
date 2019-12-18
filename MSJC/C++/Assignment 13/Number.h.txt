@@ -1,0 +1,41 @@
+/*
+Daniel Meyer
+0405182
+4/19/17
+CSIS 123A-3488
+Assignment 13
+Exception Handling
+*/
+
+#ifndef NUMBER
+#define NUMBER
+
+#include <string>
+
+class Number : public std::string
+{
+private:
+
+public:
+	Number();
+	Number(std::string numString);
+	virtual std::string toString();
+	virtual bool isNaN();
+	virtual bool recursiveNaN(int index, int decimal) = 0;
+};
+
+class NumberException
+{
+private:
+	std::string errorMsg;
+	int errorCode;
+public:
+	NumberException() : errorMsg("Unknown"), errorCode(-1) {};
+	NumberException(std::string msg) : errorMsg(msg), errorCode(-1) {};
+	NumberException(std::string msg, int error) : errorMsg(msg), errorCode(error) {};
+	std::string getMessage() { return this->errorMsg; }
+	int getCode() { return this->errorCode; }
+};
+
+#endif
+

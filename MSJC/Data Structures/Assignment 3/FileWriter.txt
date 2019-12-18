@@ -1,0 +1,129 @@
+/*
+Daniel Meyer
+0405182
+2-4-16
+File IO
+ */
+package data.str.assignment.pkg3;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+/*
+Class: FileWriter
+Author: Daniel Meyer
+Description: Class that writes the stored whole numbers and fractions to their respective text files
+Inputs: String with filename
+Outputs: Text files for whole numbers and fractions
+*/ 
+
+/*
+Function: FileWriter
+Author: Daniel Meyer
+Description: Constructor that sets the fraction and whole number arraylists and writes them to text files
+Inputs: A whole number arraylist, a fractions arraylist
+Outputs: N/A
+*/ 
+
+/*
+Function: writeWholeFile
+Author: Daniel Meyer
+Description: Creates and writes strings of whole numbers from an arraylist to a text file
+Inputs: String for the file name
+Outputs: A text file containg whole numbers
+*/ 
+
+/*
+Function: writeFractionFile
+Author: Daniel Meyer
+Description: Creates and writes strings of fractions from an arraylist to a text file
+Inputs: String for the file name
+Outputs: A text file containg fractions
+*/ 
+
+public class FileWriter 
+{
+    private ArrayList<String> whole;
+    private ArrayList<String> fraction;
+    
+    public FileWriter(ArrayList<String> wal, ArrayList<String> fal)
+    {
+        whole = wal;
+        fraction = fal;
+        
+        writeWholeFile("WholeNumbers.txt");
+        writeFractionFile("fraction.txt");
+    }
+    
+    private void writeWholeFile(String fname)
+    {
+        FileOutputStream fos = null;
+        PrintWriter pw = null;
+        
+        try
+        {   
+            fos = new FileOutputStream(fname);
+            pw = new PrintWriter(fos);
+            for(String str : whole)
+            {
+                pw.println(str);
+            }
+            pw.close();
+        }
+        catch(IOException ie)
+        {
+            System.out.println("Error writing file");
+        }
+        finally
+        {
+            try
+            {
+                if(fos != null)
+                {
+                    fos.close();
+                }
+            }
+            catch(IOException ie)
+            {
+                System.out.println(ie.getMessage());
+            }
+        }
+    }
+    
+    private void writeFractionFile(String fname)
+    {
+        FileOutputStream fos = null;
+        PrintWriter pw = null;
+        
+        try
+        {   
+            fos = new FileOutputStream(fname);
+            pw = new PrintWriter(fos);
+            for(String str : fraction)
+            {
+                pw.println(str);
+            }
+            pw.close();
+        }
+        catch(IOException ie)
+        {
+            System.out.println("Error writing file");
+        }
+        finally
+        {
+            try
+            {
+                if(fos != null)
+                {
+                    fos.close();
+                }
+            }
+            catch(IOException ie)
+            {
+                System.out.println(ie.getMessage());
+            }
+        }
+    }
+}

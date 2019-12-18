@@ -1,0 +1,140 @@
+/*
+Daniel Meyer
+0405182
+3/14/17
+CSIS 123A-3488
+Lab 8
+Namespaces, Static Variables
+*/
+
+#include "Random.h"
+
+using namespace Meyer;
+
+Random::Random()
+{
+	this->setRange(0, RAND_MAX);
+	this->fillVect();
+}
+
+Random::Random(double min, double max)
+{
+	this->setRange(min, max);
+	this->fillVect();
+}
+
+Random::Random(Double min, Double max)
+{
+	this->setRange(min.toDouble(), max.toDouble());
+	this->fillVect();
+}
+
+Random::Random(int seed)
+{
+	srand(seed);
+}
+
+int Random::nextInt()
+{
+	int i = (int)this->list[index];
+	if (index >= RESHUFFLE)
+	{
+		shuffle();
+	}
+	this->index++;
+	return i;
+}
+
+Integer Random::nextInteger()
+{
+	Integer i((int)this->list[index]);
+	if (index >= RESHUFFLE)
+	{
+		shuffle();
+	}
+	this->index++;
+	return i;
+}
+
+double Random::nextDbl()
+{
+	double d = this->list[index];
+	if (index >= RESHUFFLE)
+	{
+		shuffle();
+	}
+	this->index++;
+	return d;
+}
+
+Double Random::nextDouble()
+{
+	Double d(this->list[index]);
+	if (index >= RESHUFFLE)
+	{
+		shuffle();
+	}
+	this->index++;
+	return d;
+}
+
+void Random::setRange(double min, double max)
+{
+	this->min = min;
+	this->max = max;
+}
+
+void Random::setRange(Double min, Double max)
+{
+	this->min = min.toDouble();
+	this->max = max.toDouble();
+}
+
+void Random::fillVect()
+{
+	list.clear();
+	list.reserve(LIST_SIZE);
+	//list.resize(LIST_SIZE);
+
+	for (int i = 0; i < LIST_SIZE; i++)
+	{
+		this->list.push_back((((double)rand() / (double)RAND_MAX) * (this->max - this->min)) + this->min); //eliminates need for resize() function
+																										   //this->list[i] = (((double)rand() / (double)RAND_MAX) * (this->max - this->min)) + this->min; //pair with resize() function
+	}
+
+	this->shuffle();
+}
+
+void Random::shuffle()
+{
+	//Fisher-Yates Algorithm
+	/*
+	To shuffle an array a of n elements (indices 0..n-1):
+	for i from n-1 downto 1 do
+	j = random integer such that 0 = j = i
+	exchange a[j] and a[i]
+	*/
+	this->index = 0;
+	int temp, j;
+	for (int i = LIST_SIZE - 1; i != 0; i--)
+	{
+		j = this->list[i];
+
+		if (j > LIST_SIZE)
+		{
+			j %= LIST_SIZE;
+		}
+
+		temp = list[i];
+		list[i] = list[j];
+		list[j] = temp;
+	}
+
+}
+
+//Function to test contents of vector
+std::vector<double> Random::getVector()
+{
+	fillVect();
+	return this->list;
+}

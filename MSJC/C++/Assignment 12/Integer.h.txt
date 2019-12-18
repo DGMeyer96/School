@@ -1,0 +1,53 @@
+/*
+Daniel Meyer
+0405182
+4/11/17
+CSIS 123A-3488
+Assignment 12
+Polymorphism
+*/
+
+#ifndef INTEGER
+#define INTEGER
+
+#include <string>
+#include "Number.h"
+
+namespace Meyer
+{
+	class Integer : public Number
+	{
+	private:
+		std::string tmp;
+		bool recursiveNaN(int index, int decimal);
+
+	public:
+		Integer();
+		Integer(const Integer &i);
+		Integer(int i);
+		Integer(std::string strI);
+		void equals(int input);
+		void equals(std::string strI);
+		Integer add(Integer i);
+		Integer add(int i);
+		Integer sub(Integer i);
+		Integer sub(int i);
+		Integer mul(Integer i);
+		Integer mul(int i);
+		Integer div(Integer i);
+		Integer div(int i);
+		int toInt();
+		Integer operator + (Integer i);
+		Integer operator - (Integer i);
+		Integer operator * (Integer i);
+		Integer operator / (Integer i);
+		Integer &operator = (Integer i);
+		Integer &operator = (int i);
+		Integer &operator = (std::string strI);
+		bool operator == (Integer i);
+		bool operator == (int i);
+		bool operator != (Integer i);
+	};
+}
+
+#endif

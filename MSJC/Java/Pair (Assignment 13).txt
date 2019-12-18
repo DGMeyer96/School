@@ -1,0 +1,42 @@
+/*
+Daniel Meyer   
+0405182
+11-23-15
+Assignment 10
+Some More Generics For You
+ */
+package lab.pkg10;
+
+public class Pair<F,S>
+{
+    private F first;
+    private S second;
+    
+    public Pair(F f, S s)
+    {
+        setFirst(f);
+        setSecond(s);
+    }
+    
+    public F getFirst()
+    {
+        return first;
+    }
+    
+    public S getSecond()
+    {
+        return second;
+    }
+    
+    public void setFirst(F f)
+    {
+        first = f;
+    }
+    
+    public void setSecond(S s)
+    {
+        second = s;
+    }
+    
+}
+    

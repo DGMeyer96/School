@@ -1,0 +1,208 @@
+/*
+Daniel Meyer
+0405182
+3/14/17
+CSIS 123A-3488
+Lab 8
+Namespaces, Static Variables
+*/
+
+#include <iostream>
+#include <cstdlib>
+
+#include "Random.h"
+#include "Menu.h"
+
+using namespace std;
+using namespace Meyer;
+
+void intAdd();
+void intSub();
+void intMul();
+void intDiv();
+void dblAdd();
+void dblSub();
+void dblMul();
+void dblDiv();
+void Exit();
+void strTest1();
+void strTest2();
+void printList();
+
+Random rng;
+
+int i1, i2;
+double d1, d2;
+
+int main()
+{
+	Menu::m.addMenu("1. Integer Add", intAdd);
+	Menu::m.addMenu("2. Integer Subtract", intSub);
+	Menu::m.addMenu("3. Integer Multiply", intMul);
+	Menu::m.addMenu("4. Integer Divide", intDiv);
+	Menu::m.addMenu("5. Double Add", dblAdd);
+	Menu::m.addMenu("6. Double Subtract", dblSub);
+	Menu::m.addMenu("7. Double Multiply", dblMul);
+	Menu::m.addMenu("8. Double Divide", dblDiv);
+	Menu::m.addMenu("9. Exit", Exit);
+	Menu::m.addMenu("10. String Test: Integer", strTest1);
+	Menu::m.addMenu("11. String Test: Double", strTest2);
+	Menu::m.addMenu("12. Vector Test", printList);
+
+	Menu::m.runMenu();
+}
+
+void intAdd()
+{
+	Integer num1(rng.nextInt()), num2(rng.nextInt());
+	cout << "The two random numbers are: " << num1.toInt() << " & " << num2.toInt() << endl;
+
+	cout << "The sum of the two integers is: " << (num1 + num2).toInt() << endl;
+
+	num1.clean();
+	num2.clean();
+	Menu::m.waitKey();
+}
+
+void intSub()
+{
+	Integer num1(rng.nextInt()), num2(rng.nextInt());
+	cout << "The two random numbers are: " << num1.toInt() << " & " << num2.toInt() << endl;
+
+	cout << "The difference of the two integers is: " << (num1 - num2).toInt() << endl;
+
+	num1.clean();
+	num2.clean();
+	Menu::m.waitKey();
+}
+
+void intMul()
+{
+	Integer num1(rng.nextInt()), num2(rng.nextInt());
+	cout << "The two random numbers are: " << num1.toInt() << " & " << num2.toInt() << endl;
+
+	cout << "The product of the two integers is: " << (num1 * num2).toInt() << endl;
+
+	num1.clean();
+	num2.clean();
+	Menu::m.waitKey();
+}
+
+void intDiv()
+{
+	Integer num1(rng.nextInt()), num2(rng.nextInt());
+	cout << "The two random numbers are: " << num1.toInt() << " & " << num2.toInt() << endl;
+
+	cout << "The quotient of the two integers is: " << (num1 / num2).toInt() << endl;
+
+	num1.clean();
+	num2.clean();
+	Menu::m.waitKey();
+}
+
+void dblAdd()
+{
+	Double num1(rng.nextDbl()), num2(rng.nextDbl());
+
+	cout << "The two random numbers are: " << num1.toDouble() << " & " << num2.toDouble() << endl;
+
+	cout << "The sum of the two doubles is: " << (num1 + num2).toDouble() << endl;
+
+	num1.clean();
+	num2.clean();
+	Menu::m.waitKey();
+}
+
+void dblSub()
+{
+	Double num1(rng.nextDbl()), num2(rng.nextDbl());
+
+	cout << "The two random numbers are: " << num1.toDouble() << " & " << num2.toDouble() << endl;
+
+	cout << "The difference of the two doubles is: " << (num1 - num2).toDouble() << endl;
+
+	num1.clean();
+	num2.clean();
+	Menu::m.waitKey();
+}
+
+void dblMul()
+{
+	Double num1(rng.nextDbl()), num2(rng.nextDbl());
+
+	cout << "The two random numbers are: " << num1.toDouble() << " & " << num2.toDouble() << endl;
+
+	cout << "The product of the two doubles is: " << (num1 * num2).toDouble() << endl;
+
+	num1.clean();
+	num2.clean();
+	Menu::m.waitKey();
+}
+
+void dblDiv()
+{
+	Double num1(rng.nextDbl()), num2(rng.nextDbl());
+
+	cout << "The two random numbers are: " << num1.toDouble() << " & " << num2.toDouble() << endl;
+
+	cout << "The quotient of the two doubles is: " << (num1 / num2).toDouble() << endl;
+
+	num1.clean();
+	num2.clean();
+	Menu::m.waitKey();
+}
+
+void Exit()
+{
+	cout << "Goodbye" << endl;
+	exit(0);
+}
+
+void strTest1()
+{
+	cout << "Enter two integer strings for addition" << endl;
+	Integer num1, num2;
+	string str1, str2;
+	cin >> str1;
+	cin >> str2;
+
+	num1.equals(str1);
+	num2.equals(str2);
+
+	cout << "The sum of the two integers is: " << (num1 + num2).toString() << endl;
+
+	num1.clean();
+	num2.clean();
+
+	Menu::m.waitKey();
+}
+
+void strTest2()
+{
+	cout << "Enter two double strings for addition" << endl;
+	Double num1, num2;
+	string str1, str2;
+	cin >> str1;
+	cin >> str2;
+
+	num1.equals(str1);
+	num2.equals(str2);
+
+	cout << "The sum of the two doubles is: " << (num1 + num2).toString() << endl;
+
+	num1.clean();
+	num2.clean();
+	Menu::m.waitKey();
+}
+
+void printList()
+{
+	vector <double> temp = rng.getVector();
+
+	for (int i = 0; i < 250; i++)
+	{
+		cout << temp[i] << endl;
+	}
+
+	Menu::m.waitKey();
+}

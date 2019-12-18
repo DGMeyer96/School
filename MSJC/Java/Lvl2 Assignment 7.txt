@@ -1,0 +1,205 @@
+/*
+Daniel Meyer
+0405182
+9-29-15
+Assignment 7
+Execptions
+ */
+package lvl.pkg2.assignment.pkg7;
+
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
+
+public class Lvl2Assignment7 extends JFrame
+{
+
+    Container content = this.getContentPane();
+    
+    JLabel lblEnterNum = new JLabel("Enter a Number: ");
+    JLabel lblSum = new JLabel("Sum: ");
+    JLabel sumOut = new JLabel();
+    JLabel lblReverse = new JLabel("Reverse: ");
+    JLabel reverseOut = new JLabel();
+    JLabel lblArray = new JLabel("Array:");
+    JLabel lblColor = new JLabel("Text Color:");
+    
+    JButton btnCompute = new JButton("Compute");
+    
+    JTextField tfInput = new JTextField(15);
+    
+    JTextArea taArray = new JTextArea();
+    
+    JRadioButton rbtnRed = new JRadioButton("Red", false);    
+    JRadioButton rbtnGreen = new JRadioButton("Green", false);
+    JRadioButton rbtnBlue = new JRadioButton("Blue" , false);
+    
+    public Lvl2Assignment7()
+    {
+        this.setVisible(true);
+        this.setTitle("Exceptions");
+        this.setSize(400, 400);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        SpringLayout layout = new SpringLayout();
+        content.setLayout(layout);
+        
+        content.add(lblEnterNum);
+        layout.putConstraint(SpringLayout.WEST, lblEnterNum, 20, SpringLayout.NORTH, content);
+        layout.putConstraint(SpringLayout.NORTH, lblEnterNum, 15, SpringLayout.NORTH, content);
+        content.add(tfInput);
+        layout.putConstraint(SpringLayout.WEST, tfInput, 40, SpringLayout.EAST, lblEnterNum);
+        layout.putConstraint(SpringLayout.NORTH, tfInput, 15, SpringLayout.NORTH, content);
+        
+        
+        
+        content.add(lblSum);
+        layout.putConstraint(SpringLayout.WEST, lblSum, 20, SpringLayout.NORTH, content);
+        layout.putConstraint(SpringLayout.NORTH, lblSum, 40, SpringLayout.NORTH, lblEnterNum);
+        content.add(sumOut);
+        layout.putConstraint(SpringLayout.WEST, sumOut, 100, SpringLayout.EAST, lblSum);
+        layout.putConstraint(SpringLayout.NORTH, sumOut, 40, SpringLayout.NORTH, lblEnterNum);
+        //sumOut.setText("Test");
+        
+        content.add(lblReverse);
+        layout.putConstraint(SpringLayout.WEST, lblReverse, 20, SpringLayout.NORTH, content);
+        layout.putConstraint(SpringLayout.NORTH, lblReverse, 40, SpringLayout.NORTH, lblSum);
+        content.add(reverseOut);
+        layout.putConstraint(SpringLayout.WEST, reverseOut, 79, SpringLayout.EAST, lblReverse);
+        layout.putConstraint(SpringLayout.NORTH, reverseOut, 40, SpringLayout.NORTH, lblSum);
+        //reverseOut.setText("Test");
+        
+        
+        
+        content.add(lblArray);
+        layout.putConstraint(SpringLayout.WEST, lblArray, 20, SpringLayout.NORTH, content);
+        layout.putConstraint(SpringLayout.NORTH, lblArray, 40, SpringLayout.NORTH, lblReverse);
+        content.add(taArray);
+        taArray.setEditable(false);
+        JScrollPane paneArray = new JScrollPane(taArray, 
+            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        paneArray.setPreferredSize(new Dimension(100,120));
+        content.add(paneArray);
+        layout.putConstraint(SpringLayout.WEST, paneArray, 100, SpringLayout.EAST, lblArray);
+        layout.putConstraint(SpringLayout.NORTH, paneArray, 40, SpringLayout.NORTH, lblReverse);
+        
+        
+        
+        content.add(lblColor);
+        layout.putConstraint(SpringLayout.WEST, lblColor, 20, SpringLayout.NORTH, content);
+        layout.putConstraint(SpringLayout.NORTH, lblColor, 143, SpringLayout.NORTH, lblArray);
+        
+        content.add(rbtnRed);
+        rbtnRed.addActionListener(new Radio());
+        layout.putConstraint(SpringLayout.WEST, rbtnRed, 40, SpringLayout.EAST, lblColor);
+        layout.putConstraint(SpringLayout.NORTH, rbtnRed, 140, SpringLayout.NORTH, lblArray);
+        content.add(rbtnGreen);
+        rbtnGreen.addActionListener(new Radio());
+        layout.putConstraint(SpringLayout.WEST, rbtnGreen, 40, SpringLayout.EAST, rbtnRed);
+        layout.putConstraint(SpringLayout.NORTH, rbtnGreen, 140, SpringLayout.NORTH, lblArray);
+        content.add(rbtnBlue);
+        rbtnBlue.addActionListener(new Radio());
+        layout.putConstraint(SpringLayout.WEST, rbtnBlue, 40, SpringLayout.EAST, rbtnGreen);
+        layout.putConstraint(SpringLayout.NORTH, rbtnBlue, 140, SpringLayout.NORTH, lblArray);
+        
+        
+        
+        content.add(btnCompute);
+        layout.putConstraint(SpringLayout.WEST, btnCompute, 150, SpringLayout.NORTH, content);
+        layout.putConstraint(SpringLayout.NORTH, btnCompute, 40, SpringLayout.NORTH, lblColor);
+        btnCompute.addActionListener(new Compute());
+        
+    }
+    
+    private class Radio implements ActionListener
+    {
+        public void actionPerformed(ActionEvent ae) 
+        {
+            JRadioButton rbtn = (JRadioButton) ae.getSource();
+            
+            if(rbtn == rbtnRed)
+            {
+                rbtnRed.setSelected(true);
+                
+                if(rbtnRed.isSelected() == true)
+                {
+                    sumOut.setForeground(Color.RED);
+                    reverseOut.setForeground(Color.RED);
+                    taArray.setForeground(Color.RED);
+                }
+                
+            }
+            
+            else if(rbtn == rbtnGreen)
+            {
+                rbtnGreen.setSelected(true);
+                
+                if(rbtnGreen.isSelected() == true)
+                {
+                    sumOut.setForeground(Color.GREEN);
+                    reverseOut.setForeground(Color.GREEN);
+                    taArray.setForeground(Color.GREEN);
+                }
+                
+            }
+            
+            else if(rbtn == rbtnBlue)
+            {
+                rbtnBlue.setSelected(true);
+                
+                if(rbtnBlue.isSelected() == true)
+                {
+                    sumOut.setForeground(Color.BLUE);
+                    reverseOut.setForeground(Color.BLUE);
+                    taArray.setForeground(Color.BLUE);
+                }
+                
+            }
+        }
+    }
+        
+    private class Compute implements ActionListener
+    {
+        public void actionPerformed(ActionEvent ae) 
+        {           
+            int num;
+            int sum;
+            
+            int[] array;
+            
+            String input;
+            String reverse;
+            
+            
+            input = tfInput.getText();
+            num = Integer.parseInt(input);
+            
+            IntMetrics im = new IntMetrics(num, 5);
+            
+            sum = im.sum();
+            reverse = im.reverseNums();
+            
+            sumOut.setText("" + sum);
+            reverseOut.setText("" + reverse);
+            
+            try
+            {
+               array = im.getArray();
+               for(int i = 0; i < array.length; i++)
+                {
+                    taArray.append(array[i] + "\n");
+                }
+            }
+            catch(IntMetricsException ime)
+            {
+               taArray.append(ime.getErrorMsg());
+            }
+        }
+    }
+    
+    public static void main(String[] args) 
+    {
+        Lvl2Assignment7 con = new Lvl2Assignment7();
+    }
+    
+}

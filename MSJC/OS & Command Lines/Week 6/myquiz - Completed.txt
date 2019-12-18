@@ -1,0 +1,315 @@
+@echo off
+color 02
+:MAIN
+set /a var=0
+echo.
+echo.
+echo.
+echo Welcome to a CIS 151 quiz game.
+echo.
+echo.Please only use capital letters for your answer!!
+echo.
+echo To start the game, type A and press ENTER.
+
+set /p input=COMMAND?
+if %input%==A goto GAME
+
+:GAME
+cls
+echo.
+echo.
+echo.
+echo Embedded OSs are commonly found on?
+echo.
+echo A. Desktop PCs
+echo B. Smart Phones
+echo C. Laptops
+echo D. CDs
+echo.
+set /p input=ANSWER?
+if %input%==B goto right
+goto WRONG
+
+:right
+set /a var+=1
+echo Great Job !!  You scored a point !!
+pause
+goto 2
+
+:WRONG
+echo Sorry, that is incorrect. Better luck next time .
+pause
+REM (this pauses the program until a key is pressed)
+goto 2
+
+:2
+cls
+echo.
+echo.
+echo.
+echo Which is a mobile Operating System?
+echo.
+echo A. Android
+echo B. OSX
+echo C. Windows 7
+echo D. MS-DOS
+echo.
+set /p input=ANSWER?
+if %input%==A goto right
+goto WRONG
+
+:right
+set /a var+=1
+echo Great Job !!  You scored a point !!
+pause
+goto 3
+
+:WRONG
+echo Yikes, that is incorrect. Better luck next time .
+pause
+REM (this pauses the program until a key is pressed)
+goto 3
+
+:3
+cls
+echo.
+echo.
+echo.
+echo Professional that finds vulnerabilities in networks.
+echo.
+echo A. Cracker
+echo B. Black Hat Hacker
+echo C. White Hat Hacker
+echo D. Cyber Terrorist
+echo.
+set/p input=ANSWER?
+if %input%==C goto right
+goto WRONG
+
+:right
+set /a var+=1
+echo Great Job !!  You scored a point !!
+pause
+goto 4
+
+:WRONG
+echo Sorry, that is incorrect. Better luck next time .
+pause
+REM (this pauses the program until a key is pressed)
+goto 4
+
+:4
+cls
+echo.
+echo.
+echo.
+echo What is the lowest level cybercriminal?
+echo.
+echo A. Script Kiddie
+echo B. Cracker
+echo C. Packet Monkey
+echo D. Click Kiddie
+echo.
+set/p input=ANSWER?
+if %input%==C goto right
+goto WRONG
+
+:right
+set /a var+=1
+echo Great Job !!  You scored a point !!
+pause
+goto 5
+
+:WRONG
+echo Sorry, that is incorrect. Better luck next time .
+pause
+REM (this pauses the program until a key is pressed)
+goto 5
+
+:5
+cls
+echo.
+echo.
+echo.
+echo Which requires a host operating system?
+echo.
+echo A. Type II Hypervisor
+echo B. Virtual Machine
+echo C. Virtual Avatar
+echo D. Type I Hypervisor
+echo.
+set/p input=ANSWER?
+if %input%==A goto right
+goto WRONG
+
+:right
+set /a var+=1
+echo Great Job !!  You scored a point !!
+pause
+goto 6
+
+:WRONG
+echo Sorry, that is incorrect. Better luck next time .
+pause
+REM (this pauses the program until a key is pressed)
+goto 6
+
+:6
+cls
+echo.
+echo.
+echo.
+echo Which software allows for Windows to run on a Mac?
+echo.
+echo A. Hyper-V
+echo B. Windows XP Mode
+echo C. VirtualBox
+echo D. Boot Camp
+echo.
+set/p input=ANSWER?
+if %input%==D goto right
+goto WRONG
+
+:right
+set /a var+=1
+echo Great Job !!  You scored a point !!
+pause
+goto 7
+
+:WRONG
+echo Sorry, that is incorrect. Better luck next time .
+pause
+REM (this pauses the program until a key is pressed)
+goto 7
+
+:7
+cls
+echo.
+echo.
+echo.
+echo Which is an open-source Operating System?
+echo.
+echo A. Linux
+echo B. iOS
+echo C. Windows
+echo D. OSX
+echo.
+set/p input=ANSWER?
+if %input%==A goto right
+goto WRONG
+
+:right
+set /a var+=1
+echo Great Job !!  You scored a point !!
+pause
+goto 8
+
+:WRONG
+echo Sorry, that is incorrect. Better luck next time .
+pause
+REM (this pauses the program until a key is pressed)
+goto 8
+
+:8
+cls
+echo.
+echo.
+echo.
+echo Which one is a form of malware?
+echo.
+echo A. Executable
+echo B. Trojan Horse
+echo C. Milk
+echo D. Cookies
+echo.
+set/p input=ANSWER?
+if %input%==B goto right
+goto WRONG
+
+:right
+set /a var+=1
+echo Great Job !!  You scored a point !!
+pause
+goto 9
+
+:WRONG
+echo Sorry, that is incorrect. Better luck next time .
+pause
+REM (this pauses the program until a key is pressed)
+goto 9
+
+:9
+cls
+echo.
+echo.
+echo.
+echo Which of these cannot be virtualized?
+echo.
+echo A. Servers
+echo B. Batch Files
+echo C. Desktops
+echo D. Reality
+echo.
+set/p input=ANSWER?
+if %input%==B goto right
+goto WRONG
+
+:right
+set /a var+=1
+echo Great Job !!  You scored a point !!
+pause
+goto 10
+
+:WRONG
+echo Sorry, that is incorrect. Better luck next time .
+pause
+REM (this pauses the program until a key is pressed)
+goto 10
+
+:10
+cls
+echo.
+echo.
+echo.
+echo Which is not a defense against malware?
+echo.
+echo A. Spam Filter
+echo B. Antivirus
+echo C. Firewall
+echo D. Unix
+echo.
+set/p input=ANSWER?
+if %input%==D goto right
+goto WRONG
+
+:right
+set /a var+=1
+echo Great Job !!  You scored a point !!
+pause
+goto 11
+
+:WRONG
+echo Sorry, that is incorrect. Better luck next time .
+pause
+REM (this pauses the program until a key is pressed)
+goto 11
+
+:11
+CLS
+echo.
+echo.
+echo.
+echo.
+color 64 
+echo Your score is ... %var%
+echo.
+echo if your score is 3 = 100 points
+echo if your score is 2 = 66 points
+echo if your score is 1 = 33 points
+echo if your score is 0 = 0 points
+echo.
+echo.
+pause
+
+
+exit

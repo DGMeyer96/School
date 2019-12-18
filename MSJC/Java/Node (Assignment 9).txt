@@ -1,0 +1,42 @@
+/*
+Daniel Meyer
+0405182
+10-20-15
+Assignment 9
+Collections and Generics
+ */
+package lvl.pkg2.assignment.pkg9;
+
+import java.util.Collections;
+
+public class Node <T> implements Comparable
+{
+    private int priority;
+    T Data;
+    
+    public void setPriority(int p)
+    {
+        this.priority = p;
+    }
+    
+    public int getPriority()
+    {
+        return this.priority;
+    }
+    
+    public T getData()
+    {
+        return this.Data;
+    }
+    
+    public void setData(T data)
+    {
+        this.Data = data;
+    }
+
+    public int compareTo(Object T) 
+    {
+        int pri = ((Node) T).getPriority();
+        return this.priority - pri;
+    }
+}

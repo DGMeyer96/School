@@ -1,0 +1,60 @@
+/*
+Daniel Meyer
+0405182
+4/24/17
+CSIS 123A-3488
+Journal 10
+*/
+
+#include "Calc.h"
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	Calc<double> c(6.6, 0);
+
+	try
+	{
+		double d = c.add();
+		cout << "The sum is: " << d << endl;
+	}
+	catch (calcException ce)
+	{
+		cout << ce.what() << endl;
+	}
+
+	try
+	{
+		double d = c.sub();
+		cout << "The difference is: " << d << endl;
+	}
+	catch (calcException ce)
+	{
+		cout << ce.what() << endl;
+	}
+
+	try
+	{
+		double d = c.mul();
+		cout << "The product is: " << d << endl;
+	}
+	catch (calcException ce)
+	{
+		cout << ce.what() << endl;
+	}
+
+	try
+	{
+		double d = c.div();
+		cout << "The quotient is: " << d << endl;
+	}
+	catch (calcException ce)
+	{
+		cout << ce.what() << endl;
+	}
+
+	return 0;
+}
+

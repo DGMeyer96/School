@@ -1,0 +1,5 @@
+﻿  icos.cpp
+c:\users\daniel\documents\visual studio 2017\projects\cse 420\hw2\icosahedron\icosahedron\icos.cpp(37): warning C4101: 'length': unreferenced local variable
+c:\users\daniel\documents\visual studio 2017\projects\cse 420\hw2\icosahedron\icosahedron\icos.cpp(36): warning C4101: 'j': unreferenced local variable
+c:\users\daniel\documents\visual studio 2017\projects\cse 420\hw2\icosahedron\icosahedron\icos.cpp(36): warning C4101: 'i': unreferenced local variable
+  icosahedron.vcxproj -> C:\Users\Daniel\Documents\Visual Studio 2017\Projects\CSE 420\HW2\icosahedron\Debug\icosahedron.exe

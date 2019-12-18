@@ -1,0 +1,143 @@
+/*
+Daniel Meyer
+0405182
+12-14-15
+Final Project
+Highest and Lowest Batting Averages
+ */
+package lvl.pkg2.pkgfinal;
+
+import javax.swing.filechooser.FileFilter;
+import javax.swing.JFileChooser;
+import java.io.File;
+import java.awt.event.*;
+import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Stack;
+import javax.swing.*;
+
+public class GUIApp extends JFrame implements ActionListener
+{
+    Container content = this.getContentPane();
+    
+    JLabel highest = new JLabel("Highest Average: ");
+    JLabel lowest = new JLabel("Lowest Average: ");
+    
+    JTextArea taAvg = new JTextArea(); //maybe print arraylist to this only and remove JLabels
+    
+    JButton btnOpen = new JButton("Open File");
+    JButton btnGetAvg = new JButton("Get Averages");
+    
+    private String filePath;
+    
+    ArrayList<String> averages = new ArrayList<>();
+    
+    public GUIApp()
+    {
+        this.setTitle("Java Level 2 Final");
+        this.setSize(400,300);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
+        content.add(btnOpen, BorderLayout.NORTH);
+        btnOpen.addActionListener(this);
+        
+        content.add(taAvg, BorderLayout.CENTER);
+        taAvg.setEditable(false);
+        JScrollPane paneFound = new JScrollPane(taAvg, 
+            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        paneFound.setPreferredSize(new Dimension(200,150));
+        content.add(paneFound);
+        
+        content.add(btnGetAvg, BorderLayout.SOUTH);
+        btnGetAvg.addActionListener(this);
+        
+        this.setVisible(true);
+    }
+    
+    public class TxtFilter extends FileFilter
+    {
+        public boolean accept(File file) 
+        {
+            return file.isDirectory() || file.getName().toLowerCase().endsWith(".txt");
+        }
+
+        public String getDescription() 
+        {
+            return ".txt";
+        }
+        
+    }
+    
+    private void openFile(String file)
+    {
+        try
+        {
+            FileInputStream fis = new FileInputStream(file);
+        }
+        catch(FileNotFoundException fe)
+        {
+            System.out.println(fe.getMessage());
+        }
+    }
+    
+    private String chooseFile()
+    {
+        JFileChooser file = new JFileChooser();
+        file.setFileFilter(new TxtFilter());
+        file.showDialog(content, "Open File");
+        File f = file.getSelectedFile();
+        if(f != null)
+        {
+            openFile(f.getPath());
+            System.out.println("Opening: " + f.getPath());
+            filePath = f.getPath();
+        }
+        return null;
+    }
+    
+    public static void main(String[] args) 
+    {
+        GUIApp gui = new GUIApp();
+    }
+
+    public void actionPerformed(ActionEvent ae) 
+    {
+        if(ae.getSource() == btnOpen)
+        {
+            chooseFile();
+        }
+        else if(ae.getSource() == btnGetAvg)
+        {
+            BattingAverages ba = new BattingAverages(filePath);
+            
+            setAvg(ba.getHighNames(), ba.getLowNames(), ba.getHigh(), ba.getLow());
+            for(String str : averages)
+            {
+                taAvg.append(str + "\n");
+            }
+            
+        }
+    }
+    
+    public void setAvg(Stack<String> avgHighName, Stack<String> avgLowName, double avgHigh, double avgLow)
+    {
+        averages.add("Players with the highest average - " + avgHigh);
+        Iterator<String> iterHigh = avgHighName.iterator();
+        while(iterHigh.hasNext())
+        {
+            averages.add(iterHigh.next());
+        }
+        
+        averages.add("Players with the lowest average - " + avgLow);
+        Iterator<String> iterLow = avgLowName.iterator();
+        while(iterLow.hasNext())
+        {
+            averages.add(iterLow.next());
+        }
+    }
+}

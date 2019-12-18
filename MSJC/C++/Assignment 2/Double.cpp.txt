@@ -1,0 +1,49 @@
+/*
+Daniel Meyer
+0405182
+1-19-17
+Lab 2
+Class Construction
+*/
+
+#include "Double.h"
+
+using namespace std;
+
+void Double::equals(double input)
+{
+	num = input;
+}
+
+Double Double::add(const Double &d)
+{
+	Double tmp;
+	tmp.equals(num += d.num);
+	return tmp;
+}
+
+Double Double::sub(const Double &d)
+{
+	Double tmp;
+	tmp.equals(num -= d.num);
+	return tmp;
+}
+
+Double Double::mul(const Double &d)
+{
+	Double tmp;
+	tmp.equals(num *= d.num);
+	return tmp;
+}
+
+Double Double::div(const Double &d)
+{
+	Double tmp;
+	tmp.equals(num /= d.num);
+	return tmp;
+}
+
+double Double::toDouble()
+{
+	return num;
+}

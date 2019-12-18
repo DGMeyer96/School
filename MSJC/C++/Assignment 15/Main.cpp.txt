@@ -1,0 +1,45 @@
+/*
+Daniel Meyer
+0405182
+5/9/17
+CSIS 123A-3488
+Lab 15
+Using the STL
+*/
+
+#include "priQueue.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+	priQueue<int> pqI;
+
+	pqI.enqueue(1, 5);
+	pqI.enqueue(5, 1);
+	pqI.enqueue(3, 3);
+	pqI.enqueue(2, 4);
+	pqI.enqueue(4, 2);
+	
+	while (pqI.Size() != 0)
+	{
+		cout << pqI.dequeue().getData() << endl;
+	}
+
+	priQueue<string> pqS;
+
+	pqS.enqueue("Hello", 5);
+	pqS.enqueue("World", 2);
+	pqS.enqueue("This", 1);
+	pqS.enqueue("is", 3);
+	pqS.enqueue("Daniel", 5);
+
+	while (pqS.Size() != 0)
+	{
+		cout << pqS.dequeue().getData() << endl;
+	}
+	
+	return 0;
+}

@@ -1,0 +1,14 @@
+﻿  envmap.cpp
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\envmap\envmap\envmap.cpp(42): warning C4554: '^': check operator precedence for possible error; use parentheses to clarify precedence
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\envmap\envmap\envmap.cpp(53): warning C4101: 'c': unreferenced local variable
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\envmap\envmap\envmap.cpp(53): warning C4101: 'j': unreferenced local variable
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\envmap\envmap\envmap.cpp(53): warning C4101: 'i': unreferenced local variable
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\envmap\envmap\envmap.cpp(69): warning C4101: 'c': unreferenced local variable
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\envmap\envmap\envmap.cpp(69): warning C4101: 'j': unreferenced local variable
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\envmap\envmap\envmap.cpp(69): warning C4101: 'i': unreferenced local variable
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\envmap\envmap\envmap.cpp(172): warning C4100: 'y': unreferenced formal parameter
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\envmap\envmap\envmap.cpp(172): warning C4100: 'x': unreferenced formal parameter
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\envmap\envmap\envmap.cpp(209): warning C4101: 'vec': unreferenced local variable
+c:\users\daniel\documents\visual studio 2017\projects\cse 520\envmap\envmap\envmap.cpp(248): warning C4189: 'success': local variable is initialized but not referenced
+f:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.15.26726\include\gl\glut.h(549): warning C4505: 'glutCreateMenu_ATEXIT_HACK': unreferenced local function has been removed
+  envmap.vcxproj -> C:\Users\Daniel\Documents\Visual Studio 2017\Projects\CSE 520\envmap\Debug\envmap.exe

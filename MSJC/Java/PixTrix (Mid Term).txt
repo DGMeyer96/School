@@ -1,0 +1,170 @@
+/*
+Daniel Meyer
+0405182
+10-12-15
+MidTerm
+A Few PixTrix
+ */
+package lvl.pkg2.midterm;
+
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.image.*;
+import javax.imageio.*;
+import java.io.*;
+
+public class PixTrix extends JPanel implements MouseListener, MouseMotionListener
+{
+    private Image img;
+    private Image oimg; //buffer
+    private int ulx; //upper left x
+    private int uly; //upper left y
+    private int width = 25;
+    private int height = 25;
+    private boolean isSizing = false; //tells if sizing image
+    private boolean isMoving = false; //tells if moving image
+    private Point origin = new Point(0,0); //used when moving image
+
+    
+    
+    public PixTrix(int height, int width, String path)
+    {
+        this.setOpaque(true);
+        this.setBackground(Color.WHITE);
+        
+        try
+        {
+            img = ImageIO.read(new File(path));
+        }
+        catch(IOException e)
+        {
+            System.out.println("Unable to load image");
+        }
+        
+        addMouseListener(this);
+        addMouseMotionListener(this);
+        
+        ulx = (width - this.getWidth()) / 2;
+        uly = (height - this.getHeight()) / 2;
+
+    }
+
+    public void paint(Graphics g)
+    {   
+        if(img == null)
+        {
+            return;
+        }
+        else
+        {
+            if(oimg == null)
+            {
+                oimg = createImage(this.getWidth(), this.getHeight());
+            }
+            else
+            {
+                Graphics og = oimg.getGraphics();
+                og.clearRect(ulx, uly, width, height);
+                og.drawImage(img, ulx, uly, width, height, this);
+                og.fillRect(ulx, uly, 4, 4);
+                g.drawImage(oimg, 0 , 0, null);
+                og.dispose();
+            }
+        }
+    }
+
+    public void update(Graphics g)
+    {
+        System.out.println("Test");
+        super.paint(g);
+    }
+    
+    public void mouseClicked(MouseEvent me) 
+    {
+        
+    }
+    
+    public void mousePressed(MouseEvent me) 
+    {
+        Rectangle r = new Rectangle(ulx, uly, width, height);
+        r.grow(-6, -6);
+        
+        if(r.contains(me.getX(), me.getY()))
+        {
+            isMoving = true;
+            origin.setLocation(me.getX(), me.getY());
+        }
+        else
+        {
+            r.grow(8, 8);
+            if(r.contains(me.getX(), me.getY()))
+            {
+                isSizing = true;
+                isMoving = false;
+            }
+        }
+    }
+  
+    public void mouseReleased(MouseEvent me) 
+    {
+        isSizing = false;
+        isMoving = false;
+    }
+ 
+    public void mouseEntered(MouseEvent me) 
+    {
+        
+    }
+
+    public void mouseExited(MouseEvent me) 
+    {
+        
+    }
+
+    public void mouseDragged(MouseEvent me) 
+    {   
+        if(isMoving == true)
+        {
+            ulx += me.getX() - origin.x;
+            uly += me.getY() - origin.y;
+            origin.setLocation(me.getX(), me.getY());
+            this.repaint();
+        }
+        else if(isSizing == true)
+        {
+            int midx = ulx + (width / 2);
+            int midy = uly + (height / 2);
+            
+            if(me.getX() >= midx)
+            {
+                width = (me.getX() - ulx);
+            }
+            else if(me.getX() < midx)
+            {
+                width += (ulx - me.getX());
+                ulx = me.getX();
+            }
+            
+            if(me.getY() >= midy)
+            {
+                height = (me.getY() - uly);
+            }
+            else if(me.getY() < midy)
+            {
+                height += (uly - me.getY());
+                uly = me.getY();
+            }
+            this.repaint();
+        }
+        
+        //repaint();
+    }
+
+    public void mouseMoved(MouseEvent me) 
+    {
+        
+    }
+    
+}
+

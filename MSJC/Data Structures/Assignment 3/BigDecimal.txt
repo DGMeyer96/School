@@ -1,0 +1,642 @@
+/*
+Daniel Meyer
+0405182
+2-4-16
+File IO
+ */
+package data.str.assignment.pkg3;
+
+import java.util.ArrayList;
+
+/*
+Class: BigDecimal
+Author: Daniel Meyer
+Description: A complex type called BigDecimal that expands on the double attribute
+Inputs: String, BIgDecimal type, char, and an int
+Outputs: Double, String, BigDecimal, and char
+*/
+
+/*
+Function: BigDecimal
+Author: Daniel Meyer
+Description: The default contructor that sets the arraylist to 0.0
+Inputs: N/A
+Outputs: N/A
+*/
+
+/*
+Function: BigDecimal
+Author: Daniel Meyer
+Description: The overloaded constructor that adds a String to the arraylist
+Inputs : A string to be added to the arraylist
+Outputs: N/A
+*/ 
+
+/*
+Function: equals
+Author: Daniel Meyer
+Description: Adds a char to the arraylist
+Inputs: A char to add to the arraylist
+Outputs: N/A
+*/ 
+
+/*
+Function: equals
+Author: Daniel Meyer
+Description: Adds a String to the arraylist
+Inputs: A String to add to the arraylist
+Outputs: N/A
+*/ 
+
+/*
+Function: add
+Author: Daniel Meyer
+Description: Add the current BigDecimal and the BigDecimal input
+Inputs: A bigDecimal to add to the current BigDecimal
+Outputs: The sum as a BigDecimal type
+*/ 
+
+/*
+Function: sub
+Author: Daniel Meyer
+Description: Subtract the BigDecimal input from the current BigDecimal
+Inputs: A BigDecimal to subtract from the current BigDecimal
+Outputs: The difference as a BigDecimal type
+*/ 
+
+/*
+Function: alignFront
+Author: Daniel Meyer
+Description: Aligns the left of the decimal point by adding 0s to the front of the arraylist
+Inputs: An arraylist and an int
+Outputs: A front-aligned arraylist
+*/
+
+/*
+Function: alignRear
+Author: Daniel Meyer
+Description: Aligns the right of the decimal point by adding 0s to the end of the arraylist
+Inputs: An arraylist and an int
+Outputs: A rear-aligned arraylist
+*/
+
+/*
+Function: toDouble
+Author: Daniel Meyer
+Description: Convert the arraylist to a double
+Inputs: N/A
+Outputs: The arraylist as a double
+*/ 
+
+/*
+Function: toString
+Author: Daniel Meyer
+Description: Convert the arraylist to a String
+Inputs: N/A
+Outputs: The array list as a String
+*/
+
+/*
+Function: at
+Author: Daniel Meyer
+Description: Search for a Char type at the specified index in the arraylist
+Inputs: int for the index in the arraylist
+Outputs: the Char at the index in the arraylist
+*/ 
+
+/*
+Function: getArrayList
+Author: Daniel Meyer
+Description: Accessor function that returns the araylist
+Inputs: N/A
+Outputs: ArrayList of Char types
+*/
+
+/*
+Function: wholeNumber
+Author: Daniel Meyer
+Description: Returns only the whole number portion of the BigDecimal as an int
+Inputs: N/A
+Outputs: The whole number portion of the BigDecimal
+*/
+
+/*
+Function: fraction
+Author: Daniel Meyer
+Description: Returns only the fraction portion of the BigDecimal as a double
+Inputs: N/A
+Outputs: The fraction number portion of the BigDecimal
+*/
+
+/*
+Function: toFraction
+Author: Daniel Meyer
+Description: Returns a string of the fraction portion of the BigDecimal
+Inputs: N/A
+Outputs: A string representing the fraction portion of the BigDDecimal
+*/
+
+/*
+Function: toWholeNumber
+Author: Daniel Meyer
+Description: Returns a string of the whole number portion of the BigDecimal
+Inputs: N/A
+Outputs: A string representing the whole number portion of the BigDecimal
+*/
+
+public class BigDecimal 
+{
+    private ArrayList<Char> bdList = new ArrayList<Char>();
+    
+    public BigDecimal()
+    {
+        //bdList.clear();
+        bdList.add(new Char('0'));
+        bdList.add(new Char('.'));
+        bdList.add(new Char('0'));
+    }
+    
+    public BigDecimal(String value)
+    {
+        //bdList.clear();
+        equals(value);
+    }
+    
+    public void equals(char ch)
+    {
+        if(Character.isDigit(ch) == true || ch == '.')    
+        {
+            bdList.add(new Char(ch));
+        }
+    }
+    
+    public void equals(String value)
+    {
+        int decimal = 0;
+        
+        for(int i = 0; i < value.length(); i++)
+        {
+            if(Character.isDigit(value.charAt(i)) == true || value.charAt(i) == '.')
+            {
+                if(value.charAt(i) == '.' && decimal != 1)
+                {
+                    bdList.add(new Char(value.charAt(i)));
+                    decimal++;
+                } 
+                else if(value.charAt(i) == '.' && decimal == 1)
+                {
+                    break;
+                }
+                else
+                {
+                    bdList.add(new Char(value.charAt(i)));
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+    
+    public BigDecimal add(BigDecimal bd)
+    {        
+        BigDecimal bdSum;
+        
+        ArrayList<Char> bdList2 = bd.getArrayList();
+        
+        int value1;
+        int value2;
+        int carry = 0;
+        int carried;
+        int sum;
+                
+        int decimal1 = 0;
+        int decimal2 = 0;
+        
+        //String str1 = bdList.toString();
+        StringBuilder sbList = new StringBuilder();
+        for(Char ch : bdList)
+        {
+            sbList.append(ch);
+        }
+        String str1 = sbList.toString();
+        String str2 = bd.toString();
+        
+        //System.out.println("List 1: " + str1);
+        //System.out.println("List 2: " + str2);
+        
+        decimal1 = str1.indexOf('.');
+        decimal2 = str2.indexOf('.');
+        
+        //System.out.println("Decimal 1: " + decimal1);
+        //System.out.println("Decimal 2: " + decimal2);
+        
+        StringBuilder sbSum = new StringBuilder();
+        
+        if(decimal1 > decimal2)
+        {
+            bdList2 = alignFront(bdList2, decimal1 - decimal2);
+            
+            
+            /*
+            StringBuilder sb = new StringBuilder();
+        
+            for(Char ch : bdList2)
+            {
+                sb.append(ch.toString());
+            }
+            
+            System.out.println("List 2 Add: " + sb.toString());
+            System.out.println("List 1 Add: " + toString());
+            */
+        }
+        else if(decimal1 < decimal2)
+        {
+            bdList = alignFront(bdList, decimal2 - decimal1);
+            
+            
+            /*
+            StringBuilder sb = new StringBuilder();
+        
+            for(Char ch : bdList2)
+            {
+                sb.append(ch.toString());
+            }
+            
+            System.out.println("List 2 Add: " + sb.toString());
+            System.out.println("List 1 Add: " + toString());
+            */
+        }
+        
+        if(bdList.size() > bdList2.size())
+        {
+            bdList2 = alignRear(bdList2, bdList.size() - bdList2.size());
+            
+            
+            /*
+            StringBuilder sb = new StringBuilder();
+        
+            for(Char ch : bdList2)
+            {
+                sb.append(ch.toString());
+            }
+            
+            System.out.println("List 2 Add: " + sb.toString());
+            System.out.println("List 1 Add: " + toString());
+            */
+        }
+        else if(bdList.size() < bdList2.size())
+        {
+            bdList = alignRear(bdList, bdList2.size() - bdList.size());
+            
+            
+            /*
+            StringBuilder sb = new StringBuilder();
+        
+            for(Char ch : bdList2)
+            {
+                sb.append(ch.toString());
+            }
+            
+            System.out.println("List 2 Add: " + sb.toString());
+            System.out.println("List 1 Add: " + toString());
+            */
+        }
+        
+        for(int i = 0; i < decimal1; i++)
+        {
+            Char ch1 = new Char(bdList.get(i));
+            Char ch2 = new Char(bdList2.get(i));
+            
+            value1 = Character.getNumericValue(ch1.toChar());
+            value2 = Character.getNumericValue(ch2.toChar());
+            
+            sum = value1 + value2;
+            //System.out.println("value1: " + value1 + "\t" + "value2: " + value2);
+            
+            if(sum >= 10)
+            {
+                carry = 1;
+                sum %= 10;
+            }
+            
+            sbSum.append(sum);
+            
+            if(carry == 1)
+            {
+                System.out.println("" + i);
+                carried = (int)sbSum.charAt(i - 1);
+                carried++;
+                carry = 0;
+                
+                char c = (char) carried;
+                
+                sbSum.setCharAt(i - 1, c);
+            }
+        }
+        
+        sbSum.append('.');
+        
+        for(int i = (decimal1 + 1); i < bdList.size() - decimal1; i++)
+        {
+            Char ch1 = new Char(bdList.get(i));
+            Char ch2 = new Char(bdList2.get(i));
+            
+            value1 = Character.getNumericValue(ch1.toChar());
+            value2 = Character.getNumericValue(ch2.toChar());
+            
+            sum = value1 + value2;
+            //System.out.println("value1: " + value1 + "\t" + "value2: " + value2);
+            
+            if(sum >= 10)
+            {
+                carry = 1;
+                sum %= 10;
+            }
+            
+            sbSum.append(sum);
+            
+            if(carry == 1)
+            {
+                carried = (int)sbSum.charAt(i - 1);
+                carried++;
+                carry = 0;
+                
+                char c = (char) carried;
+                
+                sbSum.setCharAt(i - 1, c);
+            }
+        }
+        
+        String strSum = sbSum.toString();
+        
+        bdSum = new BigDecimal(strSum);
+        
+        return bdSum;
+    }
+    
+    public BigDecimal sub(BigDecimal bd)
+    {       
+        BigDecimal bdDif;
+        
+        ArrayList<Char> bdList2 = bd.getArrayList();
+        
+        int value1;
+        int value2;
+        int borrow = 0;
+        int borrowed;
+        int dif;
+                
+        int decimal1 = 0;
+        int decimal2 = 0;
+        
+        StringBuilder sbList = new StringBuilder();
+        for(Char ch : bdList)
+        {
+            sbList.append(ch);
+        }
+        String str1 = sbList.toString();
+        String str2 = bd.toString();
+        
+        decimal1 = str1.indexOf('.');
+        decimal2 = str2.indexOf('.');
+        
+        StringBuilder sbDif = new StringBuilder();
+        
+        if(decimal1 > decimal2)
+        {
+            bdList2 = alignFront(bdList2, decimal1 - decimal2);
+            
+            
+            
+            StringBuilder sb = new StringBuilder();
+        
+            for(Char ch : bdList2)
+            {
+                sb.append(ch.toString());
+            }
+            
+            //System.out.println("List 2 Sub: " + sb.toString());
+            //System.out.println("List 1 Sub: " + toString());
+        }
+        else if(decimal1 < decimal2)
+        {
+            bdList = alignFront(bdList, decimal2 - decimal1);
+            
+            
+            
+            StringBuilder sb = new StringBuilder();
+        
+            for(Char ch : bdList2)
+            {
+                sb.append(ch.toString());
+            }
+            
+            //System.out.println("List 2 Sub: " + sb.toString());
+            //System.out.println("List 1 Sub: " + toString());
+        }
+        
+        if(bdList.size() > bdList2.size())
+        {
+            bdList2 = alignRear(bdList2, bdList.size() - bdList2.size());
+            
+            
+            
+            StringBuilder sb = new StringBuilder();
+        
+            for(Char ch : bdList2)
+            {
+                sb.append(ch.toString());
+            }
+            
+            //System.out.println("List 2 Sub: " + sb.toString());
+            //System.out.println("List 1 Sub: " + toString());
+        }
+        else if(bdList.size() < bdList2.size())
+        {
+            bdList = alignRear(bdList, bdList2.size() - bdList.size());
+            
+            
+            
+            StringBuilder sb = new StringBuilder();
+        
+            for(Char ch : bdList2)
+            {
+                sb.append(ch.toString());
+            }
+            
+            //System.out.println("List 2 Sub: " + sb.toString());
+            //System.out.println("List 1 Sub: " + toString());
+        }
+        
+        for(int i = 0; i < decimal1; i++)
+        {
+            Char ch1 = new Char(bdList.get(i));
+            Char ch2 = new Char(bdList2.get(i));
+            
+            value1 = Character.getNumericValue(ch1.toChar());
+            value2 = Character.getNumericValue(ch2.toChar());
+            
+            if(value1 >= value2)
+            {
+                dif = value1 - value2;
+                sbDif.append(dif);
+            }
+            else if(value1 < value2)
+            {
+                borrowed = (int)sbDif.charAt(i - 1);
+                borrowed--;
+                
+                char c = (char)borrowed;
+                
+                sbDif.setCharAt(i - 1, c);
+                
+                value1 += 10;
+                dif = value1 - value2;
+                sbDif.append(dif);
+            }
+        }
+        
+        sbDif.append('.');
+        
+        for(int i = (decimal1 + 1); i < (bdList.size() - decimal1); i++)
+        {
+            Char ch1 = new Char(bdList.get(i));
+            Char ch2 = new Char(bdList2.get(i));
+            
+            value1 = Character.getNumericValue(ch1.toChar());
+            value2 = Character.getNumericValue(ch2.toChar());
+            
+            if(value1 >= value2)
+            {
+                dif = value1 - value2;
+                sbDif.append(dif);
+            }
+            else if(value1 < value2)
+            {
+                borrowed = (int)sbDif.charAt(i - 1);
+                borrowed--;
+                
+                char c = (char)borrowed;
+                
+                sbDif.setCharAt(i - 1, c);
+                
+                value1 += 10;
+                dif = value1 - value2;
+                sbDif.append(dif);
+            }
+        }
+        
+        String strDif = sbDif.toString();
+        bdDif = new BigDecimal(strDif);
+        
+        return bdDif;
+    }
+    
+    public ArrayList<Char> alignFront(ArrayList<Char> al, int dif)
+    {
+        for(int i = 0; i < dif; i++)
+        {
+            al.add(0, new Char('0'));
+        }
+        
+        return al;
+    }
+    
+    public ArrayList<Char> alignRear(ArrayList<Char> al, int dif)
+    {
+        for(int i = 0; i < dif; i++)
+        {
+            al.add(new Char('0'));
+        }
+        
+        return al;
+    }
+    
+    public double toDouble()
+    {          
+        double dbl;
+        
+        StringBuilder sb = new StringBuilder();
+        
+        for(Char ch : bdList)
+        {
+            sb.append(ch.toString());
+        }
+        
+        dbl = Double.parseDouble(sb.toString());
+        
+        return dbl;
+    }
+    
+    public String toString()
+    {        
+        StringBuilder sb = new StringBuilder();
+        
+        for(Char ch : bdList)
+        {
+            sb.append(ch.toString());
+        }
+        
+        return sb.toString();
+    }
+    
+    public Char at(int index)
+    {
+        Char ch = bdList.get(index);
+        
+        return ch;
+    }
+    
+    public ArrayList<Char> getArrayList()
+    {
+        return bdList;
+    }
+    
+    public int wholeNumber()
+    {
+        String wholeStr = "";
+        
+        String str = toString();
+        int decimal = str.indexOf('.');
+        
+        for(int i = 0; i < decimal; i++)
+        {
+            wholeStr += str.charAt(i);
+        }
+        
+        int whole = Integer.parseInt(wholeStr);
+        
+        return whole;
+    }
+    
+    public double wholeFraction()
+    {
+        String fractionStr = "";
+        
+        String str = toString();
+        int decimal = str.indexOf('.');
+        
+        for(int i = decimal; i < (bdList.size() - decimal); i++)
+        {
+            fractionStr += str.charAt(i);
+        }
+        
+        double fraction = Double.parseDouble(fractionStr);
+        
+        return fraction;
+    }
+    
+    public String toFraction()
+    {
+        String fraction = "" + wholeFraction();
+        return fraction;
+    }
+    
+    public String toWholeNumber()
+    {
+        String whole = "" + wholeNumber();
+        return whole;
+    }
+}

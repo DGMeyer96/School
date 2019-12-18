@@ -1,0 +1,129 @@
+/*
+Daniel Meyer
+0405182
+2-22-17
+CSIS 123A-3488
+Journal 4
+*/
+
+#include <iostream>
+#include "Fraction.h"
+
+using namespace std;
+
+Fraction::Fraction()
+{
+	this->setFraction(1, 1);
+}
+
+Fraction::Fraction(int num, int den)
+{
+	this->setFraction(num, den);
+}
+
+Fraction::Fraction(string f)
+{
+	this->setFraction(f[0] - '0', f[2] - '0');
+}
+
+void Fraction::setFraction(int n, int d)
+{
+	this->num = n;
+	this->den = d;
+}
+
+Fraction Fraction::add(const Fraction &f)
+{
+	Fraction tmp;
+	tmp.num = (this->num * f.den) + (f.num * this->den);
+	tmp.den = f.den * this->den;
+	return tmp;
+}
+
+Fraction Fraction::sub(const Fraction &f)
+{
+	Fraction tmp;
+	tmp.num = (this->num * f.den) - (f.num * f.den);
+	tmp.den = f.den * this->den;
+	return tmp;
+}
+
+void Fraction::printFraction()
+{
+	cout << this->num << "/" << this->den << endl;
+}
+
+Fraction Fraction::mul(const Fraction &f)
+{
+	Fraction tmp;
+	tmp.num = f.num * this->num;
+	tmp.den = f.den * this->den;
+	return tmp;
+}
+
+Fraction Fraction::div(const Fraction &f)
+{
+	Fraction tmp;
+	tmp.num = f.num * this->den;
+	tmp.den = f.den * this->num;
+
+	if (tmp.den < 0)
+	{
+		tmp.den *= -1;
+		tmp.num *= -1;
+	}
+
+	return tmp;
+}
+
+int Fraction::getNum() const
+{
+	return this->num;
+}
+
+int Fraction::getDen() const
+{
+	return this->den;
+}
+
+Fraction Fraction::operator+(const Fraction &f)
+{
+	return this->add(f);
+}
+
+Fraction Fraction::operator-(const Fraction &f)
+{
+	return this->sub(f);
+}
+
+Fraction &Fraction::operator=(const Fraction &f)
+{
+	this->setFraction(f.getNum(), f.getDen());
+	return *this;
+}
+
+Fraction Fraction::operator*(const Fraction &f)
+{
+	return this->mul(f);
+}
+
+Fraction Fraction::operator/(const Fraction &f)
+{
+	return this->div(f);
+}
+
+istream &operator >> (istream &input, Fraction &f)
+{
+	cout << "Enter a numerator" << endl;
+	input >> f.num;
+	cout << "Enter a denominator" << endl;
+	input >> f.den;
+
+	return input;
+}
+
+ostream &operator << (ostream &output, const Fraction &f)
+{
+	output << "The solution is " << f.getNum() << "/" << f.getDen() << endl;
+	return output;
+}

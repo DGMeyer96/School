@@ -1,0 +1,217 @@
+/*
+Daniel Meyer
+0405182
+10-20-15
+Assignment 9
+Collections and Generics
+ */
+package lvl.pkg2.assignment.pkg9;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.Scanner;
+
+public class Lvl2Assignment9 extends JFrame implements ActionListener
+{
+
+    Container content = this.getContentPane();
+    
+    JLabel lblInput = new JLabel("Data");
+    JLabel lblPriority = new JLabel("Priority");
+    JLabel lblFront = new JLabel("Current data in front:");
+    JLabel lblDataFront = new JLabel("N/A");
+    JLabel lblSize = new JLabel("Size of ArrayList:");
+    JLabel lblSizeNum = new JLabel("N/A");
+    
+    JButton btnAdd = new JButton("Add");
+    JButton btnRemove = new JButton("Remove");
+    
+    JTextField tfInput = new JTextField(20);
+    JTextField tfPriority = new JTextField(2);
+    
+    
+    public Lvl2Assignment9()
+    {
+        this.setSize(400,300);
+        this.setTitle("Assignment 9");
+        this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        SpringLayout layout = new SpringLayout();
+        content.setLayout(layout);
+        
+        content.add(lblInput);
+        layout.putConstraint(SpringLayout.WEST, lblInput, 20, SpringLayout.NORTH, content);
+        layout.putConstraint(SpringLayout.NORTH, lblInput, 15, SpringLayout.NORTH, content);
+        content.add(tfInput);
+        layout.putConstraint(SpringLayout.WEST, tfInput, 40, SpringLayout.EAST, lblInput);
+        layout.putConstraint(SpringLayout.NORTH, tfInput, 15, SpringLayout.NORTH, content);
+        
+        content.add(lblPriority);
+        layout.putConstraint(SpringLayout.WEST, lblPriority, 20, SpringLayout.NORTH, content);
+        layout.putConstraint(SpringLayout.NORTH, lblPriority, 50, SpringLayout.NORTH, lblInput);
+        content.add(tfPriority);
+        layout.putConstraint(SpringLayout.WEST, tfPriority, 20, SpringLayout.NORTH, lblPriority);
+        layout.putConstraint(SpringLayout.NORTH, tfPriority, 50, SpringLayout.NORTH, lblInput);
+        
+        content.add(lblFront);
+        layout.putConstraint(SpringLayout.WEST, lblFront, 20, SpringLayout.NORTH, content);
+        layout.putConstraint(SpringLayout.NORTH, lblFront, 50, SpringLayout.NORTH, lblPriority);
+        content.add(lblDataFront);
+        layout.putConstraint(SpringLayout.WEST, lblDataFront, 50, SpringLayout.NORTH, lblFront);
+        layout.putConstraint(SpringLayout.NORTH, lblDataFront, 50, SpringLayout.NORTH, lblPriority);
+        
+        content.add(lblSize);
+        layout.putConstraint(SpringLayout.WEST, lblSize, 20, SpringLayout.NORTH, content);
+        layout.putConstraint(SpringLayout.NORTH, lblSize, 50, SpringLayout.NORTH, lblFront);
+        content.add(lblSizeNum);
+        layout.putConstraint(SpringLayout.WEST, lblSizeNum, 0, SpringLayout.NORTH, lblSize);
+        layout.putConstraint(SpringLayout.NORTH, lblSizeNum, 50, SpringLayout.NORTH, lblFront);
+        
+        content.add(btnAdd);
+        btnAdd.addActionListener(this);
+        layout.putConstraint(SpringLayout.WEST, btnAdd, 100, SpringLayout.NORTH, content);
+        layout.putConstraint(SpringLayout.NORTH, btnAdd, 200, SpringLayout.NORTH, content);
+        content.add(btnRemove);
+        btnRemove.addActionListener(this);
+        layout.putConstraint(SpringLayout.WEST, btnRemove, 200, SpringLayout.NORTH, content);
+        layout.putConstraint(SpringLayout.NORTH, btnRemove, 200, SpringLayout.NORTH, content);
+    }
+    
+    public static void main(String[] args) 
+    {
+        Lvl2Assignment9 con = new Lvl2Assignment9();
+        //Node nd = new Node();
+        //PriQue<Object> pq = new PriQue<Object>();
+        
+        /*
+        Scanner in = new Scanner(System.in);
+        
+        //String input;
+        String choice;
+        //int priority;
+        boolean loop = true;
+        
+        System.out.println("What would you like to do?");
+        System.out.println("A: Add Data");
+        System.out.println("R: Remove Data");
+        System.out.println("X: Exit");
+        choice = in.nextLine();
+        
+        while(loop == true)
+        {
+            
+            
+            switch(choice)
+            {
+            case "A":
+                 System.out.println("Enter some data");
+                //input = in.nextLine();
+                nd.setData(in.nextLine());
+        
+                System.out.println("Enter a priority for the data");
+                //priority = in.nextInt();
+                nd.setPriority(in.nextInt());
+            
+                pq.enqueue(nd.getData());
+                System.out.println("Current data in front: " + pq.peek());
+                System.out.println("Current size: " + pq.size());
+                
+                break;
+                
+            case "R":
+                System.out.println("Enter the priority of the data to remove");
+                //priority = in.nextInt();
+                nd.setPriority(in.nextInt());
+            
+                pq.dequeue();
+                System.out.println("Current data in front: " + pq.peek());
+                System.out.println("Current size: " + pq.size());
+                
+                break;
+                
+            case "X":
+                System.out.println("Closing...");
+                loop = false;
+                break;
+                
+            default:
+                System.out.println("Error");
+            }
+        
+            System.out.println("What would you like to do?");
+            System.out.println("A: Add Data");
+            System.out.println("R: Remove Data");
+            System.out.println("X: Exit");
+            choice = in.nextLine();
+        }
+        
+        /*
+        while(!"EXIT".equals(choice))
+        {
+            if(choice.equals("ADD"))
+            {
+                System.out.println("Enter some data");
+                //input = in.nextLine();
+                nd.setData(in.nextLine());
+        
+                System.out.println("Enter a priority for the data");
+                //priority = in.nextInt();
+                nd.setPriority(in.nextInt());
+            
+                pq.enqueue(nd.getData());
+                System.out.println("Current data in front: " + pq.peek());
+                System.out.println("Current size: " + pq.size());
+
+                //System.out.println("\nADD or REMOVE data? or EXIT?");
+            }
+            else if(choice.equals("REMOVE"))
+            {
+                System.out.println("Enter the priority of the data to remove");
+                //priority = in.nextInt();
+                nd.setPriority(in.nextInt());
+            
+                pq.dequeue();
+                System.out.println("Current data in front: " + pq.peek());
+                System.out.println("Current size: " + pq.size());
+
+                //System.out.println("\nADD or REMOVE data? or EXIT?");
+            }
+            else
+            {
+                System.out.println("Error");
+            }
+            
+            System.out.println("\nADD or REMOVE data? or EXIT?");
+        }
+        */
+        
+        
+        
+    }
+
+    
+    public void actionPerformed(ActionEvent ae) 
+    {
+        JButton btn = (JButton)ae.getSource();
+        Node nd = new Node();
+        PriQue pq = new PriQue();
+
+        if(btn == btnAdd)
+        {
+            int priority = Integer.parseInt(tfPriority.getText());
+            nd.setPriority(priority);
+            nd.setData(tfInput.getText());
+            pq.enqueue((Node)nd.getData()); //can't convert the object to node type
+            lblDataFront.setText("" + pq.peek());
+            lblSizeNum.setText("" + pq.size());
+        }
+        else if(btn == btnRemove)
+        {
+            pq.dequeue();
+            lblDataFront.setText("" + pq.peek());
+            lblSizeNum.setText("" + pq.size());
+        }
+    }
+    
+}

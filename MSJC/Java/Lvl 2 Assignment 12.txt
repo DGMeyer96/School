@@ -1,0 +1,155 @@
+/*
+Daniel Meyer
+0405182
+11-17-15
+Assignment 12
+Polymorphism
+ */
+package lvl.pkg2.assignment.pkg12;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Lvl2Assignment12 extends JFrame implements ActionListener
+{
+    Container content = this.getContentPane();
+    
+    JPanel pnlCS = new JPanel();
+    JTextField tfCSName = new JTextField(15);
+    JTextField tfCSId = new JTextField(15);
+    JTextField tfCSYear = new JTextField(6);
+    JTextField tfCSMathHours = new JTextField(3);
+    JTextField tfCSHours = new JTextField(3);
+    JTextField tfCSGenEdHours = new JTextField(3);
+    JLabel lblCSHoursRemain = new JLabel();
+    
+    JPanel pnlBio = new JPanel();
+    JTextField tfBioName = new JTextField(15);
+    JTextField tfBioId = new JTextField(15);
+    JTextField tfBioYear = new JTextField(6);
+    JTextField tfBioMathHours = new JTextField(3);
+    JTextField tfBioHours = new JTextField(3);
+    JTextField tfBioGenEdHours = new JTextField(3);
+    JLabel lblBioHoursRemain = new JLabel();
+    
+    JPanel pnlActions = new JPanel();
+    JButton btnCalculate = new JButton("Compute Hours");
+    JCheckBox chkCS = new JCheckBox("CS Student", true);
+    JCheckBox chkBio = new JCheckBox("Bio Student", false);
+    
+     public Lvl2Assignment12()
+     {
+        this.setVisible(true); 
+        this.setTitle("Lab 8 ");
+        this.setSize(400, 320);                 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        pnlCS.setLayout(new GridLayout(7,2));
+        pnlCS.add(new JLabel("Name: "));
+        pnlCS.add(tfCSName);
+        pnlCS.add(new JLabel("Id:"));
+        pnlCS.add(tfCSId);
+        pnlCS.add(new JLabel("Year:"));
+        pnlCS.add(tfCSYear);
+        pnlCS.add(new JLabel("Math Hours:"));
+        pnlCS.add(tfCSMathHours);
+        pnlCS.add(new JLabel("CS Hours:"));
+        pnlCS.add(tfCSHours);
+        pnlCS.add(new JLabel("Gen. Ed. Hours:"));
+        pnlCS.add(tfCSGenEdHours);
+        //pnlCS.add(chkCS);
+        //pnlCS.add(chkBio);
+        //pnlCS.add(btnCalculate);
+        pnlCS.add(lblCSHoursRemain);
+        
+        pnlBio.setLayout(new GridLayout(7,2));
+        pnlBio.add(new JLabel("Name: "));
+        pnlBio.add(tfBioName);
+        pnlBio.add(new JLabel("Id:"));
+        pnlBio.add(tfBioId);
+        pnlBio.add(new JLabel("Year:"));
+        pnlBio.add(tfBioYear);
+        pnlBio.add(new JLabel("Math Hours:"));
+        pnlBio.add(tfBioMathHours);
+        pnlBio.add(new JLabel("Bio Hours:"));
+        pnlBio.add(tfBioHours);
+        pnlBio.add(new JLabel("Gen. Ed. Hours:"));
+        pnlBio.add(tfBioGenEdHours);
+        //pnlBio.add(chkCS);
+        //pnlBio.add(chkBio);
+        //pnlBio.add(btnCalculate);
+        pnlBio.add(lblBioHoursRemain);
+        
+        content.add(pnlCS, BorderLayout.EAST);
+        
+        pnlActions.setLayout(new GridLayout(2,2));
+        pnlActions.add(chkCS);
+        pnlActions.add(chkBio);
+        pnlActions.add(btnCalculate);
+        chkCS.addActionListener(this);
+        chkBio.addActionListener(this);
+        btnCalculate.addActionListener(this);
+        content.add(pnlActions, BorderLayout.SOUTH);
+     }
+     public void actionPerformed(ActionEvent ae)
+     {
+        if(ae.getSource() == chkCS)
+        {
+            chkCS.setSelected(true);
+            chkBio.setSelected(false);
+            content.remove(pnlBio);
+            content.add(pnlCS, BorderLayout.EAST);
+            content.revalidate();
+            content.repaint();
+        }
+        else if(ae.getSource() == chkBio)
+        {
+            chkBio.setSelected(true);
+            chkCS.setSelected(false);
+            content.remove(pnlCS);
+            content.add(pnlBio, BorderLayout.EAST);
+            content.revalidate();
+            content.repaint();
+        }
+        else if(ae.getSource() == btnCalculate)
+        {
+            if(chkCS.isSelected())
+            {
+                String name = tfCSName.getText();
+                String id = tfCSId.getText();
+                int year = Integer.parseInt(tfCSYear.getText());
+                int mathHours = Integer.parseInt(tfCSMathHours.getText());
+                int CSHours = Integer.parseInt(tfCSHours.getText());
+                int genEdHours = Integer.parseInt(tfCSGenEdHours.getText());
+                CSStudent student = new CSStudent(name, id, year);
+                student.setCsHours(CSHours);
+                student.setGenEdHours(genEdHours);
+                student.setMathHours(mathHours);
+         
+                lblCSHoursRemain.setText("Hours Remaining: " + student.getRemainingHours());
+            }
+            else if(chkBio.isSelected())
+            {
+                String name = tfBioName.getText();
+                String id = tfBioId.getText();
+                int year = Integer.parseInt(tfBioYear.getText());
+                int mathHours = Integer.parseInt(tfBioMathHours.getText());
+                int BioHours = Integer.parseInt(tfBioHours.getText());
+                int genEdHours = Integer.parseInt(tfBioGenEdHours.getText());
+                BioStudent student = new BioStudent(name, id, year);
+                student.setBioHours(BioHours);
+                student.setGenEdHours(genEdHours);
+                student.setMathHours(mathHours);
+         
+                lblBioHoursRemain.setText("Hours Remaining: " + student.getRemainingHours());
+            }
+        }
+           
+     }
+    
+    public static void main(String[] args) 
+    {
+        Lvl2Assignment12 con = new Lvl2Assignment12();
+    }
+}

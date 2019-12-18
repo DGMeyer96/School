@@ -1,0 +1,156 @@
+/*
+Daniel Meyer
+0405182
+3/27/17
+CSIS 123A-3488
+Assignment 10
+Recursion
+*/
+#include <iostream>
+#include <cstdlib>
+#include <vector>
+#include <fstream>
+
+#include "Random.h"
+#include "Menu.h"
+
+using namespace std;
+using namespace Meyer;
+
+vector <Integer*> iNumbers;
+vector <Double*> dNumbers;
+
+void readNumbers();
+void writeNumbers(vector <Integer*> iNumbers);
+void writeNumbers(vector <Double*> dNumbers);
+
+void Exit();
+void strTest1();
+void strTest2();
+
+Random rng;
+
+int i1, i2;
+double d1, d2;
+
+int main()
+{
+	/*
+	iNumbers.reserve(50);
+	dNumbers.reserve(50);
+	
+	readNumbers();
+	writeNumbers(iNumbers);
+	writeNumbers(dNumbers);
+	*/
+
+	Menu::m.addMenu("1. Exit", Exit);
+	Menu::m.addMenu("2. String Test: Integer", strTest1);
+	Menu::m.addMenu("3. String Test: Double", strTest2);
+
+	Menu::m.runMenu();
+
+	return 0;
+}
+
+
+void Exit()
+{
+	cout << "Goodbye" << endl;
+	exit(0);
+}
+
+void strTest1()
+{
+	cout << "Enter two integer strings for addition" << endl;
+	Integer num1, num2;
+	string str1, str2;
+	cin >> str1;
+	cin >> str2;
+
+	num1.equals(str1);
+	num2.equals(str2);
+
+	cout << "The sum of the two integers is: " << (num1 + num2).toString() << endl;
+
+	num1.clean();
+	num2.clean();
+
+	Menu::m.waitKey();
+}
+
+void strTest2()
+{
+	cout << "Enter two double strings for addition" << endl;
+	Double num1, num2;
+	string str1, str2;
+	cin >> str1;
+	cin >> str2;
+
+	num1.equals(str1);
+	num2.equals(str2);
+
+	cout << "The sum of the two doubles is: " << (num1 + num2).toString() << endl;
+
+	num1.clean();
+	num2.clean();
+	Menu::m.waitKey();
+}
+
+void readNumbers()
+{
+	ifstream infile("Numbers.txt");
+	string input;
+
+	while (infile >> input)
+	{
+		string::size_type found = input.find('.');
+
+		if (found != string::npos)
+		{
+			dNumbers.push_back(new Double(input));
+		}
+		else
+		{
+			iNumbers.push_back(new Integer(input));
+		}
+	}
+
+	infile.close();
+}
+
+void writeNumbers(vector <Integer*> iNumbers)
+{
+	ofstream outfile("integer.txt");
+
+	if (!outfile)
+	{
+		cout << "Unable to open the file for writing" << endl;
+		exit(1);
+	}
+
+	for (int i = 0; i < iNumbers.size(); i++)
+	{
+		outfile << iNumbers.at(i)->toString() << endl;
+	}
+
+	outfile.close();
+}
+
+void writeNumbers(vector <Double*> dNumbers)
+{
+	ofstream outfile("double.txt");
+
+	if (!outfile)
+	{
+		cout << "Unable to open the file for writing" << endl;
+		exit(1);
+	}
+
+	for (int i = 0; i < dNumbers.size(); i++)
+	{
+		outfile << dNumbers.at(i)->toString() << endl;
+	}
+
+	outfile.close();
+}

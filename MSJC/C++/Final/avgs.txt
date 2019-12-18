@@ -1,0 +1,27 @@
+John .425
+Terry .696
+Glenn .704
+Doug .636
+Gary  .400
+Rusty .775
+Mike  .400
+Orlando .775
+Charles .606
+J.D.  .775
+Gina  .400
+Sam   .702 
+Rich  .686
+Nick  .719 
+Mike  .400
+Rod   .475
+Tom   .579
+Hank  .602
+Steve .775
+Ruben .702
+Natalie .585
+Jane  .400
+Larry .775
+Joe .606
+Don .422
+
+

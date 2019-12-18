@@ -1,0 +1,47 @@
+/*
+Daniel Meyer
+0405182
+1-19-17
+Lab 2
+Class Construction
+*/
+
+#include "Integer.h"
+
+void Integer::equals(int input)
+{
+	num = input;
+}
+
+Integer Integer::add(Integer &i)
+{
+	Integer tmp;
+	tmp.equals(num += i.num);
+	return tmp;
+}
+
+Integer Integer::sub(Integer &i)
+{
+	Integer tmp;
+	tmp.equals(num -= i.num);
+	return tmp;
+}
+
+Integer Integer::mul(Integer &i)
+{
+	Integer tmp;
+	tmp.equals(num *= i.num);
+	return tmp;
+}
+
+Integer Integer::div(Integer &i)
+{
+	Integer tmp;
+	tmp.equals(num /= i.num);
+	return tmp;
+}
+
+int Integer::toInt()
+{
+	return num;
+}

@@ -1,0 +1,38 @@
+/*
+Daniel Meyer
+0405182
+2/6/17
+CSIS 123A-3488
+Assignment 4
+Using Complex Types - Vectors
+*/
+
+#ifndef DOUBLE
+#define DOUBLE
+
+#include "Integer.h"
+
+class Double
+{
+private:
+	double num;
+
+public:
+	Double();
+	Double(Double &d);
+	Double(double d);
+	Double(Integer &i);
+	void equals(double input);
+	Double add(Double d);
+	Double add(double d);
+	Double sub(Double d);
+	Double sub(double d);
+	Double mul(Double d);
+	Double mul(double d);
+	Double div(Double d);
+	Double div(double d);
+	double toDouble();
+};
+
+#endif
+

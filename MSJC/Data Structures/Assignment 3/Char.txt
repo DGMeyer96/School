@@ -1,0 +1,208 @@
+/*
+Daniel Meyer
+0405182
+2-4-16
+File IO
+ */
+package data.str.assignment.pkg3;
+
+/*
+Class: Char
+Author: Daniel Meyer
+Description: A complex type called Char that mimics the attributes of the char primitive
+Inputs: char, int, Char, and String that are stored in the primitive char
+Outputs: a char as a String, char, Char, int, or Hexidecimal String
+*/
+
+/*
+Function: Char
+Author: Daniel Meyer
+Description: This function is the default constructor that sets the data section to null.
+Outputs: N/A 
+*/
+
+/*
+Function: Char
+Author: Daniel Meyer
+Description: This function is an overloaded constructor that sets the data section to a char.
+Inputs: A char that is assigned to the data section.
+Outputs: N/A 
+*/
+
+/*
+Function: Char
+Author: Daniel Meyer
+Description: This function is an overloaded constructor that sets the data section to an int.
+Inputs: An int that is assigned to the data section.
+Outputs: N/A 
+*/
+/*
+Function: Char
+Author: Daniel Meyer
+Description: This function is an overloaded constructor that sets the data section to a Char.
+Inputs: A Char type that is assigned to the data section.
+Outputs: N/A 
+*/
+            
+/*
+Function: Char
+Author: Daniel Meyer
+Description: This function is an overloaded constructor that sets the data section to a String.
+Inputs: A String that is assigned to the data section.
+Outputs: N/A 
+*/
+       
+/*
+Function: equals
+Author: Daniel Meyer
+Description: A mutator that sets the data section to a Char type.
+Inputs: A Char type that is assigned to the data section.
+Outputs: N/A 
+*/
+  
+/*
+Function: equals
+Author: Daniel Meyer
+Description: A mutator that sets the data section to a char.
+Inputs: A char that is assigned to the data section.
+Outputs: N/A 
+*/
+
+/*
+Function: equals
+Author: Daniel Meyer
+Description: A mutator that sets the data section to an int.
+Inputs: An int that is assigned to the data section.
+Outputs: N/A 
+*/
+           
+/*
+Function: toChar
+Author: Daniel Meyer
+Description: An accessor that returns the data section as a char.
+Inputs: N/A
+Outputs: The data section is returned as a character.
+*/
+  
+/*
+Function: toInt
+Author: Daniel Meyer
+Description: An accessor that returns the data section as an int.
+Inputs: N/A
+Outputs: The data section is returned as an int.
+*/
+            
+/*
+Function: toString
+Author: Daniel Meyer
+Description: An accessor that returns the data section as a String.
+Inputs: N/A
+Outputs: The data section is returned as a String.
+*/
+
+/*
+Function: toHextString
+Author: Daniel Meyer
+Description: An accessor that returns the data section as a Hexidecimal String.
+Inputs: N/A
+Outputs: The data section is returned as a Hexidecimal String.
+*/
+
+/*
+Function: add
+Author: Daniel Meyer
+Description: A function that concatenates the data section and a char.
+Inputs: A char to concatenate to the data section.
+Outputs: Returns the concatenated data section and char.
+*/
+ 
+/*
+Function: add
+Author: Daniel Meyer
+Description: A function that concatenates the data section and a Char type.
+Inputs: A Char type to concatenate to the data section.
+Outputs: Returns the concatenated data section and Char type.
+*/
+
+public class Char
+{
+        private char ch;
+        
+        public Char()
+        {
+            this.ch = 0; // null/0
+        }
+        
+        public Char(char c)
+        {
+            equals(c);
+        }
+        
+        public Char(int c)
+        {
+            equals(c);
+        }
+        
+        public Char(final Char c)
+        {
+            equals(c);
+        }
+        
+        public Char(String c)
+        {
+            equals(c.charAt(0)); 
+        }
+        
+        public void equals(final Char c)
+        {
+            this.ch = c.ch; //c.ch invokes class to store into char type 
+        }
+        
+        public void equals(char c)
+        {
+            Character character = c;
+            this.ch = character;
+        }
+        
+        public void equals(int c)
+        {
+            Character character = (char)c; //converts int to char equivalent
+            this.ch = character;
+        }
+        
+        public char toChar()
+        {
+            Character character = this.ch;
+            return character;
+        }
+        
+        public int toInt()
+        {   
+            Integer i = new Integer(this.ch);
+            return i;
+        }
+        
+        public String toString()
+        {
+            String str = "" + this.ch;
+            return str;
+        }
+        
+        public String toHexString()
+        {
+            String hexStr = Integer.toHexString(this.ch);
+            return hexStr;
+        }
+        
+        public String add(char c)
+        {
+            String str = "" + toString() + "" + c;
+            return str;
+        }
+        
+        public String add(final Char c)
+        {
+            String str = "" + toString() + "" + c.toString();
+            return str;
+        }
+}

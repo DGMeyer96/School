@@ -1,0 +1,168 @@
+/*
+Daniel Meyer
+0405182
+2/13/17
+CSIS 123A-3488
+Assignment 5
+Operator Overloading
+*/
+
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+#include "Menu.h"
+#include "Double.h"
+#include "Integer.h"
+
+void intAdd();
+void intSub();
+void intMul();
+void intDiv();
+void dblAdd();
+void dblSub();
+void dblMul();
+void dblDiv();
+void Exit();
+
+Menu m;
+
+int i1, i2;
+double d1, d2;
+
+int main()
+{
+	m.addMenu("1. Integer Add", intAdd);
+	m.addMenu("2. Integer Subtract", intSub);
+	m.addMenu("3. Integer Multiply", intMul);
+	m.addMenu("4. Integer Divide", intDiv);
+	m.addMenu("5. Double Add", dblAdd);
+	m.addMenu("6. Double Subtract", dblSub);
+	m.addMenu("7. Double Multiply", dblMul);
+	m.addMenu("8. Double Divide", dblDiv);
+	m.addMenu("9. Exit", Exit);
+
+	m.runMenu();
+}
+
+void intAdd()
+{
+	cout << "Enter 2 integers to add" << endl;
+	cin >> i1;
+	cin >> i2;
+
+	Integer num1(i1), num2(i2);
+
+	//cout << "The sum of the two integers is: " << num1.add(num2).toInt() << endl;
+	cout << "The sum of the two integers is: " << (num1 + num2).toInt() << endl;
+
+	m.waitKey();
+}
+
+void intSub()
+{
+	cout << "Enter 2 integers for subtraction" << endl;
+	cin >> i1;
+	cin >> i2;
+
+	Integer num1(i1), num2(i2);
+
+	//cout << "The difference of the two integers is: " << num1.sub(num2).toInt() << endl;
+	cout << "The difference of the two integers is: " << (num1 - num2).toInt() << endl;
+
+	m.waitKey();
+}
+
+void intMul()
+{
+	cout << "Enter 2 integers to multiply" << endl;
+	cin >> i1;
+	cin >> i2;
+
+	Integer num1(i1), num2(i2);
+
+	//cout << "The product of the two integers is: " << num1.mul(num2).toInt() << endl;
+	cout << "The product of the two integers is: " << (num1 * num2).toInt() << endl;
+
+	m.waitKey();
+}
+
+void intDiv()
+{
+	cout << "Enter 2 integers for division" << endl;
+	cin >> i1;
+	cin >> i2;
+
+	Integer num1(i1), num2(i2);
+
+	//cout << "The quotient of the two integers is: " << num1.div(num2).toInt() << endl;
+	cout << "The quotient of the two integers is: " << (num1 / num2).toInt() << endl;
+
+	m.waitKey();
+}
+
+void dblAdd()
+{
+	cout << "Enter 2 doubles to add" << endl;
+	cin >> d1;
+	cin >> d2;
+
+	Double num1(d1), num2(d2);
+
+	//cout << "The sum of the two doubles is: " << num1.add(num2).toDouble() << endl;
+	cout << "The sum of the two doubles is: " << (num1 + num2).toDouble() << endl;
+
+	m.waitKey();
+}
+
+void dblSub()
+{
+	cout << "Enter 2 doubles for subtraction" << endl;
+	cin >> d1;
+	cin >> d2;
+
+	Double num1(d1), num2(d2);
+
+	//cout << "The difference of the two doubles is: " << num1.sub(num2).toDouble() << endl;
+	cout << "The difference of the two doubles is: " << (num1 - num2).toDouble() << endl;
+
+	m.waitKey();
+}
+
+void dblMul()
+{
+	cout << "Enter 2 doubles to multiply" << endl;
+	cin >> d1;
+	cin >> d2;
+
+	Double num1(d1), num2(d2);
+
+	//cout << "The product of the two doubles is: " << num1.mul(num2).toDouble() << endl;
+	cout << "The product of the two doubles is: " << (num1 * num2).toDouble() << endl;
+
+	m.waitKey();
+
+	m.waitKey();
+}
+
+void dblDiv()
+{
+	cout << "Enter 2 doubles for division" << endl;
+	cin >> d1;
+	cin >> d2;
+
+	Double num1(d1), num2(d2);
+
+	//cout << "The quotient of the two doubles is: " << num1.div(num2).toDouble() << endl;
+	cout << "The quotient of the two doubles is: " << (num1 / num2).toDouble() << endl;
+
+	m.waitKey();
+}
+
+void Exit()
+{
+	cout << "Goodbye" << endl;
+	//m.waitKey();  //duplicates effect of exit() function
+	exit(0);
+}

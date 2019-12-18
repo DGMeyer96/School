@@ -1,0 +1,27 @@
+/*
+Daniel Meyer
+0405182
+1-19-17
+Lab 2
+Class Construction
+*/
+
+#ifndef INTEGER
+#define INTEGER
+
+class Integer
+{
+private:
+	int num;
+
+public:
+	void equals(int input);
+	Integer add(Integer &i);
+	Integer sub(Integer &i);
+	Integer mul(Integer &i);
+	Integer div(Integer &i);
+	int toInt();
+};
+
+
+#endif

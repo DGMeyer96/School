@@ -1,0 +1,38 @@
+/*
+Daniel Meyer
+0405182
+2/23/17
+CSIS 123A-3488
+Assignment 6
+Strings
+*/
+
+#ifndef MENU
+#define MENU
+
+#include <String>
+#include <vector>
+
+struct menuItem
+{
+	void(*func)();
+	string descript;
+};
+
+class Menu
+{
+private:
+	vector <menuItem> mi;
+	void runSelection();
+
+public:
+	Menu();
+	void addMenu(char *Description, void(*f)());
+	void runMenu();
+	void waitKey();
+};
+
+#endif
+
+
+

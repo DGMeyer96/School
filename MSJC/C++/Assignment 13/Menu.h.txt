@@ -1,0 +1,39 @@
+/*
+Daniel Meyer
+0405182
+4/19/17
+CSIS 123A-3488
+Assignment 13
+Exception Handling
+*/
+
+#ifndef MENU
+#define MENU
+
+#include <String>
+#include <vector>
+
+namespace Meyer
+{
+	struct menuItem
+	{
+		void(*func)();
+		std::string descript;
+	};
+
+	class Menu
+	{
+	private:
+		std::vector <menuItem> mi;
+		void runSelection();
+
+	public:
+		Menu();
+		void addMenu(char *Description, void(*f)());
+		void runMenu();
+		void waitKey();
+		static Menu m;
+	};
+
+#endif
+}

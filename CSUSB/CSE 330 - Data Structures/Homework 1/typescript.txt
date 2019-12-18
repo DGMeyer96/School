@@ -1,0 +1,14 @@
+Script started on Fri 06 Oct 2017 10:44:12 AM PDT
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+]0;daniel@Daniel-Ubuntu-Laptop: ~/Desktop[01;32mdaniel@Daniel-Ubuntu-Laptop[00m:[01;34m~/Desktop[00m$ ./a.out
+10
+20
+30
+40
+50
+350
+]0;daniel@Daniel-Ubuntu-Laptop: ~/Desktop[01;32mdaniel@Daniel-Ubuntu-Laptop[00m:[01;34m~/Desktop[00m$ exit
+
+Script done on Fri 06 Oct 2017 10:45:29 AM PDT

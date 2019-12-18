@@ -1,0 +1,107 @@
+/*
+Daniel Meyer
+0405182
+9-29-15
+Assignment 7
+Execptions
+ */
+package lvl.pkg2.assignment.pkg7;
+
+
+public class IntMetrics 
+{
+    
+    private static int maxDigits;
+    private static int input;
+    
+    public IntMetrics()
+    {
+        setValue(0);
+        setLength(3);
+    }
+    
+    public IntMetrics(int num)
+    {
+        setValue(num);
+        setLength(3);
+    }
+    
+    public IntMetrics(int num, int size)
+    {
+        setValue(num);
+        setLength(size);
+        
+    }
+    
+    public int[] getArray() throws IntMetricsException
+    {
+        int[] array = new int[maxDigits];
+        
+        String digits = Integer.toString(input);
+        
+        if(getLength() < digits.length())
+        {
+            throw new IntMetricsException("The number has too many digits");
+        }
+        
+        for(int i = 0; i < digits.length(); i++)
+        {
+            int x = (int)digits.charAt(i) - 48;
+            
+            array[i] = x;
+        }
+        
+        return array;
+    }
+    
+    public String reverseNums()
+    {
+        StringBuffer sb = new StringBuffer("");
+        
+        int rev = 0;
+        int num = getValue();
+        
+        while(num != 0)
+        {
+            rev = num % 10; //<---- reverse order
+            num /= 10;
+            sb.insert(0, rev);
+        }
+        
+        return sb.reverse().toString();
+    }
+    
+    public int sum()
+    {
+        int sum = 0;
+        int num = getValue();
+        
+        while(num != 0)
+        {
+            sum += num % 10;
+            num /= 10;
+        }
+        
+        return sum;
+    }
+    
+    public void setValue(int num)
+    {
+        input = num;
+    }
+    
+    public int getValue()
+    {
+        return input;
+    }
+    
+    public void setLength(int num)
+    {
+        maxDigits = num;
+    }
+    
+    public int getLength()
+    {
+        return maxDigits;
+    }
+}

@@ -1,0 +1,28 @@
+/*
+Daniel Meyer
+0405182
+4/11/17
+CSIS 123A-3488
+Assignment 12
+Polymorphism
+*/
+
+#ifndef NUMBER
+#define NUMBER
+
+#include <string>
+
+class Number : public std::string
+{
+private:
+
+public:
+	Number();
+	Number(std::string numString);
+	virtual std::string toString();
+	virtual bool isNaN();
+	virtual bool recursiveNaN(int index, int decimal) = 0;
+};
+
+#endif
+

@@ -1,0 +1,51 @@
+/*
+Daniel Meyer
+0405182
+2-4-16
+File IO
+ */
+package data.str.assignment.pkg3;
+
+import java.util.ArrayList;
+
+/*
+Class: DataStrAssignment3 
+Author: Daniel Meyer
+Description: Test class for Char, BigDecimal, FileReader, and FileWriter classes
+Inputs: N/A
+Outputs: 2 Text Files, 1 with whole numbers, the other with fractions
+*/ 
+
+/*
+Function: main
+Author: Daniel Meyer
+Description: Function to test Char, BigDecimal, FileReader, and FileWriter classes
+Inputs: N/A
+Outputs: 2 Text Files, 1 with whole numbers, the other with fractions
+*/ 
+
+public class DataStrAssignment3 
+{
+    
+    public static void main(String[] args) 
+    {
+        ArrayList<String> whole = new ArrayList<String>();
+        ArrayList<String> fraction = new ArrayList<String>();
+        
+        FileReader fr = new FileReader();
+        
+        for(String str : fr.getList())
+        {
+            BigDecimal bd = new BigDecimal(str);
+            whole.add(bd.toWholeNumber());
+            System.out.println("Whole: " + bd.toWholeNumber());
+            fraction.add(bd.toFraction());
+            System.out.println("Fraction: " + bd.toFraction());
+        }
+        
+        FileWriter fw = new FileWriter(whole, fraction);
+        
+        fr.readWrittenFile();
+    }
+    
+}

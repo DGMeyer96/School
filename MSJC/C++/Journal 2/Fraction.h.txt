@@ -1,0 +1,34 @@
+/*
+Daniel Meyer
+0405182
+1/24/17
+CSIS 123A-3488
+Journal 2
+Constructors
+*/
+
+#ifndef FRACTION
+#define FRACTION
+
+#include <string>
+
+class Fraction
+{
+private:
+	int num;
+	int den;
+
+public:
+	Fraction();
+	Fraction(int num, int den);
+	Fraction(std::string f);
+	void setFraction(int n, int d);
+	Fraction add(const Fraction &f);
+	Fraction sub(const Fraction &f);
+	void printFraction();
+	Fraction mul(const Fraction &f);
+	Fraction div(const Fraction &f);
+};
+
+#endif
+

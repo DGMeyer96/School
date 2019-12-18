@@ -1,0 +1,46 @@
+/*
+Daniel Meyer
+0405182
+3/27/17
+CSIS 123A-3488
+Assignment 9
+File IO
+*/
+
+#ifndef RANDOM
+#define RANDOM
+
+#include "Double.h"
+#include <vector>
+
+using namespace Meyer;
+
+class Random
+{
+private:
+	std::vector <double> list;
+	double min, max;
+	int index = 0;
+	const int LIST_SIZE = 250;
+	const int RESHUFFLE = (LIST_SIZE * .9);
+	void shuffle();
+	void fillVect();
+
+public:
+	Random();
+	Random(double min, double max);
+	Random(Double min, Double max);
+	Random(int seed);
+	int nextInt();
+	Meyer::Integer nextInteger();
+	double nextDbl();
+	Meyer::Double nextDouble();
+	void setRange(double min, double max);
+	void setRange(Double min, Double max);
+
+	std::vector<double> getVector(); //test function
+};
+
+#endif
+
+

@@ -1,0 +1,35 @@
+/*
+Daniel Meyer
+0405182
+10-12-15
+MidTerm
+A Few PixTrix
+ */
+package lvl.pkg2.midterm;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class Lvl2MidTerm extends JFrame
+{
+    Container content = this.getContentPane();
+    
+    public Lvl2MidTerm()
+    {
+        this.setSize(300, 400);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("MidTerm - PixTrix");
+        
+        PixTrix pt = new PixTrix(225, 224,  "cat.jpg");
+        content.add(pt, BorderLayout.CENTER);
+        
+        this.setResizable(false);
+        this.setVisible(true);
+    }
+    
+    public static void main(String[] args) 
+    {
+        Lvl2MidTerm con = new Lvl2MidTerm();
+    }
+    
+}

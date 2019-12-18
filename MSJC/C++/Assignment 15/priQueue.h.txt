@@ -1,0 +1,74 @@
+/*
+Daniel Meyer
+0405182
+5/9/17
+CSIS 123A-3488
+Lab 15
+Using the STL
+*/
+
+#ifndef PRIQUEUE
+#define PRIQUEUE
+
+#include <set>
+
+using std::multiset;
+
+template <class T>
+class Node
+{
+private:
+	T Data;
+	int pri;
+
+public:
+	Node(T s, int i) : Data(s), pri(i) {};
+	bool operator < (const Node &n) const { return n.pri < pri; };
+	T getData() { return Data; };
+	int getID() { return pri; };
+};
+
+template <class N>
+class priQueue : public multiset<Node<N>>
+{
+public:
+	void enqueue(N Data, int i);
+	Node<N> dequeue();
+	Node<N> peek();
+	int Size();
+};
+
+template <class N>
+void priQueue<N>::enqueue(N Data, int i)
+{
+	if (i < 1 || i > 10)
+	{
+		this->insert(Node<N>(Data, 5));
+	}
+	else
+	{
+		this->insert(Node<N>(Data, i));
+	}
+}
+
+template <class N>
+Node<N> priQueue<N>::dequeue()
+{
+	Node<N> tmp = *this->begin();
+	this->erase(this->begin());
+	return tmp;
+}
+
+template <class N>
+Node<N> priQueue<N>::peek()
+{
+	return *this->begin();
+}
+
+template <class N>
+int priQueue<N>::Size()
+{
+	return this->size();
+}
+
+#endif // !PRIQUEUE

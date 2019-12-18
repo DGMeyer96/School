@@ -1,0 +1,57 @@
+/*
+Daniel Meyer
+0405182
+11-17-15
+Assignment 12
+Polymorphism
+ */
+package lvl.pkg2.assignment.pkg12;
+
+
+public class CSStudent extends Student
+{
+    private static int MATH_HOURS = 20;
+    private static int CS_HOURS = 40;
+    private static int GEN_ED_HOURS = 60;
+    
+    private int mathHours;
+    private int csHours;
+    private int genEdHours;
+    
+    public CSStudent(String name, String idNumber, int yearAdmitted)
+    {
+        super.name = name;
+        super.idNumber = idNumber;
+        super.yearAdmitted = yearAdmitted;
+        
+        mathHours = 0;
+        csHours = 0;
+        genEdHours = 0;
+    }
+    
+    public CSStudent()
+    {
+        this("", "", 0);
+    }
+    
+    public void setMathHours(int mathHours)
+    {
+        this.mathHours = mathHours;
+    }
+    
+    public void setCsHours(int csHours)
+    {
+        this.csHours = csHours;
+    }
+    
+    public void setGenEdHours(int genEdHours)
+    {
+        this.genEdHours = genEdHours;
+    }
+    
+    @Override
+    public int computeRemainingHours()
+    {
+        return (MATH_HOURS + CS_HOURS + GEN_ED_HOURS) - (mathHours + csHours + genEdHours);
+    }
+}

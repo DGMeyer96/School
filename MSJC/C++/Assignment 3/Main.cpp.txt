@@ -1,0 +1,43 @@
+/*
+Daniel Meyer
+0405182
+1/24/17
+CSIS 123A-3488
+Lab 3
+Overloaded Constructors
+*/
+
+#include <iostream>
+#include "Double.h"
+#include "Integer.h"
+
+using namespace std;
+
+int main()
+{
+	Integer i(10);
+	Double d(200.5), d2(i);
+
+	double dNum;
+	int iNum;
+
+	Double dSum(d.add(d2));
+	cout << "The sum is " << dSum.toDouble() << endl;
+	Double dSub(d.sub(d2));
+	cout << "The differnce is " << dSub.toDouble() << endl;
+	Double dMul(d.mul(d2));
+	cout << "The product is " << dMul.toDouble() << endl;
+	Double dDiv(d.div(d2));
+	cout << "The quotient is " << dDiv.toDouble() << endl;
+
+	Integer iSum(i.add(i));
+	cout << "The sum is " << iSum.toInt() << endl;
+	Integer iSub(i.sub(i));
+	cout << "The differnce is " << iSub.toInt() << endl;
+	Integer iMul(i.mul(i));
+	cout << "The product is " << iMul.toInt() << endl;
+	Integer iDiv(i.div(i));
+	cout << "The quotient is " << iDiv.toInt() << endl;
+
+	return 0;
+}

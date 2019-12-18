@@ -1,0 +1,88 @@
+/*
+Daniel Meyer
+0405182
+4-17-17
+CSIS 123A-3488
+Journal 9
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class Animal
+{
+private:
+	int legs;
+
+public:
+	void setLegs(int legs);
+	int getLegs();
+	Animal() : legs(4) {}
+	void talk();
+	virtual void speak() = 0;
+};
+
+void Animal::setLegs(int legs)
+{
+	this->legs = legs;
+}
+
+int Animal::getLegs()
+{
+	return this->legs;
+}
+
+void Animal::talk()
+{
+	speak();
+}
+
+class Cat : public Animal
+{
+public:
+	void speak();
+};
+
+void Cat::speak()
+{
+	cout << "Meow" << endl;
+}
+
+class Dog : public Animal
+{
+public:
+	void speak();
+};
+
+void Dog::speak()
+{
+	cout << "Bark" << endl;
+}
+
+class Cow : public Animal
+{
+public:
+	void speak();
+};
+
+void Cow::speak()
+{
+	cout << "Moo" << endl;
+}
+
+int main()
+{
+	Cat cat;
+	Animal *an[3];
+	an[0] = &cat;
+	an[1] = new Dog;
+	an[2] = new Cow;
+	
+	for (int i = 0; i < 3; i++)
+	{
+		an[i]->talk();
+	}
+
+	return 0;
+}

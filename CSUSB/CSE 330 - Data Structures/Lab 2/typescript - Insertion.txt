@@ -1,0 +1,64 @@
+Script started on 2017-10-02 14:45:17-0700
+]777;notify;Command completed;time ./a.out > ]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time a.[K[K./a.out > Insertion.txt
+1000
+
+real	0m3.540s
+user	0m0.007s
+sys	0m0.005s
+]777;notify;Command completed;time ./a.out > Insertion.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Insertion.txt
+2000
+
+real	0m1.901s
+user	0m0.018s
+sys	0m0.003s
+]777;notify;Command completed;time ./a.out > Insertion.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Insertion.txt
+3000
+
+real	0m1.572s
+user	0m0.027s
+sys	0m0.007s
+]777;notify;Command completed;time ./a.out > Insertion.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Insertion.txt
+4000
+
+real	0m1.854s
+user	0m0.044s
+sys	0m0.009s
+]777;notify;Command completed;time ./a.out > Insertion.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Insertion.txt
+5000
+
+real	0m2.030s
+user	0m0.065s
+sys	0m0.011s
+]777;notify;Command completed;time ./a.out > Insertion.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Insertion.txt
+6000
+
+real	0m2.203s
+user	0m0.089s
+sys	0m0.017s
+]777;notify;Command completed;time ./a.out > Insertion.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Insertion.txt
+7000
+
+real	0m2.901s
+user	0m0.124s
+sys	0m0.015s
+]777;notify;Command completed;time ./a.out > Insertion.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Insertion.txt
+8000
+
+real	0m2.146s
+user	0m0.155s
+sys	0m0.021s
+]777;notify;Command completed;time ./a.out > Insertion.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Insertion.txt
+9000
+
+real	0m2.213s
+user	0m0.196s
+sys	0m0.023s
+]777;notify;Command completed;time ./a.out > Insertion.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ time ./a.out > Insertion.txt
+10000
+
+real	0m2.477s
+user	0m0.245s
+sys	0m0.014s
+]777;notify;Command completed;time ./a.out > Insertion.txt]0;005051094@jb358-9:/students/csci/005051094/cse330/lab2]7;file://jb358-9.cse.csusb.edu/students/csci/005051094/cse330/lab2[005051094@jb358-9 lab2]$ exit
+
+Script done on 2017-10-02 14:46:09-0700

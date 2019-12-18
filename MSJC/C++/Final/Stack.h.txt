@@ -1,0 +1,57 @@
+/*
+Daniel Meyer
+0405182
+5/18/17
+CSIS 123A-3488
+Final Project
+Highest and Lowest Batting Averages
+*/
+
+#ifndef STACKTEMP
+#define STACKTEMP
+
+#include <vector>
+
+using std::vector;
+
+template <class T>
+class Stack : private vector<T>
+{
+private:
+
+public:
+	void push(T tmp);
+	T pop();
+	T peek();
+	int getSize();
+};
+
+template <class T>
+void Stack<T>::push(T tmp)
+{
+	this->insert(this->begin(), tmp);
+}
+
+template <class T>
+T Stack<T>::pop()
+{
+	T tmp = this->front();
+	this->erase(this->begin());
+	return tmp;
+}
+
+template <class T>
+T Stack<T>::peek()
+{
+	return this->front();
+}
+
+template <class T>
+int Stack<T>::getSize()
+{
+	return this->size();
+}
+
+#endif // !STACK
+
+

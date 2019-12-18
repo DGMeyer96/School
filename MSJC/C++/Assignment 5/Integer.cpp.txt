@@ -1,0 +1,139 @@
+/*
+Daniel Meyer
+0405182
+2/13/17
+CSIS 123A-3488
+Assignment 5
+Operator Overloading
+*/
+
+#include "Integer.h"
+#include "Double.h"
+
+Integer::Integer()
+{
+	this->num = 0;
+}
+
+Integer::Integer(const Integer &i)
+{
+	this->num = i.num;
+}
+
+Integer::Integer(int i)
+{
+	this->num = i;
+}
+
+void Integer::equals(int input)
+{
+	this->num = input;
+}
+
+Integer Integer::add(Integer i)
+{
+	Integer tmp;
+	tmp.equals(this->num + i.num);
+	return tmp;
+}
+
+Integer Integer::add(int i)
+{
+	Integer tmp;
+	tmp.equals(this->num + i);
+	return tmp;
+}
+
+Integer Integer::sub(Integer i)
+{
+	Integer tmp;
+	tmp.equals(this->num - i.num);
+	return tmp;
+}
+
+Integer Integer::sub(int i)
+{
+	Integer tmp;
+	tmp.equals(this->num - i);
+	return tmp;
+}
+
+Integer Integer::mul(Integer i)
+{
+	Integer tmp;
+	tmp.equals(this->num * i.num);
+	return tmp;
+}
+
+Integer Integer::mul(int i)
+{
+	Integer tmp;
+	tmp.equals(this->num * i);
+	return tmp;
+}
+
+Integer Integer::div(Integer i)
+{
+	Integer tmp;
+	tmp.equals(this->num / i.num);
+	return tmp;
+}
+
+Integer Integer::div(int i)
+{
+	Integer tmp;
+	tmp.equals(this->num / i);
+	return tmp;
+}
+
+int Integer::toInt()
+{
+	return this->num;
+}
+
+Integer Integer::operator+(Integer i)
+{
+	return this->add(i);
+}
+
+Integer Integer::operator-(Integer i)
+{
+	return this->sub(i);
+}
+
+Integer Integer::operator*(Integer i)
+{
+	return this->mul(i);
+}
+
+Integer Integer::operator/(Integer i)
+{
+	return this->div(i);
+}
+
+Integer &Integer::operator=(Integer i)
+{
+	this->equals(i.num);
+	return *this;
+}
+
+Integer &Integer::operator=(int i)
+{
+	this->equals(i);
+	return *this;
+}
+
+bool Integer::operator==(Integer i)
+{
+	return(this->num == i.num);
+}
+
+bool Integer::operator==(int i)
+{
+	return(this->num == i);
+}
+
+bool Integer::operator!=(Integer i)
+{
+	return(this->num != i.num);
+}

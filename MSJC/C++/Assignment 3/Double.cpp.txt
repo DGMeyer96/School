@@ -1,0 +1,99 @@
+/*
+Daniel Meyer
+0405182
+1/24/17
+CSIS 123A-3488
+Lab 3
+Overloaded Constructors
+*/
+
+#include "Double.h"
+
+
+using namespace std;
+
+Double::Double()
+{
+	this->num = 0.0;
+}
+
+Double::Double(Double &d)
+{
+	this->num = d.num;
+}
+
+Double::Double(double d)
+{
+	this->num = d;
+}
+
+Double::Double(Integer &i)
+{
+	this->num = i.toInt();
+}
+
+void Double::equals(double input)
+{
+	this->num = input;
+}
+
+Double Double::add(Double d)
+{
+	Double tmp;
+	tmp.equals(this->num + d.toDouble());
+	return tmp;
+}
+
+Double Double::add(double d)
+{
+	Double tmp;
+	tmp.equals(this->num + d);
+	return tmp;
+}
+
+Double Double::sub( Double d)
+{
+	Double tmp;
+	tmp.equals(this->num - d.toDouble());
+	return tmp;
+}
+
+Double Double::sub(double d)
+{
+	Double tmp;
+	tmp.equals(this->num - d);
+	return tmp;
+}
+
+Double Double::mul(Double d)
+{
+	Double tmp;
+	tmp.equals(this->num * d.toDouble());
+	return tmp;
+}
+
+Double Double::mul(double d)
+{
+	Double tmp;
+	tmp.equals(this->num * d);
+	return tmp;
+}
+
+Double Double::div(Double d)
+{
+	Double tmp;
+	tmp.equals(this->num / d.toDouble());
+	return tmp;
+}
+
+Double Double::div(double d)
+{
+	Double tmp;
+	tmp.equals(this->num / d);
+	return tmp;
+}
+
+double Double::toDouble()
+{
+	return this->num;
+}

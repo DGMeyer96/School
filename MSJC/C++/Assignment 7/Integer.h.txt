@@ -1,0 +1,57 @@
+/*
+Daniel Meyer
+0405182
+2/23/17
+CSIS 123A-3488
+Assignment 7
+Dynamic Memory
+*/
+
+#ifndef INTEGER
+#define INTEGER
+
+#include <string>
+
+class Integer
+{
+private:
+	int *num;
+	std::string tmp;
+
+public:
+	Integer();
+	Integer(const Integer &i);
+	Integer(int i);
+	Integer(std::string strI);
+	void create();
+	void clean();
+	void equals(int input);
+	void equals(std::string strI);
+	bool isNaN();//need to create since isnan() isnt compatible anymore
+	Integer add(Integer i);
+	Integer add(int i);
+	Integer sub(Integer i);
+	Integer sub(int i);
+	Integer mul(Integer i);
+	Integer mul(int i);
+	Integer div(Integer i);
+	Integer div(int i);
+	int toInt();
+	std::string toString();
+	Integer operator + (Integer i);
+	Integer operator - (Integer i);
+	Integer operator * (Integer i);
+	Integer operator / (Integer i);
+	Integer &operator = (Integer i);
+	Integer &operator = (int i);
+	Integer &operator = (std::string strI);
+	bool operator == (Integer i);
+	bool operator == (int i);
+	bool operator != (Integer i);
+};
+
+
+#endif
+
+
+

@@ -1,0 +1,197 @@
+/*
+Daniel Meyer
+0405182
+3/27/17
+CSIS 123A-3488
+Assignment 9
+File IO
+*/
+
+#include "Integer.h"
+#include <sstream>
+#include <iostream>
+
+namespace Meyer
+{
+	Integer::Integer()
+	{
+		this->create();
+		this->num = 0;
+	}
+
+	Integer::Integer(const Integer &i)
+	{
+		this->create();
+		*this->num = *i.num;
+	}
+
+	Integer::Integer(int i)
+	{
+		this->create();
+		this->equals(i);
+	}
+
+	Integer::Integer(std::string strI)
+	{
+		this->create();
+		this->equals(strI);
+	}
+
+	void Integer::create()
+	{
+		this->num = new int;
+	}
+
+	void Integer::clean()
+	{
+		delete this->num;
+	}
+
+	void Integer::equals(int input)
+	{
+		*this->num = input;
+	}
+
+	void Integer::equals(std::string strI)
+	{
+		this->tmp = strI;
+		if (this->isNaN() == true)
+		{
+			*this->num = stoi(this->tmp);
+		}
+		else
+		{
+			std::cout << this->tmp << " is not a number." << std::endl;
+		}
+	}
+
+	bool Integer::isNaN()
+	{
+		bool number = true;
+
+		for (int i = 0; i < this->tmp.length(); i++)
+		{
+			char c = this->tmp[i];
+			number = isdigit(this->tmp[i]);
+			if (number == false)
+			{
+				return number;
+			}
+		}
+		return number;
+	}
+
+	Integer Integer::add(Integer i)
+	{
+		Integer tmp(*this->num + i.toInt());
+		return tmp;
+	}
+
+	Integer Integer::add(int i)
+	{
+		Integer tmp(*this->num + i);
+		return tmp;
+	}
+
+	Integer Integer::sub(Integer i)
+	{
+		Integer tmp(*this->num - i.toInt());
+		return tmp;
+	}
+
+	Integer Integer::sub(int i)
+	{
+		Integer tmp(*this->num - i);
+		return tmp;
+	}
+
+	Integer Integer::mul(Integer i)
+	{
+		Integer tmp(*this->num * i.toInt());
+		return tmp;
+	}
+
+	Integer Integer::mul(int i)
+	{
+		Integer tmp(*this->num * i);
+		return tmp;
+	}
+
+	Integer Integer::div(Integer i)
+	{
+		Integer tmp(*this->num / i.toInt());
+		return tmp;
+	}
+
+	Integer Integer::div(int i)
+	{
+		Integer tmp(*this->num / i);
+		return tmp;
+	}
+
+	int Integer::toInt()
+	{
+		return *this->num;
+	}
+
+	std::string Integer::toString()
+	{
+		std::stringstream ss;
+		ss << *this->num;
+		std::string str = ss.str();
+		return str;
+	}
+
+	Integer Integer::operator+(Integer i)
+	{
+		return this->add(i);
+	}
+
+	Integer Integer::operator-(Integer i)
+	{
+		return this->sub(i);
+	}
+
+	Integer Integer::operator*(Integer i)
+	{
+		return this->mul(i);
+	}
+
+	Integer Integer::operator/(Integer i)
+	{
+		return this->div(i);
+	}
+
+	Integer &Integer::operator=(Integer i)
+	{
+		this->equals(i.toInt());
+		return *this;
+	}
+
+	Integer &Integer::operator=(int i)
+	{
+		this->equals(i);
+		return *this;
+	}
+
+	Integer &Integer::operator=(std::string strI)
+	{
+		this->equals(strI);
+		return *this;
+	}
+
+	bool Integer::operator==(Integer i)
+	{
+		return(*this->num == *i.num);
+	}
+
+	bool Integer::operator==(int i)
+	{
+		return(*this->num == i);
+	}
+
+	bool Integer::operator!=(Integer i)
+	{
+		return(*this->num != *i.num);
+	}
+}

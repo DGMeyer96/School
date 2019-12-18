@@ -1,0 +1,49 @@
+/*
+Daniel Meyer
+0405182
+5/18/17
+CSIS 123A-3488
+Final Project
+Highest and Lowest Batting Averages
+*/
+
+#include <fstream>
+#include <iostream>
+#include <exception>
+#include <sstream>
+#include "Players.h"
+#include "Stack.h"
+
+using namespace std;
+
+int main()
+{
+	ifstream infile("avgs.txt");
+	string input;
+	double avg;
+	Players p;
+
+	while (infile >> input && infile >> avg)
+	{
+		p.addPlayer(input, avg);
+	}
+
+	Stack<string> highest = p.getHighest();
+	Stack<string> lowest = p.getLowest();
+
+	cout << "The players with the highest average of: " << p.getAvgHigh() << endl;
+	int size = highest.getSize();
+	for (int i = 0; i < size; i++)
+	{
+		cout << highest.pop() << endl;
+	}
+
+	cout << "The players with the lowest average of: " << p.getAvgLow() << endl;
+	size = lowest.getSize();
+	for (int i = 0; i < size; i++)
+	{
+		cout << lowest.pop() << endl;
+	}
+
+	return 0;
+}

@@ -1,0 +1,18 @@
+/*
+Daniel Meyer
+0405182
+3/27/17
+CSIS 123A-3488
+Assignment 11
+Inheritance
+*/
+
+#include "Number.h"
+
+Number::Number() : std::string("0")
+{
+}
+
+Number::Number(std::string numString) : std::string(numString)
+{
+}

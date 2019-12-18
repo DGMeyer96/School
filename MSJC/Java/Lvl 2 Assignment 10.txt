@@ -1,0 +1,52 @@
+/*
+Daniel Meyer
+0405182
+10-28-15
+Assignment 10
+Using Inheritance
+ */
+package lvl.pkg2.assignment.pkg10;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class Lvl2Assignment10 extends JFrame
+{
+    Container content = this.getContentPane();
+  
+    public Lvl2Assignment10 ()
+    {
+        this.setVisible(true);
+        this.setTitle("Test RO");
+        this.setSize(400, 300);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        content.setLayout(new FlowLayout());
+
+        RollOver one = new RollOver("One",JLabel.CENTER,
+        "Two", Color.BLACK, Color.CYAN, Color.MAGENTA,Color.ORANGE);
+        
+        RollOver two = new RollOver("Two");
+        
+        RollOver three = new RollOver("Three", JLabel.RIGHT);
+        
+        RollOver four = new RollOver("Four", Color.GREEN);
+
+        one.setFont(new Font("Helvetica", Font.BOLD, 36));
+        content.add(one);
+        
+        two.setFont(new Font("SANS_SERIF", Font.BOLD, 36));
+        content.add(two);
+        
+        three.setFont(new Font("Serif", Font.BOLD, 36));
+        content.add(three);
+        
+        four.setFont(new Font("Monospaced", Font.BOLD, 36));
+        content.add(four);
+    }
+    
+    public static void main(String[] args) 
+    {
+        Lvl2Assignment10 con = new Lvl2Assignment10();
+    }
+    
+}

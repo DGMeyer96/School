@@ -1,0 +1,96 @@
+/*
+Daniel Meyer
+0405182
+4/11/17
+CSIS 123A-3488
+Assignment 12
+Polymorphism
+*/
+
+#include <iostream>
+#include <cstdlib>
+#include <vector>
+#include <fstream>
+
+#include "Random.h"
+#include "Menu.h"
+
+using namespace std;
+using namespace Meyer;
+
+void Exit();
+void intTest();
+void dblTest();
+void strTest1();
+void strTest2();
+
+Random rng;
+
+int i1, i2;
+double d1, d2;
+
+int main()
+{
+	Menu::m.addMenu("1. Exit", Exit);
+	Menu::m.addMenu("2. String Test: Integer", strTest1);
+	Menu::m.addMenu("3. String Test: Double", strTest2);
+	Menu::m.addMenu("4. Integer Test", intTest);
+	Menu::m.addMenu("5. Double Test", dblTest);
+
+	Menu::m.runMenu();
+
+	return 0;
+}
+
+
+void Exit()
+{
+	cout << "Goodbye" << endl;
+	exit(0);
+}
+
+void intTest()
+{
+	Integer num1(1);
+	Integer num2(2);
+	//cout << "The sum of 1 and 2 is: " << (num1 + num2).toString() << endl;
+	cout << "The sum of " << num1.toString() << " and " << num2.toString() << " is: " << (num1.toInt() + num2.toInt()) << endl;
+	Menu::m.waitKey();
+}
+
+void dblTest()
+{
+	Double num1(2.5);
+	Double num2(3.5);
+	cout << "The sum of " << num1.toString() << " and " << num2.toString() << " is: " << (num1.toDouble() + num2.toDouble()) << endl;
+	Menu::m.waitKey();
+}
+
+void strTest1()
+{
+	cout << "Enter two integer strings" << endl;
+	string str1, str2;
+	cin >> str1;
+	cin >> str2;
+
+	Integer num1(str1);
+	Integer num2(str2);
+
+	cout << "The entered values are " << num1.toString() << " and " << num2.toString() << endl;
+
+	Menu::m.waitKey();
+}
+
+void strTest2()
+{
+	cout << "Enter two double strings for addition" << endl;
+	string str1, str2;
+	cin >> str1;
+	cin >> str2;
+
+	Double num1(str1), num2(str2);
+
+	cout << "The entered values are " << num1.toString() << " and " << num2.toString() << endl;
+
+	Menu::m.waitKey();
+}

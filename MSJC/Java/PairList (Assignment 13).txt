@@ -1,0 +1,82 @@
+/*
+Daniel Meyer   
+0405182
+11-23-15
+Assignment 10
+Some More Generics For You
+ */
+package lab.pkg10;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class PairList<F,S> extends ArrayList<Pair> 
+{
+    Iterator<Pair> pairIter = this.iterator();
+        
+    public PairList()
+    {
+        super();
+    }
+        
+    public PairList(F f, S s)
+    {
+        addPair(f, s);
+        //searchFirst(f);
+        //searchSecond(s);
+    }
+        
+    public void addPair(F f, S s)
+    {
+        Pair p = new Pair(f,s);
+        super.add(p);
+    }
+        
+    public S searchFirst(F f)
+    {
+        while(pairIter.hasNext())
+        {
+            Pair p = pairIter.next();
+            
+            if(f.equals(p.getFirst()))
+            {
+                return (S) p.getSecond();
+            }
+        }
+        return null;
+        /*
+        int index = 0;
+        for(Pair p : this)
+        {
+            if(super.contains(f) == true)
+            {
+                index = super.indexOf(f);
+            }
+        }
+        
+        if(index != 0)
+        {
+            return super.get(index);
+        }
+        else
+        {
+            return null;
+        }
+        */
+    }
+        
+    public F searchSecond(S s)
+    {
+        while(pairIter.hasNext())
+        {
+            Pair p = pairIter.next();
+            
+            if(s.equals(p.getSecond()))
+            {
+                return (F) p.getFirst();
+            }
+        }
+        return null;    
+    }
+
+}

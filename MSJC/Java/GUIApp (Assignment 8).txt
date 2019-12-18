@@ -1,0 +1,20 @@
+/*
+Daniel Meyer
+0405182
+10-6-15
+Assignment 8
+File Streams
+ */
+package lvl.pkg2.assignment.pkg8;
+
+import javax.swing.*;
+
+public class GUIApp extends JFrame
+{
+    public GUIApp(String title)
+    {
+	this.setTitle(title);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+}

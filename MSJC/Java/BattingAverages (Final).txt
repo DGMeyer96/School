@@ -1,0 +1,179 @@
+/*
+Daniel Meyer
+0405182
+12-14-15
+Final Project
+Highest and Lowest Batting Averages
+ */
+package lvl.pkg2.pkgfinal;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Stack;
+import java.util.regex.*;
+
+public class BattingAverages 
+{
+    //use strings to store each line and use regular expression to extract averages
+    //then parse the strings of averages to doubles
+    Stack<String> avgHighName = new Stack<String>(); 
+    Stack<String> avgLowName = new Stack<String>();
+    
+    ArrayList<String> info = new ArrayList<>();
+    ArrayList<String> names = new ArrayList<>();
+    ArrayList<Double> averages = new ArrayList<>();
+    
+    private double avgHigh;
+    private double avgLow;
+    
+    private boolean firstAvg = true;
+    
+    public BattingAverages(String file)
+    {
+        getLine(file);
+        getNames();
+        getAvgs();
+        /*
+        for(String name : names) //for testing
+        {
+            System.out.println(name);
+        }
+        
+        for(double avg : averages)
+        {
+            System.out.println("" + avg);
+        }
+        */
+        for(int i = 0; i < names.size() - 1; i++)
+        {
+            checkAvg(names.get(i), averages.get(i));
+        }
+        
+    }
+    
+    public BattingAverages()
+    {
+        this(null);
+    }
+    
+    public void getLine(String file)
+    {        
+        try
+        {
+            BufferedReader input = new BufferedReader(new FileReader(file));
+            String str;
+            while((str = input.readLine()) != null)
+            {
+                if(str.isEmpty() != true)
+                {
+                    info.add(str);
+                }
+            }
+        }    
+        catch(FileNotFoundException e)
+        {
+            System.out.println("Unable to open file");
+        }
+        catch(IOException ie)
+        {
+            System.out.println("Unable to read file");
+        }
+        
+    }
+    
+    public void getNames()
+    {
+        for(String line : info)
+        {
+            Pattern pName = Pattern.compile("[^a-zA-Z]");
+            Matcher mName = pName.matcher(line);
+            String name = mName.replaceAll("");
+            System.out.println(name);
+            names.add(name);  
+        }
+    }
+    
+    public void getAvgs()
+    {
+        for(String line : info)
+        {
+            Pattern pAvg = Pattern.compile(".\\d+");
+            Matcher mAvg = pAvg.matcher(line);
+            while(mAvg.find())
+            {
+                String sAvg = mAvg.group();
+                double avg = Double.parseDouble(sAvg);
+                averages.add(avg);
+            }
+        }
+    }
+    
+    public void checkAvg(String name, double avg)
+    {
+        if(firstAvg == true)
+        {
+            avgHighName.add(name);
+            avgLowName.add(name);
+            avgHigh = avg;
+            avgLow = avg;
+            firstAvg = false;
+        }
+        else
+        {
+            if(avg > avgHigh)
+            {
+                avgHigh = avg;
+                while(avgHighName.isEmpty() != true)
+                {    
+                    avgHighName.pop();
+                }    
+                avgHighName.add(name);
+            }
+            else if(avg == avgHigh)
+            {
+                avgHighName.add(name);
+            }
+            else if (avg < avgHigh)
+            {
+                if(avg < avgLow)
+                {
+                    avgLow = avg;
+                    while(avgLowName.isEmpty() != true)
+                    {
+                        avgLowName.pop();
+                    }
+                    avgLowName.add(name);
+                }
+                else if(avg == avgLow)
+                {
+                    avgLowName.add(name);
+                }
+                
+                //do nothing if the average isn't lower than lowest and isn't higher than highest
+            }
+        }
+    }
+    
+    public Double getHigh()
+    {
+        return avgHigh;
+    }
+    
+    public Double getLow()
+    {
+        return avgLow;
+    }
+    
+    public Stack<String> getHighNames()
+    {
+        return avgHighName;
+    }
+    
+    public Stack<String> getLowNames()
+    {
+        return avgLowName;
+    }
+}

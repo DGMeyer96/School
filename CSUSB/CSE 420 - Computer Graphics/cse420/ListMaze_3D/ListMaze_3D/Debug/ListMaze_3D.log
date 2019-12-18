@@ -1,0 +1,3 @@
+﻿  maze.cpp
+c:\users\daniel\documents\visual studio 2017\projects\cse 420\listmaze_3d\listmaze_3d\maze.cpp(109): warning C4554: '|': check operator precedence for possible error; use parentheses to clarify precedence
+  ListMaze_3D.vcxproj -> C:\Users\Daniel\Documents\Visual Studio 2017\Projects\CSE 420\ListMaze_3D\Debug\ListMaze_3D.exe

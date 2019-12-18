@@ -1,0 +1,10 @@
+Script started on Sun 05 Nov 2017 08:18:14 PM UTC
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+]0;ubuntu@ubuntu: ~/Desktop/Lab5[01;32mubuntu@ubuntu[00m:[01;34m~/Desktop/Lab5[00m$ g++ List_test.cpp
+]0;ubuntu@ubuntu: ~/Desktop/Lab5[01;32mubuntu@ubuntu[00m:[01;34m~/Desktop/Lab5[00m$ ./a.out
+SUCCESS
+]0;ubuntu@ubuntu: ~/Desktop/Lab5[01;32mubuntu@ubuntu[00m:[01;34m~/Desktop/Lab5[00m$ exit
+
+Script done on Sun 05 Nov 2017 08:18:29 PM UTC

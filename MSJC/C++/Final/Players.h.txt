@@ -1,0 +1,36 @@
+/*
+Daniel Meyer
+0405182
+5/18/17
+CSIS 123A-3488
+Final Project
+Highest and Lowest Batting Averages
+*/
+
+#ifndef PLAYERS
+#define PLAYERS
+
+#include "Stack.h"
+#include <string>
+
+using std::string;
+
+class Players
+{
+private:
+	Stack<string> lowName;
+	Stack<string> highName;
+	double highAvg;
+	double lowAvg;
+
+public:
+	void addPlayer(string player, double avg);
+	void addLowest(string player);
+	void addHighest(string player);
+	Stack<string> getHighest();
+	Stack<string> getLowest();
+	double getAvgHigh();
+	double getAvgLow();
+};
+
+#endif // !PLAYERS

@@ -1,0 +1,27 @@
+/*
+Daniel Meyer
+0405182
+CSIS 123A-3488
+Journal 1
+Fraction
+*/
+
+#ifndef FRACTION
+#define FRACTION
+
+class Fraction
+{
+private:
+	int num;
+	int den;
+
+public:
+	void setFraction(int n, int d);
+	Fraction add(const Fraction &f);
+	Fraction sub(const Fraction &f);
+	void printFraction();
+	Fraction mul(const Fraction &f);
+	Fraction div(const Fraction &f);
+};
+
+#endif

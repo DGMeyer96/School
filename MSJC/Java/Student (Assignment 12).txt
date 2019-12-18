@@ -1,0 +1,51 @@
+/*
+Daniel Meyer
+0405182
+11-17-15
+Assignment 12
+Polymorphism
+ */
+package lvl.pkg2.assignment.pkg12;
+
+
+public abstract class Student 
+{
+    protected String name;
+    protected String idNumber;
+    protected int yearAdmitted;
+    
+    public Student(String name, String idNumber, int yearAdmitted)
+    {
+        this.name = name;
+        this.idNumber = idNumber;
+        this.yearAdmitted = yearAdmitted;
+    }
+    
+    public Student()
+    {
+        this("", "", 0);
+    }
+    
+    public abstract int computeRemainingHours();
+    
+    public String getName()
+    {
+        return name;
+    }
+    
+    public String idNum()
+    {
+        return idNumber;
+    }
+    
+    public int getYearAdmitted()
+    {
+        return yearAdmitted;
+    }
+    
+    public int getRemainingHours()
+    {
+        int hours = computeRemainingHours();
+        return hours;
+    } 
+}

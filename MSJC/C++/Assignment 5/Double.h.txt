@@ -1,0 +1,48 @@
+/*
+Daniel Meyer
+0405182
+2/13/17
+CSIS 123A-3488
+Assignment 5
+Operator Overloading
+*/
+
+#ifndef DOUBLE
+#define DOUBLE
+
+#include "Integer.h"
+
+class Double
+{
+private:
+	double num;
+
+public:
+	Double();
+	Double(Double &d);
+	Double(double d);
+	Double(Integer &i);
+	void equals(double input);
+	Double add(Double d);
+	Double add(double d);
+	Double sub(Double d);
+	Double sub(double d);
+	Double mul(Double d);
+	Double mul(double d);
+	Double div(Double d);
+	Double div(double d);
+	double toDouble();
+	Double operator + (Double d);
+	Double operator - (Double d);
+	Double operator * (Double d);
+	Double operator / (Double d);
+	Double &operator = (Double d);
+	Double &operator = (double d);
+	bool operator == (Double d);
+	bool operator == (double d);
+	bool operator != (Double d);
+};
+
+#endif
+
+

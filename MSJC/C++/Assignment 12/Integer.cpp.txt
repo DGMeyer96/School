@@ -1,0 +1,171 @@
+/*
+Daniel Meyer
+0405182
+4/11/17
+CSIS 123A-3488
+Assignment 12
+Polymorphism
+*/
+
+#include "Integer.h"
+#include <sstream>
+#include <iostream>
+
+namespace Meyer
+{
+	Integer::Integer()
+	{
+		*this = "0";
+	}
+
+	Integer::Integer(const Integer &i)
+	{
+		*this = i;
+	}
+
+	Integer::Integer(int i)
+	{
+		equals(i);
+	}
+
+	Integer::Integer(std::string strI)
+	{
+		equals(strI);
+	}
+
+	void Integer::equals(int input)
+	{
+		std::stringstream ss;
+		ss << input;
+		this->assign(ss.str());
+	}
+
+	void Integer::equals(std::string strI)
+	{
+		this->tmp = strI;
+		if (this->isNaN() == true)
+		{
+			this->assign(strI);
+
+		}
+		else
+		{
+			std::cout << this->tmp << " is not a number." << std::endl;
+		}
+	}
+
+	bool Integer::recursiveNaN(int index, int decimal)
+	{
+		bool number = true;
+
+		for (int i = 0; i < this->tmp.length(); i++)
+		{
+			char c = this->tmp[i];
+			number = isdigit(this->tmp[i]);
+			if (number == false)
+			{
+				return number;
+			}
+		}
+		return number;
+	}
+	
+
+	Integer Integer::add(Integer i)
+	{
+		return Integer(this->toInt() + i.toInt());
+	}
+
+	Integer Integer::add(int i)
+	{
+		return Integer(this->toInt() + i);
+	}
+
+	Integer Integer::sub(Integer i)
+	{
+		return Integer(this->toInt() - i.toInt());
+	}
+
+	Integer Integer::sub(int i)
+	{
+		return Integer(this->toInt() - i);
+	}
+
+	Integer Integer::mul(Integer i)
+	{
+		return Integer(this->toInt() * i.toInt());
+	}
+
+	Integer Integer::mul(int i)
+	{
+		return Integer(this->toInt() * i);
+	}
+
+	Integer Integer::div(Integer i)
+	{
+		return Integer(this->toInt() / i.toInt());
+	}
+
+	Integer Integer::div(int i)
+	{
+		return Integer(this->toInt() / i);
+	}
+
+	int Integer::toInt()
+	{
+		return stoi(*this);
+	}
+
+	Integer Integer::operator+(Integer i)
+	{
+		return this->add(i);
+	}
+
+	Integer Integer::operator-(Integer i)
+	{
+		return this->sub(i);
+	}
+
+	Integer Integer::operator*(Integer i)
+	{
+		return this->mul(i);
+	}
+
+	Integer Integer::operator/(Integer i)
+	{
+		return this->div(i);
+	}
+
+	Integer &Integer::operator=(Integer i)
+	{
+		this->equals(i);
+		return *this;
+	}
+
+	Integer &Integer::operator=(int i)
+	{
+		this->equals(i);
+		return *this;
+	}
+
+	Integer &Integer::operator=(std::string strI)
+	{
+		this->equals(strI);
+		return *this;
+	}
+
+	bool Integer::operator==(Integer i)
+	{
+		return(this->toInt() == i.toInt());
+	}
+
+	bool Integer::operator==(int i)
+	{
+		return(this->toInt() == i);
+	}
+
+	bool Integer::operator!=(Integer i)
+	{
+		return(this->toInt() != i.toInt());
+	}
+}

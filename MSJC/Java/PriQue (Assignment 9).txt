@@ -1,0 +1,62 @@
+/*
+Daniel Meyer
+0405182
+10-20-15
+Assignment 9
+Collections and Generics
+ */
+package lvl.pkg2.assignment.pkg9;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+
+public class PriQue <T extends Node>
+{
+    //private ArrayList<T> al = new ArrayList<T>();
+    private ArrayList<T> al;
+    Node nd = new Node();
+    
+    void enqueue(T elem)
+    {
+        if(nd.getPriority() > 9)
+        {
+            al.add(5, elem);
+            Collections.sort(al);
+        }
+        else
+        {
+           al.add(nd.getPriority(), elem); 
+        }
+    }
+    
+    void dequeue()
+    {
+
+        Iterator <T> it = al.iterator();
+        if(it.hasNext())
+        {
+            it.next();
+            it.remove();
+        }
+        else
+        {
+            System.out.println("The list is empty");
+        }
+
+    }
+    
+    T peek()
+    {
+        if(al.size() > 0)
+        {
+            return al.get(0);
+        }
+        return null;
+    }
+    
+    public int size()
+    {
+        return al.size();
+    }
+}

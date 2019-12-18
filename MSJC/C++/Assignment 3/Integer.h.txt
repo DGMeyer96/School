@@ -1,0 +1,36 @@
+/*
+Daniel Meyer
+0405182
+1/24/17
+CSIS 123A-3488
+Lab 3
+Overloaded Constructors
+*/
+
+#ifndef INTEGER
+#define INTEGER
+
+class Integer
+{
+private:
+	int num;
+
+public:
+	Integer();
+	Integer(const Integer &i);
+	Integer(int i);
+	void equals(int input);
+	Integer add(Integer i);
+	Integer add(int i);
+	Integer sub(Integer i);
+	Integer sub(int i);
+	Integer mul(Integer i);
+	Integer mul(int i);
+	Integer div(Integer i);
+	Integer div(int i);
+	int toInt();
+};
+
+
+#endif
+

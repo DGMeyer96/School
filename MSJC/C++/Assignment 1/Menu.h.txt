@@ -1,0 +1,35 @@
+/*
+Daniel Meyer
+0405182
+CSIS 123A-3488
+Assignment 1
+Menu
+*/
+
+#ifndef MENU
+#define MENU
+
+#include <String>
+
+const int MAX_COUNT = 20;
+struct menuItem
+{
+	void(*func)();
+	string descript;
+};
+
+class Menu
+{
+private:
+	menuItem mi[MAX_COUNT];
+	int count = 0;
+	void runSelection();
+
+public:
+	Menu();
+	void addMenu(char *Description, void(*f)());
+	void runMenu();
+	void waitKey();
+};
+
+#endif

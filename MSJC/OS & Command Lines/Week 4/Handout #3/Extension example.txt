@@ -1,0 +1,33 @@
+example
+
+Bird.jpeg
+
+Bird.gif
+
+Bird.png
+
+Bird.bmp
+
+
+
+
+
+
+xcopy C:\Users\rm110\Desktop\picture\*.jpeg   C:\Users\rm110\Desktop\johnpics\
+
+
+
+
+Results in
+
+Bird.jpeg
+
+
+
+xcopy C:\Users\rm110\Desktop\picture\*.bmp   C:\Users\rm110\Desktop\johnpics\
+
+
+
+Results in
+
+Bird.bmp
